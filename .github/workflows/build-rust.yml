@@ -201,6 +201,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: reports/lcov.info
+          base-path: back-end
 
       - name: Fail if tests failed
         shell: bash
