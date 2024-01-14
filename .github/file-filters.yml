@@ -1,11 +1,17 @@
-code:
-  - "src/**"
-  - "TAG"
-  - Cargo.lock
-  - "*.toml"
-  - Dockerfile
-  - "tests/**"
-  - ".github/**"
-  - "package.json"
-  - "package-lock.json"
-  - ".codeclimate.yml"
+rust:
+  - backend-end/**
+  - "**"
+typescript:
+  - front-end/**
+  - "**"
+# code:
+#   - "src/**"
+#   - "TAG"
+#   - Dockerfile
+#   - "tests/**"
+#   - ".github/**"
+#   - "*.toml"
+#   - Cargo.lock
+#   - "package.json"
+#   - "package-lock.json"
+#   - ".codeclimate.yml"
