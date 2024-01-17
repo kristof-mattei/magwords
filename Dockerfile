@@ -44,7 +44,7 @@ RUN --mount=type=cache,id=rust-full-build,target=/build/${APPLICATION_NAME}/targ
     cargo install --path . --target ${TARGET} --root /output
 
 # ----
-FROM node:21-alpine3.18@sha256:3e50eca99328fbf9ee7380e9b390efad0b7c3220564617ae96aaa3b29020894b as typescript_builder
+FROM node:21-alpine3.18@sha256:d5759af7e7ff1b9a4ba08acd2830c99021ba406f105b0ab1f561bc54a68c19d5 as typescript_builder
 
 # The following block
 # creates an empty app, and we copy in package.json and packge-lock.json as they represent our dependencies
