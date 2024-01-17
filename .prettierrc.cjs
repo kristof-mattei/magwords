@@ -17,12 +17,10 @@ module.exports = {
             },
         },
         {
-            "files": [
-                "**/*.json"
-            ],
-            "options": {
-                "trailingComma": "none"
-            }
+            files: ["**/*.json"],
+            options: {
+                trailingComma: "none",
+            },
         },
         {
             files: ["*.yaml", "*.yml"],
