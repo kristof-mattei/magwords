@@ -7,15 +7,11 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rust-end-to-end-application'",
+            "name": "Debug executable 'magwords'",
             "cargo": {
-                "args": [
-                    "build",
-                    "--bin=rust-end-to-end-application",
-                    "--package=rust-end-to-end-application"
-                ],
+                "args": ["build", "--bin=magwords", "--package=magwords"],
                 "filter": {
-                    "name": "rust-end-to-end-application",
+                    "name": "magwords",
                     "kind": "bin"
                 }
             },
@@ -23,23 +19,23 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust_end_to_end_application=TRACE"
+                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
             "terminal": "integrated"
         },
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'rust-end-to-end-application'",
+            "name": "Debug unit tests in executable 'magwords'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=rust-end-to-end-application",
-                    "--package=rust-end-to-end-application"
+                    "--bin=magwords",
+                    "--package=magwords"
                 ],
                 "filter": {
-                    "name": "rust-end-to-end-application",
+                    "name": "magwords",
                     "kind": "bin"
                 }
             },
@@ -47,7 +43,7 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust_end_to_end_application=TRACE"
+                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
             "terminal": "integrated"
         },
@@ -60,7 +56,7 @@
                     "test",
                     "--no-run",
                     "--test=integration_tests",
-                    "--package=rust-end-to-end-application"
+                    "--package=magwords"
                 ],
                 "filter": {
                     "name": "integration_tests",
@@ -71,7 +67,7 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust_end_to_end_application=TRACE"
+                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
             "terminal": "integrated"
         }

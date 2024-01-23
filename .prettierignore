@@ -1,7 +1,9 @@
-.git
-.github/actions/
 profiling
 reports
-src   # rust-fmt
-tests # rust-fmt
+back-end/src   # rust-fmt
+back-end/tests # rust-fmt
 target
+package.json
+package-lock.json
+tsconfig.json
+tsconfig.node.json

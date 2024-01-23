@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Magnetic Words</title>
+        <link rel="stylesheet" href="./styles/styles.scss" />
+        <script type="module" src="./entrypoints/index.ts"></script>
+        <style>
+            @supports (-webkit-touch-callout: none) {
+                .word {
+                    -webkit-touch-callout: none; /* iOS Safari */
+                }
+            }
+
+            .word {
+                position: absolute;
+                font-family: monospace;
+                font-size: 16px;
+                border: 1px solid #bbbbbb;
+                border-bottom: 1px solid #505050;
+                border-right: 1px solid #505050;
+                margin: 2px;
+                padding: 2px;
+                background-color: #ffffff;
+                cursor: grabbing;
+                -webkit-user-select: none; /* Chrome/Safari/Opera */
+                -khtml-user-select: none; /* Konqueror */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE/Edge */
+                user-select: none; /* non-prefixed version, currently
+                                  not supported by any browser */
+            }
+
+            #fridge {
+                border: 1px solid gray;
+                width: 990px;
+                height: 1600px;
+                margin-top: 65px;
+                position: absolute;
+                background-color: #f0fff0;
+                background-repeat: repeat;
+                background-position: top left;
+                background-image: url("assets/fridge.jpg");
+            }
+        </style>
+    </head>
+    <body>
+        <nav
+            class="navbar navbar-inverse navbar-expand-lg bg-body-tertiary navbar-fixed-top"
+            data-bs-theme="dark"
+        >
+            <div class="container">
+                <a class="navbar-brand" href="#">Live Magnetic Words</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page"
+                                href="#"
+                                >Home</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#about"
+                                >About</a
+                            >
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-disabled="true"
+                                >Recent Poets: <span id="odo">0</span></a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div id="fridge"></div>
+        </div>
+        <div id="about" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button
+                            type="button"
+                            class="close"
+                            data-bs-dismiss="modal"
+                        >
+                            ×
+                        </button>
+                        <h4 class="modal-title">About</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h1>Welcome to Magwords!</h1>
+                        <p>
+                            This project has evolved over the years to include
+                            the latest web technology. The current version is
+                            backed by node.js and some very clever libraries,
+                            making the logic layer smaller than ever before! If
+                            you have any questions or comments, please reach out
+                            to the email address below.
+                        </p>
+                        <center>
+                            <br />
+                            <div
+                                style="
+                                    font-size: 16px;
+                                    margin: 0 auto;
+                                    width: 300px;
+                                "
+                                class="blockchain-btn"
+                                data-address="1ExtqhcAWWSHPKWxCFDgkfN8deZQQXB1jv"
+                                data-shared="false"
+                            >
+                                <div
+                                    class="blockchain stage-begin"
+                                    style="display: block"
+                                >
+                                    <img
+                                        src="https://web.archive.org/web/20160313224249im_/https://blockchain.info/Resources/buttons/donate_64.png"
+                                    />
+                                </div>
+                                <div
+                                    class="blockchain stage-loading"
+                                    style="text-align: center; display: none"
+                                >
+                                    <img
+                                        src="https://web.archive.org/web/20160313224249im_/https://blockchain.info/Resources/loading-large.gif"
+                                    />
+                                </div>
+                                <div
+                                    class="blockchain stage-ready"
+                                    style="display: none"
+                                >
+                                    <p align="center">
+                                        Please Donate To Bitcoin Address:
+                                        <b>[[address]]</b>
+                                    </p>
+                                    <p align="center" class="qr-code"></p>
+                                </div>
+                                <div
+                                    class="blockchain stage-paid"
+                                    style="display: none"
+                                >
+                                    Donation of <b>[[value]] BTC</b> Received.
+                                    Thank You.
+                                </div>
+                                <div
+                                    class="blockchain stage-error"
+                                    style="display: none"
+                                >
+                                    <font color="red">[[error]]</font>
+                                </div>
+
+                                By
+                                <a
+                                    href="https://web.archive.org/web/20160313224249/https://twitter.com/IanAMaddox"
+                                    >Ian Maddox</a
+                                >
+                                /
+                                <a
+                                    href="https://web.archive.org/web/20160313224249/mailto:magwords@tiz.io"
+                                    >contact</a
+                                >
+                                <br />
+                                <small id="copyright">
+                                    <!-- original magwords launched May 2005 -->
+                                    <b
+                                        >Copyright © 2005 -
+                                        <script>
+                                            document.write(
+                                                new Date().getFullYear(),
+                                            );
+                                        </script>
+                                        2016.</b
+                                    ><br />
+                                </small>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
