@@ -1,7 +1,5 @@
-
 @import "~bootstrap/scss/mixins/banner";
 @include bsBanner("- Magwords");
-
 
 // scss-docs-start import-stack
 // Configuration
@@ -51,5 +49,3 @@
 // Utilities
 @import "~bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
-
-
