@@ -14,7 +14,8 @@
     "release": "semantic-release",
     "deps:ci": "depcruise --output-type err front-end/src",
     "deps:graph": "depcruise --output-type dot front-end/src | dot -T svg > dependency-graph.svg",
-    "deps:report": "depcruise --output-type err-html --output-to dependency-report.html front-end/src"
+    "deps:report": "depcruise --output-type err-html --output-to dependency-report.html front-end/src",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=20.11.0",
@@ -60,10 +61,10 @@
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-standard-with-typescript": "43.0.1",
-    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-import-resolver-node": "0.3.9",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-prettier": "5.1.3",
-    "jest-environment-jsdom": "29.7.0",
+    "husky": "9.0.10",
     "nock": "13.5.1",
     "prettier": "3.2.5",
     "sass": "1.70.0",
