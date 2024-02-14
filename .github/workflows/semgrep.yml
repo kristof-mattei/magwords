@@ -37,8 +37,8 @@ jobs:
       - name: Fixup semgrep.sarif's startColumn==0 and/or endColumn==0
         shell: bash
         run: |
-          jq 'del(.runs.[].results.[].locations.[].physicalLocation.region | select(.startColumn==0) | .startColumn)' semgrep.sarif > fixed_start_column.sarif
-          jq 'del(.runs.[].results.[].locations.[].physicalLocation.region | select(.endColumn==0) | .endColumn)' fixed_start_column.sarif > fixed_start_end_column.sarif
+          jq 'del(.runs[].results[].locations[].physicalLocation.region | select(.startColumn==0) | .startColumn)' semgrep.sarif > fixed_start_column.sarif
+          jq 'del(.runs[].results[].locations[].physicalLocation.region | select(.endColumn==0) | .endColumn)' fixed_start_column.sarif > fixed_start_end_column.sarif
 
           diff semgrep.sarif fixed_start_end_column.sarif
 
