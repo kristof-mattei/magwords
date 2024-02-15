@@ -132,50 +132,7 @@
                                     margin: 0 auto;
                                     width: 300px;
                                 "
-                                class="blockchain-btn"
-                                data-address="1ExtqhcAWWSHPKWxCFDgkfN8deZQQXB1jv"
-                                data-shared="false"
                             >
-                                <div
-                                    class="blockchain stage-begin"
-                                    style="display: block"
-                                >
-                                    <img
-                                        src="https://web.archive.org/web/20160313224249im_/https://blockchain.info/Resources/buttons/donate_64.png"
-                                    />
-                                </div>
-                                <div
-                                    class="blockchain stage-loading"
-                                    style="text-align: center; display: none"
-                                >
-                                    <img
-                                        src="https://web.archive.org/web/20160313224249im_/https://blockchain.info/Resources/loading-large.gif"
-                                    />
-                                </div>
-                                <div
-                                    class="blockchain stage-ready"
-                                    style="display: none"
-                                >
-                                    <p align="center">
-                                        Please Donate To Bitcoin Address:
-                                        <b>[[address]]</b>
-                                    </p>
-                                    <p align="center" class="qr-code"></p>
-                                </div>
-                                <div
-                                    class="blockchain stage-paid"
-                                    style="display: none"
-                                >
-                                    Donation of <b>[[value]] BTC</b> Received.
-                                    Thank You.
-                                </div>
-                                <div
-                                    class="blockchain stage-error"
-                                    style="display: none"
-                                >
-                                    <font color="red">[[error]]</font>
-                                </div>
-
                                 By
                                 <a
                                     href="https://web.archive.org/web/20160313224249/https://twitter.com/IanAMaddox"
@@ -187,17 +144,13 @@
                                     >contact</a
                                 >
                                 <br />
-                                <small id="copyright">
+                                <small id="copyright" style="font-weight: bold">
                                     <!-- original magwords launched May 2005 -->
-                                    <b
-                                        >Copyright © 2005 -
-                                        <script>
-                                            document.write(
-                                                new Date().getFullYear(),
-                                            );
-                                        </script>
-                                        2016.</b
-                                    ><br />
+                                    <script>
+                                        document.write(
+                                            `Copyright © 2005 - ${new Date().getFullYear()}.`,
+                                        );
+                                    </script>
                                 </small>
                             </div>
                         </center>

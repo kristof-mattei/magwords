@@ -25,7 +25,7 @@ const esLintConfig = {
     parserOptions: {
         sourceType: "module", // Allows for the use of imports
         ecmaVersion: "latest",
-        project: ["./tsconfig.json", "./tsconfig.node.json"],
+        project: ["./tsconfig.json"],
         tsconfigRootDir: __dirname,
         ecmaFeatures: {
             jsx: true,

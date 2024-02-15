@@ -51,7 +51,7 @@ FROM node:21-alpine3.18@sha256:5a8bb946046cc9ef1411010fd5130c6f93665ae6e41f86a8f
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
-COPY package.json package-lock.json vite.config.ts tsconfig.json tsconfig.node.json ./
+COPY package.json package-lock.json vite.config.ts tsconfig.json ./
 
 RUN --mount=type=cache,id=npm-dependencies,target=/root/.npm \
     npm ci --include=dev
