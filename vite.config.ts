@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
             rollupOptions: {},
         },
         server: {
-            port: parseInt(env["VITE_PORT"] ?? "") || 4000,
+            port: parseInt(env.VITE_PORT ?? "") || 4000,
             host: true,
             strictPort: true,
             hmr: {
