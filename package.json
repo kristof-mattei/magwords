@@ -50,7 +50,7 @@
     "@semantic-release/commit-analyzer": "11.1.0",
     "@semantic-release/github": "9.2.6",
     "@semantic-release/release-notes-generator": "12.1.0",
-    "@types/eslint": "8.56.2",
+    "@types/eslint": "8.56.3",
     "@types/node": "20.11.20",
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "@typescript-eslint/parser": "7.0.2",
