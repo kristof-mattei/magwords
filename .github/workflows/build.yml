@@ -123,7 +123,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
-        uses: rui314/setup-mold@910273f04cc1097d72289d4b93c9b29f97a0b64a # v1
+        uses: rui314/setup-mold@75c22d5a493df5f7ba987542c401830a6bcd4845 # v1
 
       - name: Set up toolchain
         shell: bash
