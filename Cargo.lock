@@ -115,9 +115,9 @@ dependencies = [
 
 [[package]]
 name = "base64"
-version = "0.21.7"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d297deb1925b89f2ccc13d7635fa0714f12c87adce1c75356b39ca9b7178567"
+checksum = "9475866fec1451be56a3c2400fd081ff546538961565ccb5b7142cbd22bc7a51"
 
 [[package]]
 name = "bitflags"
@@ -222,9 +222,9 @@ dependencies = [
 
 [[package]]
 name = "engineioxide"
-version = "0.10.2"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aa7ba0ad7e728cb176b1d3e473ce038844af4377b545c7928634335714a5afe3"
+checksum = "70dcc373a47bf0a23b2051faff6d3ea584ce95ecad47754a6ae2df47d9b4356f"
 dependencies = [
  "base64",
  "bytes",
@@ -1021,9 +1021,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide"
-version = "0.10.2"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ea516f6cfd7a4aefa7f3e58410c81e330d99126f7cca00f350bdea2f3f75e55"
+checksum = "226dee8a396eff32380820607d220b53cae5ef90c55bb95c6c26654c809c2d49"
 dependencies = [
  "engineioxide",
  "futures",
