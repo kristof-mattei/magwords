@@ -31,7 +31,7 @@
     "url": "https://github.com/kristof-mattei/magwords/issues"
   },
   "dependencies": {
-    "socket.io-client": "^4.7.4"
+    "socket.io-client": "^4.7.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
