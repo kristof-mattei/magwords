@@ -222,9 +222,9 @@ dependencies = [
 
 [[package]]
 name = "engineioxide"
-version = "0.11.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "70dcc373a47bf0a23b2051faff6d3ea584ce95ecad47754a6ae2df47d9b4356f"
+checksum = "1e3c9367e41ac7c507d52b3949552aacb853466393001e2720c913c91e0eaef0"
 dependencies = [
  "base64",
  "bytes",
@@ -238,6 +238,7 @@ dependencies = [
  "rand",
  "serde",
  "serde_json",
+ "smallvec",
  "thiserror",
  "tokio",
  "tokio-tungstenite",
@@ -1021,9 +1022,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide"
-version = "0.11.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "226dee8a396eff32380820607d220b53cae5ef90c55bb95c6c26654c809c2d49"
+checksum = "9d3458d2a9ec1f4050ded69f47a661e3fa7814f474ee68db8445c1fde8167956"
 dependencies = [
  "engineioxide",
  "futures",
