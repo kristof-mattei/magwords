@@ -33,17 +33,8 @@ jobs:
         run: |
           semgrep ci --sarif --output=semgrep.sarif
 
-      - name: Fixup semgrep.sarif's startColumn==0 and/or endColumn==0
-        shell: bash
-        run: |
-          jq '.' semgrep.sarif > normalized.sarif
-          jq 'del(.runs[].results[].locations[].physicalLocation.region | select(.startColumn==0) | .startColumn)' normalized.sarif > fixed_start_column.sarif
-          jq 'del(.runs[].results[].locations[].physicalLocation.region | select(.endColumn==0) | .endColumn)' fixed_start_column.sarif > fixed_start_end_column.sarif
-
-          diff normalized.sarif fixed_start_end_column.sarif || true
-
       - name: Upload SARIF file for GitHub Advanced Security Dashboard
         if: always()
         uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3.24.9
         with:
-          sarif_file: fixed_start_end_column.sarif
+          sarif_file: semgrep.sarif
