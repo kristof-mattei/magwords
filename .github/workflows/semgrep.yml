@@ -22,13 +22,12 @@ jobs:
       image: returntocorp/semgrep:1.66.0@sha256:2fd35fa409f209e0fea0c2d72cf1e5b801a607959a93b13d04822bb3b6a9dfe4
 
     steps:
-      - name: Check out repo
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Checkout
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
         with:
           show-progress: false
 
       - name: Run semgrep
-        shell: bash
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
         run: |
