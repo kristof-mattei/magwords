@@ -42,7 +42,7 @@ path = "back-end/tests/integration_tests.rs"
 coverage = []
 
 [dependencies]
-axum = { version = "0.7.4" }
+axum = { version = "0.7.5" }
 color-eyre = { version = "0.6.3", features = ["track-caller"] }
 tokio = { version = "1.36.0", features = [
     "rt-multi-thread",
