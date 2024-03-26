@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: TODO
-        run: echo  TODO
+        run: echo TODO
 
   cargo-build:
     name: Cargo build
