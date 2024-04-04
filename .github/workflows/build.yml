@@ -41,6 +41,7 @@ jobs:
     if: |
       fromJSON(needs.changes.outputs.rust) == true
     uses: ./.github/workflows/build-rust.yml
+    secrets: inherit
 
   build-typescript:
     name: Build TypeScript code
@@ -49,6 +50,7 @@ jobs:
     if: |
       fromJSON(needs.changes.outputs.typescript) == true
     uses: ./.github/workflows/build-typescript.yml
+    secrets: inherit
 
   repo-has-container:
     name: Repo has container?
