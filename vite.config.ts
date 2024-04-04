@@ -1,5 +1,6 @@
 import path from "path";
 
+import { codecovVitePlugin } from "@codecov/vite-plugin";
 import { type UserConfig, loadEnv } from "vite";
 import checker from "vite-plugin-checker";
 import svgr from "vite-plugin-svgr";
@@ -11,7 +12,16 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd());
 
     const config: UserConfig = {
-        plugins: [svgr(), viteTsConfigPaths(), checker({ typescript: true })],
+        plugins: [
+            svgr(),
+            viteTsConfigPaths(),
+            checker({ typescript: true }),
+            codecovVitePlugin({
+                enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+                bundleName: "magwords-front-end",
+                uploadToken: process.env.CODECOV_TOKEN,
+            }),
+        ],
         optimizeDeps: {
             exclude: ["src/entrypoints/index.ts"],
         },
