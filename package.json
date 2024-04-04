@@ -19,7 +19,7 @@
   },
   "engines": {
     "node": ">=20.12.1",
-    "npm": ">=10.5.0"
+    "npm": ">=10.5.1"
   },
   "repository": {
     "type": "git",
@@ -68,7 +68,7 @@
     "nock": "13.5.4",
     "prettier": "3.2.5",
     "sass": "1.72.0",
-    "semantic-release": "23.0.6",
+    "semantic-release": "23.0.7",
     "semver": "7.6.0",
     "serialize-error": "11.0.3",
     "typescript": "5.4.3",
