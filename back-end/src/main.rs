@@ -129,11 +129,21 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     // * a message on the shutdown channel, sent either by the server task or
     // another task when they complete (which means they failed)
     tokio::select! {
-        _ = utils::wait_for_sigterm() => {
-            event!(Level::WARN, message = "Sigterm detected, stopping all tasks");
+        h = utils::wait_for_sigterm() => {
+            if let Err(e) = h {
+                event!(Level::ERROR, message = "Failed to register SIGERM handler, aborting", ?e);
+            } else {
+                // we completed because ...
+                event!(Level::WARN, message = "Sigterm detected, stopping all tasks");
+            }
         },
-        _ = signal::ctrl_c() => {
-            event!(Level::WARN, message = "CTRL+C detected, stopping all tasks");
+        h = signal::ctrl_c() => {
+            if let Err(e) = h {
+                event!(Level::ERROR, message = "Failed to register CTRL+C handler, aborting", ?e);
+            } else {
+                // we completed because ...
+                event!(Level::WARN, message = "CTRL+C detected, stopping all tasks");
+            }
         },
         () = token.cancelled() => {
             event!(Level::ERROR, message = "Underlying task stopped, stopping all others tasks");
