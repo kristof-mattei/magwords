@@ -18,7 +18,7 @@ const esLintConfig = {
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "standard-with-typescript",
+        "love",
         "plugin:import/typescript",
         "plugin:prettier/recommended",
     ],
