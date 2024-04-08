@@ -68,7 +68,6 @@ export default defineConfig(({ mode }) => {
                 provider: "v8",
                 reportsDirectory: "../../coverage/vitest",
             },
-            cache: { dir: "../../node_modules/.vitest" },
         },
     };
 
