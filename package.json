@@ -69,7 +69,7 @@
     "nock": "13.5.4",
     "prettier": "3.2.5",
     "sass": "1.74.1",
-    "semantic-release": "23.0.7",
+    "semantic-release": "23.0.8",
     "semver": "7.6.0",
     "serialize-error": "11.0.3",
     "typescript": "5.4.4",
