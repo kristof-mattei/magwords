@@ -1,4 +1,4 @@
-FROM rust:1.77.2@sha256:da23629cc6826f0c395c8697994cdce0b5ac6850a695c448a101c3cc9cd6a59b as rust_builder
+FROM --platform=$BUILDPLATFORM rust:1.77.2@sha256:da23629cc6826f0c395c8697994cdce0b5ac6850a695c448a101c3cc9cd6a59b as rust_builder
 
 ARG TARGET=x86_64-unknown-linux-musl
 ARG APPLICATION_NAME
@@ -11,13 +11,14 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean \
 # borrowed (Ba Dum Tss!) from
 # https://github.com/pablodeymo/rust-musl-builder/blob/7a7ea3e909b1ef00c177d9eeac32d8c9d7d6a08c/Dockerfile#L48-L49
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
-    apt-get update \
-    && apt-get --no-install-recommends install -y \
-        build-essential \
-        musl \
-        musl-dev \
-        musl-tools \
-    && rm -rf /var/lib/apt/lists
+    dpkg --add-architecture arm64 && \
+    apt-get update && \
+    apt-get --no-install-recommends install -y \
+    build-essential \
+    musl-dev \
+    musl-tools \
+    libc6-dev-arm64-cross \
+    gcc-aarch64-linux-gnu
 
 # The following block
 # creates an empty app, and we copy in Cargo.toml and Cargo.lock as they represent our dependencies
@@ -26,6 +27,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
 WORKDIR /build
 RUN cargo new ${APPLICATION_NAME}
 WORKDIR /build/${APPLICATION_NAME}
+COPY .cargo ./.cargo
 COPY Cargo.toml Cargo.lock ./
 
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
@@ -36,7 +38,7 @@ RUN --mount=type=cache,id=cargo-dependencies,target=/build/${APPLICATION_NAME}/t
 
 # TODO build JS
 
-# now we copy in the rest
+# now we copy in the source which is more prone to changes and build it
 COPY . .
 
 # --release not needed, it is implied with install

@@ -1,17 +1,19 @@
+shared: &shared
+  - ".ci"
+  - ".github/**"
+docker:
+  - *shared
+  - Dockerfile
 rust:
-  - backend-end/**
-  - "**"
+  - *shared
+  - ".cargo/**"
+  - "backend-end/**"
+  - Cargo.lock
+  - "*.toml"
 typescript:
-  - front-end/**
-  - "**"
-# code:
-#   - "src/**"
-#   - "TAG"
-#   - Dockerfile
-#   - "tests/**"
-#   - ".github/**"
-#   - "*.toml"
-#   - Cargo.lock
-#   - "package.json"
-#   - "package-lock.json"
-#   - ".codeclimate.yml"
+  - *shared
+  - "front-end/**"
+  - "**/*.ts"
+  - "**/*.cjs"
+  - "package.json"
+  - "package-lock.json"
