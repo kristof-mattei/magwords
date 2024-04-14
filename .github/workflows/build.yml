@@ -70,6 +70,7 @@ jobs:
     name: Detect changes
     runs-on: ubuntu-latest
     outputs:
+      docker: ${{ steps.filter.outputs.docker }}
       rust: ${{ steps.filter.outputs.rust }}
       typescript: ${{ steps.filter.outputs.typescript }}
     steps:
@@ -98,6 +99,7 @@ jobs:
       github.event_name == 'pull_request' &&
       fromJSON(needs.repo-has-container.outputs.has_container) == true &&
       (
+        fromJSON(needs.changes.outputs.docker) == true ||
         fromJSON(needs.changes.outputs.rust) == true ||
         fromJSON(needs.changes.outputs.typescript) == true
       )
@@ -190,12 +192,13 @@ jobs:
         contains(needs.*.result, 'cancelled')
       )) &&
       (
+        fromJSON(needs.changes.outputs.docker) == true ||
         fromJSON(needs.changes.outputs.rust) == true ||
         fromJSON(needs.changes.outputs.typescript) == true
       )
     env:
       APPLICATION_NAME: PLACEHOLDER # overridden in step 'Set application name', this is merely to satisfy the linter
-      PATH_TO_TAR: PALCEHOLDER # same ^
+      PATH_TO_TAR: PLACEHOLDER # same ^
       PLATFORM_PAIR: PLACEHOLDER # same ^
       PLATFORM_UNIQUE_TAG: PLACEHOLDER # same ^
     strategy:
@@ -221,9 +224,6 @@ jobs:
         shell: bash
         run: |
           ./.github/scripts/update-version.sh ${{ needs.calculate-version.outputs.version }}
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3.0.0
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@d70bba72b1f3fd22344832f00baa16ece964efeb # v3.3.0
@@ -392,3 +392,5 @@ jobs:
         shell: bash
         run: |
           echo "Great success!"
+
+
