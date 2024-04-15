@@ -65,6 +65,7 @@ export default defineConfig(({ mode }) => {
             outputFile: {},
             setupFiles: ["./test.setup.ts"],
             coverage: {
+                reporter: ["lcov", "text", "json", "html"],
                 provider: "v8",
                 reportsDirectory: "../../coverage/vitest",
             },
