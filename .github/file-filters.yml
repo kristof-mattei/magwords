@@ -1,4 +1,5 @@
 shared: &shared
+  - ".nvmrc"
   - ".ci"
   - ".github/**"
 docker:
