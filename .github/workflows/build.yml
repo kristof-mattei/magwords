@@ -36,19 +36,11 @@ concurrency:
 jobs:
   build-rust:
     name: Build Rust code
-    needs:
-      - changes
-    if: |
-      fromJSON(needs.changes.outputs.rust) == true
     uses: ./.github/workflows/build-rust.yml
     secrets: inherit
 
   build-typescript:
     name: Build TypeScript code
-    needs:
-      - changes
-    if: |
-      fromJSON(needs.changes.outputs.typescript) == true
     uses: ./.github/workflows/build-typescript.yml
     secrets: inherit
 
