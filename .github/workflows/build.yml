@@ -75,7 +75,7 @@ jobs:
       typescript: ${{ steps.filter.outputs.typescript }}
     steps:
       - name: Checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
         with:
           show-progress: false
           submodules: true
@@ -105,7 +105,7 @@ jobs:
       )
     steps:
       - name: Checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
         with:
           show-progress: false
           fetch-depth: 0
@@ -211,7 +211,7 @@ jobs:
             rust: aarch64-unknown-linux-musl
     steps:
       - name: Checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
         with:
           show-progress: false
 
