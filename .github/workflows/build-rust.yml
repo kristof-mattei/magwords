@@ -27,7 +27,7 @@ jobs:
       rust: ${{ steps.filter.outputs.rust }}
     steps:
       - name: Checkout
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           show-progress: false
           submodules: true
@@ -48,7 +48,7 @@ jobs:
     if: github.event_name == 'pull_request' && fromJSON(needs.changes.outputs.rust) == true
     steps:
       - name: Checkout
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           show-progress: false
 
@@ -93,7 +93,7 @@ jobs:
     if: github.event_name == 'pull_request' && fromJSON(needs.changes.outputs.rust) == true
     steps:
       - name: Checkout
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           show-progress: false
 
@@ -136,7 +136,7 @@ jobs:
       - warm-up-cache
     steps:
       - name: Checkout
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           show-progress: false
 
@@ -251,7 +251,7 @@ jobs:
     if: github.event_name == 'pull_request' && fromJSON(needs.changes.outputs.rust) == true
     steps:
       - name: Checkout
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           show-progress: false
 
