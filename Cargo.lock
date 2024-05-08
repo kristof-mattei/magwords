@@ -225,9 +225,9 @@ dependencies = [
 
 [[package]]
 name = "engineioxide"
-version = "0.13.0"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5d67127e68d23bb8ba66318beba779136e76b4ed9ddefbbd12ad650b1609956"
+checksum = "bc76e79b0c318bbff227b003843c56d5fc50b43276441d162124166f4cbacc80"
 dependencies = [
  "base64",
  "bytes",
@@ -948,9 +948,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide"
-version = "0.13.0"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0465f74d1fefee6c9e3b5f221cc63c90556fe57b930a9053d841a4acdb6d5072"
+checksum = "178953184593e92c3f58d0d3eda74865c520b6fc05f80dc6c99bb235e39f400a"
 dependencies = [
  "bytes",
  "engineioxide",
