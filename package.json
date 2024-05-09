@@ -70,7 +70,7 @@
     "prettier": "3.2.5",
     "sass": "1.77.0",
     "semantic-release": "23.0.8",
-    "semver": "7.6.1",
+    "semver": "7.6.2",
     "serialize-error": "11.0.3",
     "typescript": "5.4.5",
     "vite": "5.2.11",
