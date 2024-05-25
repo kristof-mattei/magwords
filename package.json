@@ -31,7 +31,7 @@
     "url": "https://github.com/kristof-mattei/magwords/issues"
   },
   "dependencies": {
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "4.7.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -79,8 +79,7 @@
     "vite-tsconfig-paths": "4.3.2",
     "vitest": "1.6.0"
   },
-  "overrides": {
-  },
+  "overrides": {},
   "publishConfig": {
     "access": "restricted"
   }
