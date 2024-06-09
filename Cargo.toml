@@ -25,7 +25,6 @@ cargo = "warn"
 # dereferenced variables (`foo.bar`). The latter cannot be inlined
 # so we don't inline anything
 uninlined-format-args = { level = "allow", priority = 127 }
-multiple_crate_versions = { level = "allow", priority = 127 }
 
 [lints.rust]
 let_underscore_drop = { level = "deny", priority = 127 }
