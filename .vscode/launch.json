@@ -9,11 +9,7 @@
             "request": "launch",
             "name": "Debug executable 'magwords'",
             "cargo": {
-                "args": [
-                    "build",
-                    "--bin=magwords",
-                    "--package=magwords"
-                ],
+                "args": ["build", "--bin=magwords", "--package=magwords"],
                 "filter": {
                     "name": "magwords",
                     "kind": "bin"
