@@ -14,7 +14,6 @@ repository = "https://github.com/kristof-mattei/magwords"
 [[bin]]
 name = "magwords"
 path = "back-end/src/main.rs"
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lints.clippy]
 # don't stop from compiling / running
@@ -42,7 +41,9 @@ coverage = []
 
 [dependencies]
 axum = { version = "0.7.5" }
-color-eyre = { git = "https://github.com/kristof-mattei/eyre", branch = "bump-backtrace-rs", features = ["track-caller"] }
+color-eyre = { git = "https://github.com/kristof-mattei/eyre", branch = "bump-backtrace-rs", features = [
+    "track-caller",
+] }
 tokio = { version = "1.38.0", features = [
     "rt-multi-thread",
     "macros",
