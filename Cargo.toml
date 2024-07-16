@@ -44,7 +44,7 @@ axum = { version = "0.7.5" }
 color-eyre = { git = "https://github.com/kristof-mattei/eyre", branch = "bump-backtrace-rs", features = [
     "track-caller",
 ] }
-tokio = { version = "1.38.0", features = [
+tokio = { version = "1.38.1", features = [
     "rt-multi-thread",
     "macros",
     "time",
