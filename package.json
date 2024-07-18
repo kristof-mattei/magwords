@@ -58,7 +58,7 @@
     "@vitest/coverage-v8": "2.0.3",
     "bootstrap": "5.3.3",
     "conventional-changelog-conventionalcommits": "8.0.0",
-    "dependency-cruiser": "16.3.7",
+    "dependency-cruiser": "16.3.9",
     "eslint": "8.57.0",
     "eslint-config-love": "47.0.0",
     "eslint-config-prettier": "9.1.0",
