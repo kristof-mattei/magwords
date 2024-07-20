@@ -76,4 +76,4 @@ backtrace = "0.3.73"
 # Documentation on the syntax:
 # https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies
 [target.'cfg(all(target_arch = "x86_64", target_os="linux", target_env="musl"))'.dependencies]
-openssl = { version = "0.10.64", features = ["vendored"] }
+openssl = { version = "0.10.65", features = ["vendored"] }
