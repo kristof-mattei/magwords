@@ -41,7 +41,7 @@ coverage = []
 
 [dependencies]
 axum = { version = "0.7.5" }
-color-eyre = { git = "https://github.com/kristof-mattei/eyre", branch = "bump-backtrace-rs", features = [
+color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
     "track-caller",
 ] }
 tokio = { version = "1.39.0", features = [
