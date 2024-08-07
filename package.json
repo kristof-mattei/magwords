@@ -73,7 +73,7 @@
     "semver": "7.6.3",
     "serialize-error": "11.0.3",
     "typescript": "5.5.4",
-    "vite": "5.3.5",
+    "vite": "5.4.0",
     "vite-plugin-checker": "0.7.2",
     "vite-plugin-svgr": "4.2.0",
     "vite-tsconfig-paths": "4.3.2",
