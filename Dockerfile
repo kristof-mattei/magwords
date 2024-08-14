@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM rust:1.80.1@sha256:536c1a47d86bcfcd08b00dc234c44db1f809d4d82e86bc27fac1bf93c5da4d4a as rust_builder
+FROM --platform=$BUILDPLATFORM rust:1.80.1@sha256:29fe4376919e25b7587a1063d7b521d9db735fc137d3cf30ae41eb326d209471 AS rust_builder
 
 ARG TARGET=x86_64-unknown-linux-musl
 ARG APPLICATION_NAME
@@ -46,7 +46,7 @@ RUN --mount=type=cache,id=rust-full-build,target=/build/${APPLICATION_NAME}/targ
     cargo install --path . --target ${TARGET} --root /output
 
 # ----
-FROM node:21.7.3-alpine3.19@sha256:1e13649e44d505d5410164f5b7325e4ff1ae551e87e6e4f17d74f6b9b0affbff as typescript_builder
+FROM node:21.7.3-alpine3.19@sha256:1e13649e44d505d5410164f5b7325e4ff1ae551e87e6e4f17d74f6b9b0affbff AS typescript_builder
 
 # The following block
 # creates an empty app, and we copy in package.json and packge-lock.json as they represent our dependencies
