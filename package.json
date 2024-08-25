@@ -18,7 +18,7 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": ">=20.16.0",
+    "node": ">=20.17.0",
     "npm": ">=10.8.2"
   },
   "repository": {
@@ -52,7 +52,7 @@
     "@semantic-release/github": "10.1.7",
     "@semantic-release/release-notes-generator": "14.0.1",
     "@types/eslint": "9.6.0",
-    "@types/node": "20.14.15",
+    "@types/node": "20.16.1",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@vitest/coverage-v8": "2.0.5",
