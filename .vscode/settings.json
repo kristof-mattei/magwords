@@ -1,6 +1,6 @@
 {
     "debug.internalConsoleOptions": "openOnSessionStart",
-    "prettier.configPath": "./.prettierrc.cjs",
+    "prettier.configPath": "./prettier.config.mjs",
     "rust-analyzer.debug.engineSettings": {
         "lldb": {
             "internalConsoleOptions": "openOnSessionStart",

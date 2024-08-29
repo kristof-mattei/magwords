@@ -1,39 +1,66 @@
-import path from "path";
+import path from "node:path";
 
 import { codecovVitePlugin } from "@codecov/vite-plugin";
-import { type UserConfig, loadEnv } from "vite";
-import checker from "vite-plugin-checker";
+import type { UserConfig } from "vite";
+import { loadEnv } from "vite";
+import { checker } from "vite-plugin-checker";
+import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
 import viteTsConfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, process.cwd());
+    const environment = loadEnv(mode, process.cwd());
+    const port = Number.parseInt(environment["VITE_PORT"] ?? "");
 
     const config: UserConfig = {
+        appType: "custom",
+
+        build: {
+            emptyOutDir: true,
+            lib: {
+                entry: path.resolve(import.meta.dirname, "src/core.ts"),
+                formats: ["es"],
+            },
+            outDir: "../../dist",
+            rollupOptions: {
+                output: {
+                    preserveModules: true,
+                },
+            },
+            sourcemap: true,
+            ssr: true,
+        },
+        resolve: {
+            alias: {
+                "@/": path.resolve("src/"),
+                "~bootstrap": path.resolve(import.meta.dirname, "node_modules/bootstrap"),
+            },
+        },
+
         plugins: [
             svgr(),
             viteTsConfigPaths(),
             checker({ typescript: true }),
+            dts({
+                insertTypesEntry: true,
+                entryRoot: "./src",
+                exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
+            }),
             codecovVitePlugin({
-                enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
-                bundleName: "magwords-front-end",
-                uploadToken: process.env.CODECOV_TOKEN,
+                enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
+                bundleName: "library",
+                uploadToken: environment["CODECOV_TOKEN"] ?? "",
             }),
         ],
         optimizeDeps: {
             exclude: ["src/entrypoints/index.ts"],
         },
         root: "front-end/src",
-        build: {
-            outDir: "../../dist",
-            emptyOutDir: true,
-            sourcemap: true,
-            rollupOptions: {},
-        },
+
         server: {
-            port: parseInt(env.VITE_PORT ?? "") || 4000,
+            port: Number.isNaN(port) ? 4000 : port,
             host: true,
             strictPort: true,
             hmr: {
@@ -50,25 +77,22 @@ export default defineConfig(({ mode }) => {
             //     },
             // },
         },
-        resolve: {
-            alias: {
-                "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
-            },
-            preserveSymlinks: true,
-        },
         test: {
-            globals: true,
-            // environment: "jsdom",
-            environmentOptions: {
-                // jsdom: {},
-            },
-            outputFile: {},
-            setupFiles: ["./test.setup.ts"],
             coverage: {
+                exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
                 reporter: ["json", "html", "text"],
                 provider: "v8",
                 reportsDirectory: "../../coverage/vitest",
             },
+            // environment: "jsdom",
+            environmentOptions: {
+                // jsdom: {},
+            },
+            globals: false,
+            outputFile: {
+                junit: "../../reports/vitest/test-report.xml",
+            },
+            setupFiles: ["./test.setup.ts"],
         },
     };
 

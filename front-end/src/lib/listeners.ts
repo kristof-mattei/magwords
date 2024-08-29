@@ -1,6 +1,6 @@
 import { state, version } from "@/entrypoints/index";
 import { setupMovable } from "@/lib/handlers";
-import { type Word } from "@/lib/types";
+import type { Word } from "@/lib/types";
 import { reload, toHtmlWordId } from "@/lib/utils";
 
 export function setupHandlers(): void {
@@ -12,7 +12,7 @@ export function setupHandlers(): void {
 }
 
 function onWords(words: Word[]): void {
-    const fridge = document.getElementById("fridge");
+    const fridge = document.querySelector("#fridge");
 
     if (fridge === null) {
         return;
@@ -23,11 +23,8 @@ function onWords(words: Word[]): void {
     }
 }
 
-function onHup(
-    data: { id: number; v: number },
-    _callback: ({ id }: { id: number }) => void,
-): void {
-    if (data?.id === undefined) {
+function onHup(data: { id: number | undefined; v: number }, _callback: ({ id }: { id: number }) => void): void {
+    if (data.id === undefined) {
         console.log("Invalid ping");
         return;
     }
@@ -42,7 +39,7 @@ function onHup(
 function onPoets(data: { count: number }): void {
     if (data.count !== state.poets) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        document.getElementById("odo")!.innerHTML = data.count.toString(10);
+        document.querySelector("#odo")!.innerHTML = data.count.toString(10);
     }
 
     state.poets = data.count;
@@ -61,16 +58,12 @@ function onMove({ id, x, y }: { id: number; x: number; y: number }): void {
     const easeInOutExpo = "cubic-bezier(0.87, 0, 0.13, 1)";
     const easeOutBack = "cubic-bezier(0.34, 1.56, 0.64, 1)";
 
-    const element = document.getElementById(wordId);
+    const element: HTMLElement | null = document.querySelector(wordId);
 
     if (element !== null) {
-        const left: string = Math.round(Math.random())
-            ? easeInOutQuad
-            : easeOutCirc;
+        const left: string = Math.round(Math.random()) === 0 ? easeInOutQuad : easeOutCirc;
 
-        const top: string = Math.round(Math.random())
-            ? easeInOutExpo
-            : easeOutBack;
+        const top: string = Math.round(Math.random()) === 0 ? easeInOutExpo : easeOutBack;
 
         const transition = `left ${time}ms ${left}, top ${time}ms ${top}`;
 
@@ -88,11 +81,11 @@ function onReload(_data: unknown): void {
     reload();
 }
 
-function addWord(fridge: HTMLElement, word: Word): void {
+function addWord(fridge: Element, word: Word): void {
     const wordId = toHtmlWordId(word.id);
 
     // Delete any existing element with the same ID before adding the new one.
-    document.getElementById(wordId)?.remove();
+    document.querySelector(wordId)?.remove();
 
     const wordElement = document.createElement("span");
 
@@ -109,5 +102,5 @@ function addWord(fridge: HTMLElement, word: Word): void {
 
     setupMovable(wordElement);
 
-    fridge.appendChild(wordElement);
+    fridge.append(wordElement);
 }
