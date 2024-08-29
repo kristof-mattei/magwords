@@ -1,5 +1,5 @@
-/** @type { import("dependency-cruiser").IConfiguration } */
-const dependencyCruiserConfig = {
+/** @type {import("dependency-cruiser").IConfiguration} */
+export default {
     forbidden: [
         {
             name: "no-circular",
@@ -142,10 +142,7 @@ const dependencyCruiserConfig = {
                 "from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration",
             from: {
                 path: "^(src)",
-                pathNot: [
-                    ".(spec|test).(js|mjs|cjs|ts|ls|coffee|litcoffee|coffee.md)$",
-                    "test-helpers.ts$",
-                ],
+                pathNot: ".(spec|test).(js|mjs|cjs|ts|ls|coffee|litcoffee|coffee.md)$",
             },
             to: {
                 dependencyTypes: ["npm-dev"],
@@ -437,5 +434,3 @@ const dependencyCruiserConfig = {
     },
 };
 // generated: dependency-cruiser@13.1.5 on 2023-09-10T03:31:28.165Z
-
-module.exports = dependencyCruiserConfig;

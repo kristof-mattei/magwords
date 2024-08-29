@@ -16,10 +16,10 @@ export function setupMovable(element: HTMLElement): void {
     let lastScrollX = 0;
     let lastScrollY = 0;
 
-    function mouseDown(e: MouseEvent): void {
+    function mouseDown(event: MouseEvent): void {
         // get initial mousedown coordinated
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
 
         // get element top and left positions
         const elementOffsetLeft = element.offsetLeft;
@@ -55,7 +55,7 @@ export function setupMovable(element: HTMLElement): void {
         document.addEventListener("scroll", scroll);
     }
 
-    function scroll(_e: Event): void {
+    function scroll(_event: Event): void {
         const currentScrollX = window.scrollX;
         const currentScrollY = window.scrollY;
 
@@ -65,18 +65,15 @@ export function setupMovable(element: HTMLElement): void {
         diffX -= scrollX;
         diffY -= scrollY;
 
-        moveElement(
-            newLeft + diffX + (startScrollX + scrollX),
-            newTop + diffY + (startScrollY + scrollY),
-        );
+        moveElement(newLeft + diffX + (startScrollX + scrollX), newTop + diffY + (startScrollY + scrollY));
 
         lastScrollX = currentScrollX;
         lastScrollY = currentScrollY;
     }
 
-    function mouseMove(e: MouseEvent): void {
+    function mouseMove(event: MouseEvent): void {
         // get new mouse coordinates
-        moveElement(e.clientX, e.clientY);
+        moveElement(event.clientX, event.clientY);
     }
 
     function moveElement(newMouseX: number, newMouseY: number): void {
