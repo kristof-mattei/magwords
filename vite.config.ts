@@ -4,7 +4,6 @@ import { codecovVitePlugin } from "@codecov/vite-plugin";
 import type { UserConfig } from "vite";
 import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
-import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
@@ -15,22 +14,15 @@ export default defineConfig(({ mode }) => {
     const port = Number.parseInt(environment["VITE_PORT"] ?? "");
 
     const config: UserConfig = {
-        appType: "custom",
+        appType: "spa",
 
         build: {
             emptyOutDir: true,
-            lib: {
-                entry: path.resolve(import.meta.dirname, "src/core.ts"),
-                formats: ["es"],
-            },
             outDir: "../../dist",
             rollupOptions: {
-                output: {
-                    preserveModules: true,
-                },
+                output: {},
             },
             sourcemap: true,
-            ssr: true,
         },
         resolve: {
             alias: {
@@ -43,11 +35,6 @@ export default defineConfig(({ mode }) => {
             svgr(),
             viteTsConfigPaths(),
             checker({ typescript: true }),
-            dts({
-                insertTypesEntry: true,
-                entryRoot: "./src",
-                exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
-            }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
                 bundleName: "library",
