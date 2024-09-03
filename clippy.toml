@@ -3,6 +3,7 @@ allowed-duplicate-crates = [
     "regex-automata",
     "regex-syntax",
     "sync_wrapper",
+    "tower",
     "windows-sys",
     "windows-targets",
     "windows_aarch64_gnullvm",
