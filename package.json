@@ -54,7 +54,7 @@
     "@rollup/plugin-inject": "5.0.5",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/commit-analyzer": "13.0.0",
-    "@semantic-release/github": "10.3.3",
+    "@semantic-release/github": "10.3.4",
     "@semantic-release/release-notes-generator": "14.0.1",
     "@stylistic/eslint-plugin-ts": "2.8.0",
     "@types/eslint": "9.6.1",
