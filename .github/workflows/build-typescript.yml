@@ -120,6 +120,7 @@ jobs:
 
       - name: Run lint
         shell: bash
+        id: lint
         run: |
           npm run lint -- --format=json --output-file reports/lint-report.json
         continue-on-error: true
