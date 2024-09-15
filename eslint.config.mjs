@@ -10,6 +10,7 @@ import tsParser from "@typescript-eslint/parser";
 import love from "eslint-config-love";
 import importPlugin from "eslint-plugin-import-x";
 import nPlugin from "eslint-plugin-n";
+import perfectionist from "eslint-plugin-perfectionist";
 import prettier from "eslint-plugin-prettier/recommended";
 import promise from "eslint-plugin-promise";
 
@@ -161,6 +162,7 @@ export default tseslint.config(
             "import-x": importPlugin,
             n: nPlugin,
             promise,
+            perfectionist,
         },
         settings: {
             "import-x/resolver": {
@@ -226,9 +228,9 @@ export default tseslint.config(
                     selector: "enumMember",
                 },
             ],
-            "@typescript-eslint/no-empty-interface": ["error"],
             "@typescript-eslint/no-empty-object-type": ["error"],
             "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: true, ignoreRestArgs: false }],
+            "@typescript-eslint/no-magic-numbers": ["off"],
             "@typescript-eslint/no-extraneous-class": ["error"],
             "@typescript-eslint/no-shadow": ["error"],
             "@typescript-eslint/no-unused-expressions": [
@@ -270,6 +272,10 @@ export default tseslint.config(
             "n/no-new-require": ["error"],
             "n/no-path-concat": ["error"],
             "n/process-exit-as-throw": ["error"],
+
+            "perfectionist/sort-intersection-types": ["error"],
+            "perfectionist/sort-union-types": ["error"],
+
             "promise/param-names": ["error"],
         },
     },
