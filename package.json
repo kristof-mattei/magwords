@@ -79,7 +79,7 @@
     "husky": "9.1.6",
     "nock": "13.5.5",
     "prettier": "3.3.3",
-    "sass": "1.79.2",
+    "sass": "1.79.3",
     "semantic-release": "24.1.1",
     "semver": "7.6.3",
     "serialize-error": "11.0.3",
