@@ -71,7 +71,7 @@ dependencies = [
  "serde_urlencoded",
  "sync_wrapper 1.0.1",
  "tokio",
- "tower 0.5.1",
+ "tower",
  "tower-layer",
  "tower-service",
  "tracing",
@@ -226,9 +226,9 @@ dependencies = [
 
 [[package]]
 name = "engineioxide"
-version = "0.14.1"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9af9d31fdcf7ae420195c6df199b58372c74f4a1966f7107ebfbebbfceafa16"
+checksum = "fc39f12f24c1aa05bed87f351bb51073b6a55a74a26e0a9f631512744540da10"
 dependencies = [
  "base64",
  "bytes",
@@ -247,7 +247,8 @@ dependencies = [
  "thiserror",
  "tokio",
  "tokio-tungstenite",
- "tower 0.4.13",
+ "tower-layer",
+ "tower-service",
  "tracing",
 ]
 
@@ -520,7 +521,7 @@ dependencies = [
  "socketioxide",
  "tokio",
  "tokio-util",
- "tower 0.5.1",
+ "tower",
  "tower-http",
  "tracing",
  "tracing-error",
@@ -936,9 +937,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide"
-version = "0.14.1"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eae037b680e678f04b270f9740cbe6ddd71cf77a2e89f65092a0fcd1639af561"
+checksum = "6c6f04e690e168d3f7a84993d684ca1d27aa41576541826da1753c6de271c6ec"
 dependencies = [
  "bytes",
  "engineioxide",
@@ -947,15 +948,43 @@ dependencies = [
  "http",
  "http-body",
  "hyper",
- "itoa",
  "matchit 0.8.4",
  "pin-project-lite",
+ "rustversion",
  "serde",
- "serde_json",
+ "smallvec",
+ "socketioxide-core",
+ "socketioxide-parser-common",
  "thiserror",
  "tokio",
- "tower 0.4.13",
+ "tower-layer",
+ "tower-service",
  "tracing",
+]
+
+[[package]]
+name = "socketioxide-core"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "81cdea2294026e3e5a49416f9b9edf60a510df1bc81a0c522556ed969ffe1e5b"
+dependencies = [
+ "bytes",
+ "engineioxide",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "socketioxide-parser-common"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7cd2ec24efd8029c358e604abf476177ed11ce3a921b3d33b5a07d444d87228b"
+dependencies = [
+ "bytes",
+ "itoa",
+ "serde",
+ "serde_json",
+ "socketioxide-core",
 ]
 
 [[package]]
@@ -1056,9 +1085,9 @@ dependencies = [
 
 [[package]]
 name = "tokio-tungstenite"
-version = "0.23.1"
+version = "0.24.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c6989540ced10490aaf14e6bad2e3d33728a2813310a0c71d1574304c49631cd"
+checksum = "edc5f74e248dc973e0dbb7b74c7e0d6fcc301c694ff50049504004ef4d0cdcd9"
 dependencies = [
  "futures-util",
  "log",
@@ -1077,16 +1106,6 @@ dependencies = [
  "futures-sink",
  "pin-project-lite",
  "tokio",
-]
-
-[[package]]
-name = "tower"
-version = "0.4.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8fa9be0de6cf49e536ce1851f987bd21a43b771b09473c3549a6c853db37c1c"
-dependencies = [
- "tower-layer",
- "tower-service",
 ]
 
 [[package]]
@@ -1216,9 +1235,9 @@ dependencies = [
 
 [[package]]
 name = "tungstenite"
-version = "0.23.0"
+version = "0.24.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6e2e2ce1e47ed2994fd43b04c8f618008d4cabdd5ee34027cf14f9d918edd9c8"
+checksum = "18e5b8366ee7a95b16d32197d0b2604b43a0be89dc5fac9f8e96ccafbaedda8a"
 dependencies = [
  "byteorder",
  "bytes",
