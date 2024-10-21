@@ -37,7 +37,7 @@ impl WordsSocket {
 
 impl Drop for WordsSocket {
     fn drop(&mut self) {
-        if let Err(e) = self.io.emit("goodbye", json!({})) {
+        if let Err(e) = self.io.emit("goodbye", &json!({})) {
             event!(Level::ERROR, ?e, "Failed to announce shutting down");
         }
     }
@@ -58,7 +58,7 @@ pub async fn setup_socket(raw_words: &str, io: SocketIo) -> WordsSocket {
 
         if let Err(e) = socket_clone.emit(
             "poets",
-            json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
+            &json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
         ) {
             event!(Level::ERROR, ?e, "Failed to announce new poet");
         }
@@ -100,7 +100,7 @@ async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     // socket.on("ack", on_ack);
 
     // send client current words
-    if let Err(e) = socket.emit("words", [&*WORD_LIST.lock().await]) {
+    if let Err(e) = socket.emit("words", &[&*WORD_LIST.lock().await]) {
         event!(Level::TRACE, ?e, "Failed to send words to new client");
     };
 }
@@ -108,7 +108,7 @@ async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
 async fn on_disconnect(socket: SocketRef, reason: DisconnectReason) {
     if let Err(e) = socket.broadcast().emit(
         "poets",
-        json!({ "count": POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1 }),
+        &json!({ "count": POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1 }),
     ) {
         event!(Level::ERROR, ?e, "Failed to announce poet gone");
     }
@@ -124,7 +124,7 @@ async fn on_move(socket: SocketRef, TryData(data): TryData<MoveEventParams>) {
             word.x = m.x;
             word.y = m.y;
 
-            if let Err(e) = socket.broadcast().emit("move", m) {
+            if let Err(e) = socket.broadcast().emit("move", &m) {
                 event!(Level::TRACE, ?e, "Failed to broadcast");
             };
         },
