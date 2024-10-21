@@ -1,13 +1,12 @@
-use std::{ops::IndexMut, sync::atomic::AtomicUsize};
+use std::ops::IndexMut;
+use std::sync::atomic::AtomicUsize;
 
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
-use socketioxide::{
-    extract::{Data, SocketRef, TryData},
-    socket::DisconnectReason,
-    SocketIo,
-};
+use socketioxide::extract::{Data, SocketRef, TryData};
+use socketioxide::socket::DisconnectReason;
+use socketioxide::SocketIo;
 use tokio::sync::Mutex;
 use tracing::{event, Level};
 
