@@ -7,10 +7,8 @@ use axum::Router;
 mod api_router;
 mod html_router;
 use socketioxide::layer::SocketIoLayer;
-use tower_http::{
-    cors::CorsLayer,
-    trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer},
-};
+use tower_http::cors::CorsLayer;
+use tower_http::trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer};
 use tracing::Level;
 
 use self::api_router::build_api_router;

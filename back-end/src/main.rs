@@ -7,24 +7,27 @@ mod tasks;
 mod utils;
 mod words;
 
+use std::env;
+use std::net::SocketAddr;
 use std::time::Duration;
-use std::{env, net::SocketAddr};
 
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use socketioxide::SocketIo;
 use states::config::Config;
-use tokio::{signal, time::sleep};
-use tokio::{task::JoinSet, time::timeout};
+use tokio::signal;
+use tokio::task::JoinSet;
+use tokio::time::{sleep, timeout};
 use tokio_util::sync::CancellationToken;
 use tracing::{event, Level};
-
 use tracing_subscriber::filter::EnvFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
+use crate::router::build_router;
+use crate::server::setup_server;
 use crate::state::ApplicationState;
-use crate::{router::build_router, server::setup_server, words::setup_socket};
+use crate::words::setup_socket;
 
 #[allow(clippy::unnecessary_wraps)]
 fn build_configs() -> Result<Config, color_eyre::eyre::Report> {
