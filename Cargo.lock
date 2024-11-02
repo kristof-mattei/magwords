@@ -226,9 +226,9 @@ dependencies = [
 
 [[package]]
 name = "engineioxide"
-version = "0.15.0"
+version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc39f12f24c1aa05bed87f351bb51073b6a55a74a26e0a9f631512744540da10"
+checksum = "ec84aea019c24ae0cae29a6306b1b9b6bd91a4c950542d804b742435ed797f0c"
 dependencies = [
  "base64",
  "bytes",
@@ -937,9 +937,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide"
-version = "0.15.0"
+version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c6f04e690e168d3f7a84993d684ca1d27aa41576541826da1753c6de271c6ec"
+checksum = "4a9ce59f845cfea2fe24cc7adbd512268893ee07bde899ae6477569dbc42dff3"
 dependencies = [
  "bytes",
  "engineioxide",
@@ -952,7 +952,6 @@ dependencies = [
  "pin-project-lite",
  "rustversion",
  "serde",
- "smallvec",
  "socketioxide-core",
  "socketioxide-parser-common",
  "thiserror",
@@ -964,9 +963,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide-core"
-version = "0.15.0"
+version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "81cdea2294026e3e5a49416f9b9edf60a510df1bc81a0c522556ed969ffe1e5b"
+checksum = "82826d9a1efb2b201e7d12d231f98870f768d98d02452eb642bca0587a8d51f0"
 dependencies = [
  "bytes",
  "engineioxide",
@@ -976,9 +975,9 @@ dependencies = [
 
 [[package]]
 name = "socketioxide-parser-common"
-version = "0.15.0"
+version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7cd2ec24efd8029c358e604abf476177ed11ce3a921b3d33b5a07d444d87228b"
+checksum = "e9a20b64f78a6d093d73d4d166b5bfc8b5096069865c59cee67b3aafac77eaac"
 dependencies = [
  "bytes",
  "itoa",
