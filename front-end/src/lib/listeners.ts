@@ -38,7 +38,7 @@ function onHup(data: { id: number | undefined; v: number }, _callback: ({ id }: 
 
 function onPoets(data: { count: number }): void {
     if (data.count !== state.poets) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we control html, element is there
         document.querySelector("#odo")!.innerHTML = data.count.toString(10);
     }
 
