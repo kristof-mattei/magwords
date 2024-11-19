@@ -238,7 +238,6 @@ export default tseslint.config(
             "@typescript-eslint/prefer-string-starts-ends-with": ["error"],
             "@typescript-eslint/promise-function-async": ["off"],
             "@typescript-eslint/require-await": ["error"],
-            "@typescript-eslint/sort-type-constituents": ["error"],
 
             "@typescript-eslint/unified-signatures": ["error"],
 
