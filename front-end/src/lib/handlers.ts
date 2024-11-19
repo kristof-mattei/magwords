@@ -32,7 +32,11 @@ export function setupMovable(element: HTMLElement): void {
         // elementHeight = element.clientHeight;
 
         // get container dimensions
-        const container = element.offsetParent as HTMLElement;
+        const container = element.offsetParent;
+
+        if (container === null) {
+            throw new Error("Element does not have valid parent");
+        }
 
         // 2 px on each side
         containerWidth = container.clientWidth - 4;
