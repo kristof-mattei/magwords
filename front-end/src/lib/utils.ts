@@ -1,5 +1,5 @@
-export function toHtmlWordId(word_id: number): string {
-    return `#w-${word_id}`;
+export function toHtmlWordId(wordId: number): string {
+    return `#w-${wordId}`;
 }
 
 export function reload(): void {
