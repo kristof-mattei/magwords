@@ -4,6 +4,6 @@ A Rust rewrite of the all-popular MagWords (I cannot find the original link anym
 
 Technologies used:
 
--   Rust
--   Tokio
--   socketioxide (WebSockets)
+- Rust
+- Tokio
+- socketioxide (WebSockets)
