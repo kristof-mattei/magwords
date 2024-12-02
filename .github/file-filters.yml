@@ -1,6 +1,5 @@
 shared: &shared
   - ".nvmrc"
-  - ".ci"
   - ".github/**"
 docker:
   - *shared
@@ -16,5 +15,6 @@ typescript:
   - "front-end/**"
   - "**/*.ts"
   - "**/*.cjs"
+  - "**/*.mjs"
   - "package.json"
   - "package-lock.json"
