@@ -44,7 +44,7 @@ axum = { version = "0.7.9" }
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
     "track-caller",
 ] }
-tokio = { version = "1.41.1", features = [
+tokio = { version = "1.42.0", features = [
     "rt-multi-thread",
     "macros",
     "time",
