@@ -54,7 +54,7 @@
         "@semantic-release/changelog": "6.0.3",
         "@semantic-release/commit-analyzer": "13.0.0",
         "@semantic-release/github": "11.0.1",
-        "@semantic-release/release-notes-generator": "14.0.1",
+        "@semantic-release/release-notes-generator": "14.0.2",
         "@stylistic/eslint-plugin-ts": "2.12.1",
         "@types/eslint": "9.6.1",
         "@types/node": "22.10.2",
