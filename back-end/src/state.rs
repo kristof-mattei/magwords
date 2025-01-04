@@ -1,6 +1,5 @@
 use std::sync::Arc;
 
-use axum::async_trait;
 use axum::extract::{FromRef, FromRequestParts};
 use axum::http::request::Parts;
 
@@ -26,7 +25,6 @@ impl ApplicationState {
     }
 }
 
-#[async_trait]
 impl<S> FromRequestParts<S> for ApplicationState
 where
     Self: FromRef<S>,

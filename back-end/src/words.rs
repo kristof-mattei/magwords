@@ -14,8 +14,8 @@ use crate::MoveEventParams;
 
 static POETS: AtomicUsize = AtomicUsize::new(0);
 
-static WORD_LIST: once_cell::sync::Lazy<Mutex<Box<[WordInfo]>>> =
-    once_cell::sync::Lazy::new(|| Mutex::new(Box::new([])));
+static WORD_LIST: std::sync::LazyLock<Mutex<Box<[WordInfo]>>> =
+    std::sync::LazyLock::new(|| Mutex::new(Box::new([])));
 
 #[derive(Debug, Deserialize, Serialize)]
 struct WordInfo {
