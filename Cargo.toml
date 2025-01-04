@@ -40,7 +40,7 @@ path = "back-end/tests/integration_tests.rs"
 coverage = []
 
 [dependencies]
-axum = { version = "0.7.9" }
+axum = { version = "0.8.1" }
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
     "track-caller",
 ] }
