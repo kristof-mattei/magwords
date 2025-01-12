@@ -14,12 +14,14 @@ import tseslint from "typescript-eslint";
 
 const sharedRules = {
     "arrow-body-style": ["error", "always"],
-
+    complexity: ["off"],
     curly: ["error", "all"],
     "eol-last": ["error", "always"],
     eqeqeq: ["error", "always"],
-
+    // "no-alert": ["off"],
+    "no-console": ["off"],
     "max-len": ["off"],
+    "max-nested-callbacks": ["off"],
     "no-extra-semi": ["off"],
     "no-param-reassign": ["off"],
     "no-restricted-imports": [
