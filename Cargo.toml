@@ -18,8 +18,15 @@ path = "back-end/src/main.rs"
 [lints.clippy]
 # don't stop from compiling / running
 all = "warn"
-pedantic = "warn"
 cargo = "warn"
+complexity = "warn"
+correctness = "warn"
+pedantic = "warn"
+perf = "warn"
+# restriction = "warn"
+style = "warn"
+suspicious = "warn"
+
 # this one causes confusion when combining variables (`foo`) and
 # dereferenced variables (`foo.bar`). The latter cannot be inlined
 # so we don't inline anything
@@ -64,5 +71,5 @@ url = { version = "2.5.3", features = ["serde"] }
 # BUT that means that we need to include openssl
 # Documentation on the syntax:
 # https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies
-[target.'cfg(all(target_arch = "x86_64", target_os="linux", target_env="musl"))'.dependencies]
+[target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
 openssl = { version = "0.10.68", features = ["vendored"] }
