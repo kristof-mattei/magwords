@@ -1,8 +1,6 @@
-FROM --platform=$BUILDPLATFORM rust:1.84.0@sha256:f7cbb35003d4ffb5543f8ad6480c1e36bbae5c3609523c9f0c2e223668ee9c1a AS rust_builder
+FROM --platform=${BUILDPLATFORM} rust:1.84.0@sha256:f7cbb35003d4ffb5543f8ad6480c1e36bbae5c3609523c9f0c2e223668ee9c1a AS rust-base
 
 ARG APPLICATION_NAME
-
-RUN rustup target add ${TARGET}
 
 RUN rm -f /etc/apt/apt.conf.d/docker-clean \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' >/etc/apt/apt.conf.d/keep-cache
@@ -47,32 +45,39 @@ COPY Cargo.toml Cargo.lock ./
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
 RUN mkdir -p back-end/src && mv src/main.rs back-end/src/main.rs
 
-RUN --mount=type=cache,id=cargo-dependencies,target=/build/${APPLICATION_NAME}/target \
+RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
+    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db,sharing=locked \
+    --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
     cargo build --release --target ${TARGET}
 
-# TODO build JS
+FROM rust-cargo-build AS rust-build
+
+WORKDIR /build/${APPLICATION_NAME}
 
 # now we copy in the source which is more prone to changes and build it
-COPY . .
+COPY back-end ./back-end
 
 # ensure cargo picks up on the change
-RUN touch ./src/main.rs
+RUN touch ./back-end/src/main.rs
 
 # --release not needed, it is implied with install
-RUN --mount=type=cache,id=rust-full-build,target=/build/${APPLICATION_NAME}/target \
+RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
+    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db,sharing=locked \
+    --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
     cargo install --path . --target ${TARGET} --root /output
 
-# ----
-FROM node:22.12.0-alpine3.19@sha256:40dc4b415c17b85bea9be05314b4a753f45a4e1716bb31c01182e6c53d51a654 AS typescript_builder
+FROM --platform=${BUILDPLATFORM} node:22.12.0-alpine3.19@sha256:40dc4b415c17b85bea9be05314b4a753f45a4e1716bb31c01182e6c53d51a654 AS typescript-build
 
 # The following block
 # creates an empty app, and we copy in package.json and packge-lock.json as they represent our dependencies
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
-COPY package.json package-lock.json vite.config.ts tsconfig.json ./
+COPY package.json package-lock.json vite.config.ts postcss.config.mjs tailwind.config.mjs tsconfig.json ./
 
+ARG NPM_CONFIG_FUND=false
 RUN --mount=type=cache,id=npm-dependencies,target=/root/.npm \
+    npm i -g npm@latest && \
     npm ci --include=dev
 
 # now we copy in the rest
@@ -89,8 +94,8 @@ USER appuser
 
 WORKDIR /app
 
-COPY --from=rust_builder /output/bin/* /app/entrypoint
-COPY --from=typescript_builder /build/dist /app/dist
+COPY --from=rust-build /output/bin/* /app/entrypoint
+COPY --from=typescript-build /build/dist /app/dist
 
 ENV RUST_BACKTRACE=full
 ENTRYPOINT ["/app/entrypoint"]
