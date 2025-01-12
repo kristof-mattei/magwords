@@ -36,19 +36,15 @@ opt-level = 3
 name = "magwords"
 path = "back-end/tests/integration_tests.rs"
 
-[features]
-coverage = []
-
 [dependencies]
 axum = { version = "0.8.1" }
 axum-proxy = { version = "0.3.0", features = ["axum"] }
-backtrace = "0.3.74"
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
     "track-caller",
 ] }
 rand = "0.8.5"
 serde = { version = "1.0.217", features = ["derive"] }
-serde_json = "1.0.134"
+serde_json = "1.0.135"
 socketioxide = { version = "0.15.1", features = ["tracing"] }
 tokio = { version = "1.42.0", features = [
     "rt-multi-thread",
