@@ -647,7 +647,6 @@ version = "0.0.0-development"
 dependencies = [
  "axum",
  "axum-proxy",
- "backtrace",
  "color-eyre",
  "openssl",
  "rand",
