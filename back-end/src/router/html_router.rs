@@ -16,9 +16,7 @@ pub(crate) fn build_html_router() -> Router {
 
     //     Router::new().nest_service("/", svc)
     // } else {
-    Router::new().nest_service(
-        "/",
-        ServeDir::new("dist").fallback(ServeFile::new("dist/index.html")),
-    )
+    Router::new()
+        .fallback_service(ServeDir::new("dist").fallback(ServeFile::new("dist/index.html")))
     // }
 }
