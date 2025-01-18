@@ -101,6 +101,7 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
                 if let Err(e) = word_socket
                     .get_socket()
                     .emit("hup", &json!({ "id":1, "v":1 }))
+                    .await
                 {
                     event!(Level::ERROR, ?e, "Failed to broadcast");
                     break;
