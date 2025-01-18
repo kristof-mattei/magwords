@@ -52,7 +52,7 @@ color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009
 rand = "0.8.5"
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.135"
-socketioxide = { version = "0.15.1", features = ["tracing"] }
+socketioxide = { version = "0.16.0", features = ["tracing"] }
 tokio = { version = "1.43.0", features = [
     "rt-multi-thread",
     "macros",
