@@ -44,7 +44,7 @@ name = "magwords"
 path = "back-end/tests/integration_tests.rs"
 
 [dependencies]
-axum = { version = "0.8.1" }
+axum = { version = "0.8.2" }
 axum-proxy = { version = "0.3.0", features = ["axum"] }
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
     "track-caller",
