@@ -72,4 +72,4 @@ url = { version = "2.5.3", features = ["serde"] }
 # Documentation on the syntax:
 # https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies
 [target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
-openssl = { version = "0.10.68", features = ["vendored"] }
+openssl = { version = "0.10.69", features = ["vendored"] }
