@@ -15,8 +15,7 @@
         "format": "prettier --write .",
         "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err front-end/src",
         "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot front-end/src | dot -T svg > dependency-graph.svg",
-        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src",
-        "prepare": "husky"
+        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src"
     },
     "engines": {
         "node": ">=22.13.1",
@@ -47,13 +46,10 @@
     "devDependencies": {
         "@actions/tool-cache": "2.0.2",
         "@codecov/vite-plugin": "1.8.0",
-        "@eslint/compat": "1.2.5",
         "@eslint/js": "9.19.0",
-        "@rollup/plugin-inject": "5.0.5",
         "@stylistic/eslint-plugin-ts": "3.0.0",
         "@types/eslint": "9.6.1",
         "@types/node": "22.10.10",
-        "@types/semver": "7.5.8",
         "@vitest/coverage-v8": "3.0.4",
         "@vitest/ui": "3.0.4",
         "bootstrap": "5.3.3",
@@ -69,12 +65,7 @@
         "eslint-plugin-prettier": "5.2.3",
         "eslint-plugin-promise": "7.2.1",
         "eslint-plugin-unicorn": "56.0.1",
-        "husky": "9.1.7",
-        "nock": "14.0.0",
         "prettier": "3.4.2",
-        "sass": "1.83.4",
-        "semver": "7.6.3",
-        "serialize-error": "12.0.0",
         "typescript": "5.7.3",
         "vite": "6.0.11",
         "vite-plugin-checker": "0.8.0",

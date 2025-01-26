@@ -15,6 +15,13 @@ export default defineConfig(({ mode }) => {
 
     const config: UserConfig = {
         appType: "spa",
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    silenceDeprecations: ["mixed-decls", "color-functions", "global-builtin", "import"],
+                },
+            },
+        },
 
         build: {
             emptyOutDir: true,
