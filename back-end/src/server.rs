@@ -1,5 +1,3 @@
-use std::convert::Into;
-use std::future::IntoFuture;
 use std::net::SocketAddr;
 
 use axum::Router;
@@ -16,12 +14,12 @@ pub(crate) async fn setup_server(
 
     let listener = tokio::net::TcpListener::bind(bind_to)
         .await
-        .wrap_err("Failed to bind server to port")?;
+        .wrap_err("Failed to bind Webserver to port")?;
 
-    event!(Level::INFO, ?bind_to, "Server bound successfully");
+    event!(Level::INFO, ?bind_to, "Webserver bound successfully");
 
-    tokio::select! {
-        r = axum::serve(listener, router).into_future() => { Ok(r.map_err(Into::<std::io::Error>::into)?) }
-        () = token.cancelled() => { Ok(()) }
-    }
+    axum::serve(listener, router)
+        .with_graceful_shutdown(token.cancelled_owned())
+        .await
+        .map_err(Into::into)
 }

@@ -43,12 +43,15 @@ opt-level = 3
 name = "magwords"
 path = "back-end/tests/integration_tests.rs"
 
+[features]
+default = []
+tokio-console = ["dep:console-subscriber"]
+
 [dependencies]
-axum = { version = "0.8.2" }
+axum = { version = "0.8.1" }
 axum-proxy = { version = "0.3.0", features = ["axum"] }
-color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
-    "track-caller",
-] }
+color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "c4ee249f7c51dc6452e8704ae8d117d90d6eeebc" }
+console-subscriber = { version = "0.4.1", optional = true }
 rand = "0.8.5"
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.137"
@@ -63,8 +66,8 @@ tokio-util = "0.7.13"
 tower = "0.5.2"
 tower-http = { version = "0.6.2", features = ["cors", "fs", "trace"] }
 tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 tracing-error = "0.2.1"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 url = { version = "2.5.3", features = ["serde"] }
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.
