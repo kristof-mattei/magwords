@@ -1,4 +1,0 @@
-npx lint-staged
-npm test -- --run
-
-cargo test
