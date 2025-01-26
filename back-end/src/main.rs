@@ -11,6 +11,7 @@ use std::env;
 use std::net::SocketAddr;
 use std::time::Duration;
 
+use color_eyre::eyre;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use socketioxide::SocketIo;
@@ -20,9 +21,9 @@ use tokio::task::JoinSet;
 use tokio::time::{sleep, timeout};
 use tokio_util::sync::CancellationToken;
 use tracing::{event, Level};
-use tracing_subscriber::filter::EnvFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::{filter::EnvFilter, Layer};
 
 use crate::router::build_router;
 use crate::server::setup_server;
@@ -173,24 +174,31 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     Ok(())
 }
 
+fn init_tracing() -> Result<(), eyre::Report> {
+    let main_filter = EnvFilter::builder()
+        .parse(env::var(EnvFilter::DEFAULT_ENV).unwrap_or_else(|_| {
+            format!("INFO,{}=TRACE", env!("CARGO_PKG_NAME").replace('-', "_"))
+        }))?;
+
+    let layers = vec![
+        #[cfg(feature = "tokio-console")]
+        console_subscriber::ConsoleLayer::builder()
+            .with_default_env()
+            .spawn()
+            .boxed(),
+        tracing_subscriber::fmt::layer()
+            .with_filter(main_filter)
+            .boxed(),
+        tracing_error::ErrorLayer::default().boxed(),
+    ];
+
+    Ok(tracing_subscriber::registry().with(layers).try_init()?)
+}
+
 fn main() -> Result<(), color_eyre::Report> {
-    // set up .env
-    // dotenv().expect(".env file not found");
+    color_eyre::config::HookBuilder::default().install()?;
 
-    color_eyre::config::HookBuilder::default()
-        .capture_span_trace_by_default(false)
-        .install()?;
-
-    let rust_log_value = env::var(EnvFilter::DEFAULT_ENV)
-        .unwrap_or_else(|_| format!("INFO,{}=TRACE", env!("CARGO_PKG_NAME").replace('-', "_")));
-
-    // set up logger
-    // from_env defaults to RUST_LOG
-    tracing_subscriber::registry()
-        .with(EnvFilter::builder().parse(rust_log_value).unwrap())
-        .with(tracing_subscriber::fmt::layer())
-        .with(tracing_error::ErrorLayer::default())
-        .init();
+    init_tracing()?;
 
     // initialize the runtime
     let rt = tokio::runtime::Runtime::new().unwrap();

@@ -1,22 +1,26 @@
 use axum::Router;
 use tower_http::services::{ServeDir, ServeFile};
+use tracing::{event, Level};
 
 pub(crate) fn build_html_router() -> Router {
-    // TODO restore proxy
-    // if cfg!(debug_assertions) {
-    //     // TODO we'll want to be able to pass this in as an ENV variable
-    //     let vite_proxy_service_builder =
-    //         reverse_proxy_service::builder_http("127.0.0.1:4000").unwrap();
+    if let Ok("true") = std::env::var("USE_PROXY")
+        .map(|v| v.to_ascii_lowercase())
+        .as_deref()
+    {
+        event!(Level::INFO, "Serving website via proxy");
 
-    //     let svc: reverse_proxy_service::ReusedService<
-    //         reverse_proxy_service::Identity,
-    //         reverse_proxy_service::client::HttpConnector,
-    //         _,
-    //     > = vite_proxy_service_builder.build(reverse_proxy_service::rewrite::Identity {});
+        let vite_proxy_service_builder = axum_proxy::builder_http("127.0.0.1:4000").unwrap();
 
-    //     Router::new().nest_service("/", svc)
-    // } else {
-    Router::new()
-        .fallback_service(ServeDir::new("dist").fallback(ServeFile::new("dist/index.html")))
-    // }
+        let svc: axum_proxy::ReusedService<
+            axum_proxy::Identity,
+            axum_proxy::client::HttpConnector,
+            axum::body::Body,
+        > = vite_proxy_service_builder.build(axum_proxy::rewrite::Identity {});
+
+        Router::new().fallback_service(svc)
+    } else {
+        event!(Level::INFO, "Serving website from dist");
+        Router::new()
+            .fallback_service(ServeDir::new("dist").fallback(ServeFile::new("dist/index.html")))
+    }
 }
