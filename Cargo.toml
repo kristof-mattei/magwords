@@ -52,7 +52,7 @@ axum = { version = "0.8.1" }
 axum-proxy = { version = "0.3.0", features = ["axum"] }
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "c4ee249f7c51dc6452e8704ae8d117d90d6eeebc" }
 console-subscriber = { version = "0.4.1", optional = true }
-rand = "0.8.5"
+rand = "0.9.0"
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.137"
 socketioxide = { version = "0.16.0", features = ["tracing"] }
@@ -62,12 +62,12 @@ tokio = { version = "1.43.0", features = [
     "time",
     "signal",
 ] }
-tokio-util = "0.7.13"
-tower = "0.5.2"
-tower-http = { version = "0.6.2", features = ["cors", "fs", "trace"] }
+tokio-util = { version = "0.7.13", features = ["rt"] }
 tracing = "0.1.41"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+tower = "0.5.2"
+tower-http = { version = "0.6.2", features = ["cors", "fs", "trace"] }
 url = { version = "2.5.3", features = ["serde"] }
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.

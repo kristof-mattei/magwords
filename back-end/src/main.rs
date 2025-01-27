@@ -17,22 +17,25 @@ use serde_json::json;
 use socketioxide::SocketIo;
 use states::config::Config;
 use tokio::signal;
-use tokio::task::JoinSet;
 use tokio::time::{sleep, timeout};
 use tokio_util::sync::CancellationToken;
+use tokio_util::task::TaskTracker;
 use tracing::{event, Level};
+use tracing_subscriber::filter::EnvFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
-use tracing_subscriber::{filter::EnvFilter, Layer};
+use tracing_subscriber::Layer;
 
 use crate::router::build_router;
 use crate::server::setup_server;
 use crate::state::ApplicationState;
 use crate::words::setup_socket;
 
-#[allow(clippy::unnecessary_wraps)]
-fn build_configs() -> Result<Config, color_eyre::eyre::Report> {
-    let config = Config {};
+#[expect(clippy::unnecessary_wraps)]
+fn build_configs() -> Result<Config, eyre::Report> {
+    let config = Config {
+        bind_to: SocketAddr::from(([0, 0, 0, 0], 3000)),
+    };
 
     Ok(config)
 }
@@ -59,20 +62,19 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
 
     let (layer, io) = SocketIo::new_layer();
 
-    let router = build_router(application_state, layer);
-
-    let bind_to = SocketAddr::from(([0, 0, 0, 0], 3000));
-
     let word_socket = {
         let words = include_str!("../../assets/word-list.txt");
 
         setup_socket(words, io).await
     };
 
-    let mut tasks = JoinSet::new();
+    let tasks = TaskTracker::new();
 
     {
         let token = token.clone();
+
+        let bind_to = application_state.config.bind_to;
+        let router = build_router(application_state, layer);
 
         tasks.spawn(async move {
             let _guard = token.clone().drop_guard();
@@ -134,16 +136,16 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     // * a message on the shutdown channel, sent either by the server task or
     // another task when they complete (which means they failed)
     tokio::select! {
-        h = utils::wait_for_sigterm() => {
-            if let Err(e) = h {
+        r = utils::wait_for_sigterm() => {
+            if let Err(e) = r {
                 event!(Level::ERROR, message = "Failed to register SIGERM handler, aborting", ?e);
             } else {
                 // we completed because ...
                 event!(Level::WARN, message = "Sigterm detected, stopping all tasks");
             }
         },
-        h = signal::ctrl_c() => {
-            if let Err(e) = h {
+        r = signal::ctrl_c() => {
+            if let Err(e) = r {
                 event!(Level::ERROR, message = "Failed to register CTRL+C handler, aborting", ?e);
             } else {
                 // we completed because ...
@@ -155,11 +157,15 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
         },
     };
 
+    // announce cancel
     token.cancel();
+
+    // close the tracker, otherwise wait doesn't work
+    tasks.close();
 
     // wait for the task that holds the server to exit gracefully
     // it listens to shutdown_send
-    if timeout(Duration::from_millis(10000), tasks.shutdown())
+    if timeout(Duration::from_millis(10000), tasks.wait())
         .await
         .is_err()
     {

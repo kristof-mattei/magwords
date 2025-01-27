@@ -1,9 +1,14 @@
 allowed-duplicate-crates = [
+    "getrandom",
     "matchit",
     "regex-automata",
     "regex-syntax",
+    "rand",
+    "rand_chacha",
+    "rand_core",
     "sync_wrapper",
     "tower",
+    "wasi",
     "windows-sys",
     "windows-targets",
     "windows_aarch64_gnullvm",
@@ -13,4 +18,6 @@ allowed-duplicate-crates = [
     "windows_x86_64_gnu",
     "windows_x86_64_gnullvm",
     "windows_x86_64_msvc",
+    "zerocopy",
+    "zerocopy-derive",
 ]
