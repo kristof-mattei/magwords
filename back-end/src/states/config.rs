@@ -1,4 +1,6 @@
-#![allow(clippy::module_name_repetitions)]
+use std::net::SocketAddr;
 
 #[derive(Clone)]
-pub struct Config {}
+pub struct Config {
+    pub(crate) bind_to: SocketAddr,
+}

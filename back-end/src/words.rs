@@ -75,21 +75,20 @@ pub async fn setup_socket(raw_words: &str, io: SocketIo) -> WordsSocket {
 }
 
 fn build_words(words: &str) -> Box<[WordInfo]> {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     words
         .lines()
         .enumerate()
         .map(|(i, l)| WordInfo {
             id: i,
             word: l.into(),
-            x: rng.gen_range(0..1000),
-            y: rng.gen_range(0..1000),
+            x: rng.random_range(0..1000),
+            y: rng.random_range(0..1000),
         })
         .collect::<Vec<_>>()
         .into()
 }
 
-#[allow(clippy::needless_pass_by_value)]
 async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     event!(
         Level::INFO,
