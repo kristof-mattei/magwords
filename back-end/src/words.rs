@@ -39,6 +39,33 @@ impl WordsSocket {
     pub(crate) fn get_socket(&self) -> SocketIo {
         self.io.clone()
     }
+
+    pub(crate) async fn build(io: SocketIo, raw_words: &str) -> WordsSocket {
+        let word_list = build_words(raw_words);
+
+        {
+            let mut lock = WORD_LIST.lock().await;
+            let _old = std::mem::replace(&mut *lock, word_list.into());
+        }
+
+        let socket_clone = io.clone();
+
+        io.ns("/", |socket, data| async move {
+            on_connect(socket, data).await;
+
+            if let Err(e) = socket_clone
+            .emit(
+                "poets",
+                &json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
+            )
+            .await
+        {
+            event!(Level::ERROR, ?e, "Failed to announce new poet");
+        }
+        });
+
+        WordsSocket { io }
+    }
 }
 
 impl Drop for WordsSocket {
@@ -53,35 +80,9 @@ impl Drop for WordsSocket {
     }
 }
 
-pub async fn setup_socket(raw_words: &str, io: SocketIo) -> WordsSocket {
-    let word_list = build_words(raw_words);
-
-    {
-        let mut lock = WORD_LIST.lock().await;
-        let _old = std::mem::replace(&mut *lock, word_list);
-    }
-
-    let socket_clone = io.clone();
-
-    io.ns("/", |socket, data| async move {
-        on_connect(socket, data).await;
-
-        if let Err(e) = socket_clone
-            .emit(
-                "poets",
-                &json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
-            )
-            .await
-        {
-            event!(Level::ERROR, ?e, "Failed to announce new poet");
-        }
-    });
-
-    WordsSocket { io }
-}
-
-fn build_words(words: &str) -> Box<[WordInfo]> {
+fn build_words(words: &str) -> Vec<WordInfo> {
     let mut rng = rand::rng();
+
     words
         .lines()
         .enumerate()
@@ -92,15 +93,14 @@ fn build_words(words: &str) -> Box<[WordInfo]> {
             y: rng.random_range(0..1000),
         })
         .collect::<Vec<_>>()
-        .into()
 }
 
 async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     event!(
         Level::DEBUG,
-        "Socket.IO connected: {:?} {:?}",
-        socket.ns(),
-        socket.id
+        socket.ns = socket.ns(),
+        %socket.id,
+        "Client connected",
     );
 
     // register handlers
@@ -129,7 +129,7 @@ async fn on_disconnect(socket: SocketRef, reason: DisconnectReason) {
         event!(Level::ERROR, ?e, "Failed to announce poet gone");
     }
 
-    event!(Level::TRACE, ?reason, "Client disconnected");
+    event!(Level::TRACE, ?reason, ns = socket.ns(), %socket.id, "Client disconnected");
 }
 
 async fn on_move(socket: SocketRef, TryData(data): TryData<MoveEventParams>) {

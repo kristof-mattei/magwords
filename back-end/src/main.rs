@@ -25,11 +25,11 @@ use tracing_subscriber::filter::EnvFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::Layer;
+use words::WordsSocket;
 
 use crate::router::build_router;
 use crate::server::setup_server;
 use crate::state::ApplicationState;
-use crate::words::setup_socket;
 
 #[expect(clippy::unnecessary_wraps)]
 fn build_configs() -> Result<Config, eyre::Report> {
@@ -52,12 +52,12 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
 
     let application_state = ApplicationState::new(config);
 
-    let (layer, io) = SocketIo::new_layer();
+    let (layer, socket_io) = SocketIo::new_layer();
 
     let word_socket = {
-        let words = include_str!("../../assets/word-list.txt");
+        let words = include_str!("../../assets/word-list-all.txt");
 
-        setup_socket(words, io).await
+        WordsSocket::build(socket_io, words).await
     };
 
     let tasks = TaskTracker::new();
