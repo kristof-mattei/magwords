@@ -1,6 +1,8 @@
 import { sendMove } from "@/lib/emitters";
+import type { State } from "@/lib/state";
+import { toHtmlWordId } from "@/lib/utils";
 
-export function setupMovable(element: HTMLElement): void {
+export function setupMovable(state: State, element: HTMLElement): void {
     let diffX = 0;
     let diffY = 0;
     let elementWidth = 0;
@@ -127,8 +129,16 @@ export function setupMovable(element: HTMLElement): void {
         document.removeEventListener("mouseup", mouseUp);
         document.removeEventListener("scroll", scroll);
 
-        sendMove(element.id, Math.round(newLeft), Math.round(newTop));
+        sendMove(state, element.id, Math.round(newLeft), Math.round(newTop));
     }
 
     element.addEventListener("mousedown", mouseDown);
+}
+
+export function purgeWords(wordIds: number[]): void {
+    for (const id of wordIds) {
+        const htmlId = `#${toHtmlWordId(id)}`;
+
+        document.querySelector(htmlId)?.remove();
+    }
 }

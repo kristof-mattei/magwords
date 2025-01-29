@@ -10,12 +10,18 @@ use socketioxide::SocketIo;
 use tokio::sync::Mutex;
 use tracing::{event, Level};
 
-use crate::MoveEventParams;
-
 static POETS: AtomicUsize = AtomicUsize::new(0);
 
 static WORD_LIST: std::sync::LazyLock<Mutex<Box<[WordInfo]>>> =
     std::sync::LazyLock::new(|| Mutex::new(Box::new([])));
+
+#[derive(Debug, Deserialize, Serialize)]
+struct MoveEventParams {
+    id: usize,
+    v: usize,
+    x: u32,
+    y: u32,
+}
 
 #[derive(Debug, Deserialize, Serialize)]
 struct WordInfo {
@@ -33,6 +39,33 @@ impl WordsSocket {
     pub(crate) fn get_socket(&self) -> SocketIo {
         self.io.clone()
     }
+
+    pub(crate) async fn build(io: SocketIo, raw_words: &str) -> WordsSocket {
+        let word_list = build_words(raw_words);
+
+        {
+            let mut lock = WORD_LIST.lock().await;
+            let _old = std::mem::replace(&mut *lock, word_list.into());
+        }
+
+        let socket_clone = io.clone();
+
+        io.ns("/", |socket, data| async move {
+            on_connect(socket, data).await;
+
+            if let Err(e) = socket_clone
+            .emit(
+                "poets",
+                &json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
+            )
+            .await
+        {
+            event!(Level::ERROR, ?e, "Failed to announce new poet");
+        }
+        });
+
+        WordsSocket { io }
+    }
 }
 
 impl Drop for WordsSocket {
@@ -47,35 +80,9 @@ impl Drop for WordsSocket {
     }
 }
 
-pub async fn setup_socket(raw_words: &str, io: SocketIo) -> WordsSocket {
-    let word_list = build_words(raw_words);
-
-    {
-        let mut lock = WORD_LIST.lock().await;
-        let _old = std::mem::replace(&mut *lock, word_list);
-    }
-
-    let socket_clone = io.clone();
-
-    io.ns("/", |socket, data| async move {
-        on_connect(socket, data).await;
-
-        if let Err(e) = socket_clone
-            .emit(
-                "poets",
-                &json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
-            )
-            .await
-        {
-            event!(Level::ERROR, ?e, "Failed to announce new poet");
-        }
-    });
-
-    WordsSocket { io }
-}
-
-fn build_words(words: &str) -> Box<[WordInfo]> {
+fn build_words(words: &str) -> Vec<WordInfo> {
     let mut rng = rand::rng();
+
     words
         .lines()
         .enumerate()
@@ -86,15 +93,14 @@ fn build_words(words: &str) -> Box<[WordInfo]> {
             y: rng.random_range(0..1000),
         })
         .collect::<Vec<_>>()
-        .into()
 }
 
 async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     event!(
-        Level::INFO,
-        "Socket.IO connected: {:?} {:?}",
-        socket.ns(),
-        socket.id
+        Level::DEBUG,
+        socket.ns = socket.ns(),
+        %socket.id,
+        "Client connected",
     );
 
     // register handlers
@@ -112,23 +118,25 @@ async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
 }
 
 async fn on_disconnect(socket: SocketRef, reason: DisconnectReason) {
+    // adjust
+    let new_poets = POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1;
+
     if let Err(e) = socket
         .broadcast()
-        .emit(
-            "poets",
-            &json!({ "count": POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1 }),
-        )
+        .emit("poets", &json!({ "count": new_poets }))
         .await
     {
         event!(Level::ERROR, ?e, "Failed to announce poet gone");
     }
-    event!(Level::TRACE, ?reason, "Disconnect");
+
+    event!(Level::TRACE, ?reason, ns = socket.ns(), %socket.id, "Client disconnected");
 }
 
 async fn on_move(socket: SocketRef, TryData(data): TryData<MoveEventParams>) {
     match data {
         Ok(m) => {
             let mut lock = (WORD_LIST).lock().await;
+
             let word = lock.index_mut(m.id);
 
             word.x = m.x;
