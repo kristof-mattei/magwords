@@ -9,6 +9,7 @@
     },
     "rust-analyzer.debug.openDebugPane": true,
     "rust-analyzer.runnables.extraEnv": {
-        "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+        "USE_PROXY": "true",
+        "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
     }
 }

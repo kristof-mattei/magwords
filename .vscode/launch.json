@@ -19,7 +19,8 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+                "USE_PROXY": "true",
+                "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
             "internalConsoleOptions": "openOnSessionStart",
             "terminal": "console"
@@ -39,7 +40,8 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+                "USE_PROXY": "true",
+                "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
             "internalConsoleOptions": "openOnSessionStart",
             "terminal": "console"
@@ -59,7 +61,8 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+                "USE_PROXY": "true",
+                "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
             "internalConsoleOptions": "openOnSessionStart",
             "terminal": "console"

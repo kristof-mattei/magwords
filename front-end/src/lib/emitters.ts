@@ -1,9 +1,9 @@
-import { state, version } from "@/entrypoints/index";
+import type { State } from "@/lib/state";
 
-export function sendMove(id: string, x: number, y: number): void {
+export function sendMove(state: State, id: string, x: number, y: number): void {
     state.socket.emit("move", {
         id: Number.parseInt(id.slice(2), 10),
-        v: version,
+        v: state.version,
         x,
         y,
     });

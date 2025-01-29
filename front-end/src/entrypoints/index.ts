@@ -1,16 +1,20 @@
-import "bootstrap";
-
 import { io } from "socket.io-client";
 
-import { setupHandlers } from "@/lib/listeners";
+import { State } from "@/lib/state";
 
-export const version = 1; // version
+import { WebSocketHandler } from "@/lib/web-socket-handler";
 
-export const state = {
-    socket: io("http://localhost:3000/", {
-        transports: ["websocket"], // webtransport
-    }),
-    poets: 0,
-};
+import "bootstrap";
 
-setupHandlers();
+// @ts-expect-error 6133
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- keep reference
+const _handler = new WebSocketHandler(
+    new State(
+        io({
+            transports: ["websocket"], // webtransport does not work
+        }),
+        1,
+    ),
+);
+
+// the socket from `io` keeps the handler alive

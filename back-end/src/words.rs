@@ -10,12 +10,18 @@ use socketioxide::SocketIo;
 use tokio::sync::Mutex;
 use tracing::{event, Level};
 
-use crate::MoveEventParams;
-
 static POETS: AtomicUsize = AtomicUsize::new(0);
 
 static WORD_LIST: std::sync::LazyLock<Mutex<Box<[WordInfo]>>> =
     std::sync::LazyLock::new(|| Mutex::new(Box::new([])));
+
+#[derive(Debug, Deserialize, Serialize)]
+struct MoveEventParams {
+    id: usize,
+    v: usize,
+    x: u32,
+    y: u32,
+}
 
 #[derive(Debug, Deserialize, Serialize)]
 struct WordInfo {
@@ -91,7 +97,7 @@ fn build_words(words: &str) -> Box<[WordInfo]> {
 
 async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     event!(
-        Level::INFO,
+        Level::DEBUG,
         "Socket.IO connected: {:?} {:?}",
         socket.ns(),
         socket.id
@@ -112,23 +118,25 @@ async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
 }
 
 async fn on_disconnect(socket: SocketRef, reason: DisconnectReason) {
+    // adjust
+    let new_poets = POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1;
+
     if let Err(e) = socket
         .broadcast()
-        .emit(
-            "poets",
-            &json!({ "count": POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1 }),
-        )
+        .emit("poets", &json!({ "count": new_poets }))
         .await
     {
         event!(Level::ERROR, ?e, "Failed to announce poet gone");
     }
-    event!(Level::TRACE, ?reason, "Disconnect");
+
+    event!(Level::TRACE, ?reason, "Client disconnected");
 }
 
 async fn on_move(socket: SocketRef, TryData(data): TryData<MoveEventParams>) {
     match data {
         Ok(m) => {
             let mut lock = (WORD_LIST).lock().await;
+
             let word = lock.index_mut(m.id);
 
             word.x = m.x;

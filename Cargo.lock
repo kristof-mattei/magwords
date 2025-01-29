@@ -975,6 +975,7 @@ dependencies = [
  "axum-proxy",
  "color-eyre",
  "console-subscriber",
+ "futures-util",
  "openssl",
  "rand 0.9.0",
  "serde",

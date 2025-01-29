@@ -12,7 +12,7 @@ use std::net::SocketAddr;
 use std::time::Duration;
 
 use color_eyre::eyre;
-use serde::{Deserialize, Serialize};
+use futures_util::StreamExt;
 use serde_json::json;
 use socketioxide::SocketIo;
 use states::config::Config;
@@ -38,14 +38,6 @@ fn build_configs() -> Result<Config, eyre::Report> {
     };
 
     Ok(config)
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-struct MoveEventParams {
-    id: usize,
-    v: usize,
-    x: u32,
-    y: u32,
 }
 
 /// starts all the tasks, such as the web server, the key refresh, ...
@@ -101,29 +93,21 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
             while !token.is_cancelled() {
                 sleep(Duration::from_millis(1000)).await;
 
-                if let Err(e) = word_socket
+                let r = word_socket
                     .get_socket()
-                    .emit("hup", &json!({ "id":1, "v":1 }))
-                    .await
-                {
-                    event!(Level::ERROR, ?e, "Failed to broadcast");
-                    break;
+                    .emit_with_ack::<_, serde_json::Value>("hup", &json!({ "id": 1, "v": 1 }))
+                    .await;
+
+                match r {
+                    Ok(act) => {
+                        act.for_each_concurrent(Some(10), |(_sid, _ack)| async move {})
+                            .await;
+                    },
+                    Err(e) => {
+                        event!(Level::ERROR, ?e, "Failed to broadcast");
+                        break;
+                    },
                 }
-                // let r = word_socket
-                //     .get_socket()
-                //     .emit_with_ack::<serde_json::Value>("hup", json!({ "id":1, "v":1 }));
-                // match r {
-                //     Ok(o) => {
-                //         o.for_each(|(sid, ack)| async move {
-                //             event!(Level::INFO, ?sid, ?ack, "Ack!");
-                //         })
-                //         .await;
-                //     },
-                //     Err(e) => {
-                //         event!(Level::ERROR, ?e, "Failed to broadcast");
-                //         break;
-                //     },
-                // }
             }
 
             drop(word_socket);
