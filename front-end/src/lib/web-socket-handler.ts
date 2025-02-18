@@ -1,7 +1,7 @@
 import { purgeWords, setupMovable } from "@/lib/handlers";
 import type { State } from "@/lib/state";
 import type { Hup, MoveEventParameters, Poets, Word } from "@/lib/types";
-import { reload, toHtmlWordId } from "@/lib/utils";
+import { reload, toHtmlWordId } from "@/lib/utilities";
 
 export class WebSocketHandler {
     private readonly state: State;
