@@ -3,7 +3,7 @@ use std::net::SocketAddr;
 use axum::Router;
 use color_eyre::eyre::Context;
 use tokio_util::sync::CancellationToken;
-use tracing::{event, Level};
+use tracing::{Level, event};
 
 pub(crate) async fn setup_server(
     bind_to: SocketAddr,

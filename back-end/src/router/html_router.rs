@@ -1,6 +1,6 @@
 use axum::Router;
 use tower_http::services::{ServeDir, ServeFile};
-use tracing::{event, Level};
+use tracing::{Level, event};
 
 pub(crate) fn build_html_router() -> Router {
     if let Ok("true") = std::env::var("USE_PROXY")
