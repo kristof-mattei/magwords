@@ -3,17 +3,17 @@ FROM --platform=${BUILDPLATFORM} rust:1.85.0@sha256:ad7e5fd44a71f317c88993a64d40
 ARG APPLICATION_NAME
 
 RUN rm -f /etc/apt/apt.conf.d/docker-clean \
-    && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' >/etc/apt/apt.conf.d/keep-cache
+    && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
 # borrowed (Ba Dum Tss!) from
 # https://github.com/pablodeymo/rust-musl-builder/blob/7a7ea3e909b1ef00c177d9eeac32d8c9d7d6a08c/Dockerfile#L48-L49
 RUN --mount=type=cache,id=apt-cache-amd64,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=apt-lib-amd64,target=/var/lib/apt,sharing=locked \
-    apt-get update && \
-    apt-get --no-install-recommends install -y \
-    build-essential \
-    musl-dev \
-    musl-tools
+    apt-get update \
+    && apt-get --no-install-recommends install --yes \
+        build-essential \
+        musl-dev \
+        musl-tools
 
 FROM rust-base AS rust-linux-amd64
 ARG TARGET=x86_64-unknown-linux-musl
@@ -22,11 +22,11 @@ FROM rust-base AS rust-linux-arm64
 ARG TARGET=aarch64-unknown-linux-musl
 RUN --mount=type=cache,id=apt-cache-arm64,from=rust-base,source=/var/cache/apt,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=apt-lib-arm64,from=rust-base,source=/var/lib/apt,target=/var/lib/apt,sharing=locked \
-    dpkg --add-architecture arm64 && \
-    apt-get update && \
-    apt-get --no-install-recommends install -y \
-    libc6-dev-arm64-cross \
-    gcc-aarch64-linux-gnu
+    dpkg --add-architecture arm64 \
+    && apt-get update \
+    && apt-get --no-install-recommends install --yes \
+        libc6-dev-arm64-cross \
+        gcc-aarch64-linux-gnu
 
 FROM rust-${TARGETPLATFORM//\//-} AS rust-cargo-build
 
@@ -78,24 +78,34 @@ COPY package.json package-lock.json vite.config.ts tsconfig.json ./
 
 ARG NPM_CONFIG_FUND=false
 RUN --mount=type=cache,id=npm-dependencies,target=/root/.npm \
-    npm i -g npm@latest && \
-    npm ci --include=dev
+    npm i -g npm@latest \
+    && npm ci --include=dev
 
 # now we copy in the rest
 COPY front-end ./front-end/
 
 RUN npm run build
+FROM alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c AS passwd-build
 
-FROM alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+# setting `--system` prevents prompting for a password
+RUN addgroup --gid 900 appgroup \
+    && adduser --ingroup appgroup --uid 900 --system --shell /bin/false appuser
+
+RUN cat /etc/group | grep appuser > /tmp/group_appuser
+RUN cat /etc/passwd | grep appuser > /tmp/passwd_appuser
+
+FROM scratch
 
 ARG APPLICATION_NAME
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+COPY --from=passwd-build /tmp/group_appuser /etc/group
+COPY --from=passwd-build /tmp/passwd_appuser /etc/passwd
+
 USER appuser
 
 WORKDIR /app
 
-COPY --from=rust-build /output/bin/* /app/entrypoint
+COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/entrypoint
 COPY --from=typescript-build /build/dist /app/dist
 
 ENV RUST_BACKTRACE=full
