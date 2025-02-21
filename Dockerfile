@@ -78,8 +78,8 @@ COPY package.json package-lock.json vite.config.ts tsconfig.json ./
 
 ARG NPM_CONFIG_FUND=false
 RUN --mount=type=cache,id=npm-dependencies,target=/root/.npm \
-    npm i -g npm@latest && \
-    npm ci --include=dev
+    npm i -g npm@latest \
+    && npm ci --include=dev
 
 # now we copy in the rest
 COPY front-end ./front-end/
