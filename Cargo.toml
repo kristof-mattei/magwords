@@ -45,7 +45,7 @@ default = []
 tokio-console = ["dep:console-subscriber"]
 
 [dependencies]
-axum = { version = "0.8.1" }
+axum = { version = "0.8.3" }
 axum-proxy = { version = "0.3.0", features = ["axum"] }
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "c4ee249f7c51dc6452e8704ae8d117d90d6eeebc" }
 console-subscriber = { version = "0.4.1", optional = true }
