@@ -1,3 +1,6 @@
+.git
+.github/actions/
+CHANGELOG.md
 profiling
 reports
 back-end/src   # rust-fmt
