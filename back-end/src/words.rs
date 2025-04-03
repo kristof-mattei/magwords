@@ -114,7 +114,7 @@ async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     // send client current words
     if let Err(e) = socket.emit("words", &[&*WORD_LIST.lock().await]) {
         event!(Level::TRACE, ?e, "Failed to send words to new client");
-    };
+    }
 }
 
 async fn on_disconnect(socket: SocketRef, reason: DisconnectReason) {
@@ -144,10 +144,10 @@ async fn on_move(socket: SocketRef, TryData(data): TryData<MoveEventParams>) {
 
             if let Err(e) = socket.broadcast().emit("move", &m).await {
                 event!(Level::TRACE, ?e, "Failed to broadcast");
-            };
+            }
         },
         Err(e) => {
             event!(Level::TRACE, ?e, "Invalid move received");
         },
-    };
+    }
 }
