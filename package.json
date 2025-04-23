@@ -18,7 +18,7 @@
     "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src"
   },
   "engines": {
-    "node": ">=22.14.0",
+    "node": ">=22.15.0",
     "npm": ">=11.3.0"
   },
   "repository": {
