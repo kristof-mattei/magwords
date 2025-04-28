@@ -105,11 +105,7 @@ function addWord(state: State, fridge: Element, word: Word): void {
     const wordElement = document.createElement("span");
 
     wordElement.id = wordId;
-    wordElement.classList.add("draggable");
-    wordElement.classList.add("ui-widget-content");
-    wordElement.classList.add("ui-draggable");
-    wordElement.classList.add("ui-draggable-handle");
-    wordElement.classList.add("word");
+    wordElement.classList.add("draggable", "ui-widget-content", "ui-draggable", "ui-draggable-handle", "word");
     wordElement.style.left = `${word.x}px`;
     wordElement.style.top = `${word.y}px`;
 
