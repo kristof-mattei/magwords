@@ -22,8 +22,8 @@
                 "USE_PROXY": "true",
                 "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
-            "internalConsoleOptions": "openOnSessionStart",
-            "terminal": "console"
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
         },
         {
             "type": "lldb",
@@ -43,8 +43,8 @@
                 "USE_PROXY": "true",
                 "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
-            "internalConsoleOptions": "openOnSessionStart",
-            "terminal": "console"
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
         },
         {
             "type": "lldb",
@@ -64,8 +64,8 @@
                 "USE_PROXY": "true",
                 "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
             },
-            "internalConsoleOptions": "openOnSessionStart",
-            "terminal": "console"
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
         }
     ]
 }
