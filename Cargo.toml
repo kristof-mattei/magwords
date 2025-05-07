@@ -68,7 +68,7 @@ tracing = "0.1.41"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 tower = "0.5.2"
-tower-http = { version = "0.6.2", features = ["cors", "fs", "trace"] }
+tower-http = { version = "0.6.3", features = ["cors", "fs", "trace"] }
 url = { version = "2.5.3", features = ["serde"] }
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.
