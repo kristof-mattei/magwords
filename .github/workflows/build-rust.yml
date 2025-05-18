@@ -62,10 +62,10 @@ jobs:
           path: |
             ~/.cargo
             ./target
-          key: ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-build
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-build
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
         uses: rui314/setup-mold@e16410e7f8d9e167b74ad5697a9089a35126eb50 # v1
@@ -112,10 +112,10 @@ jobs:
           path: |
             ~/.cargo
             ./target
-          key: ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-fmt
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-fmt
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
         uses: rui314/setup-mold@e16410e7f8d9e167b74ad5697a9089a35126eb50 # v1
@@ -166,10 +166,10 @@ jobs:
           path: |
             ~/.cargo
             ./target
-          key: ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-test
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-test
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
         uses: rui314/setup-mold@e16410e7f8d9e167b74ad5697a9089a35126eb50 # v1
@@ -188,10 +188,10 @@ jobs:
 
           cargo --version
 
-      - name: Install llvm-tools-preview
+      - name: Install llvm-tools
         shell: bash
         run: |
-          rustup component add llvm-tools-preview
+          rustup component add llvm-tools
 
       - name: Get binstall
         shell: bash
@@ -299,10 +299,10 @@ jobs:
           path: |
             ~/.cargo
             ./target
-          key: ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-clippy
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-clippy
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
-            ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-${{ hashFiles('Cargo.lock') }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
         uses: rui314/setup-mold@e16410e7f8d9e167b74ad5697a9089a35126eb50 # v1
