@@ -27,6 +27,10 @@ perf = "warn"
 style = "warn"
 suspicious = "warn"
 
+# this has 0 performance implications, the binding is compiled away, and it could cause issues
+# when done blindly, plus it makes it harder to debug as you cannot put breakpoints on return
+# values of functions (yet)
+let_and_return = { level = "allow", priority = 127 }
 # this one is debatable. continue is used in places to be explicit, and to guard against
 # issues when refactoring
 needless_continue = { level = "allow", priority = 127 }
@@ -50,7 +54,7 @@ tokio-console = ["dep:console-subscriber"]
 [dependencies]
 axum = { version = "0.8.4" }
 axum-proxy = { version = "0.5.0", features = ["axum"] }
-color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "c4ee249f7c51dc6452e8704ae8d117d90d6eeebc" }
+color-eyre = "0.6.4"
 console-subscriber = { version = "0.4.1", optional = true }
 futures-util = "0.3.31"
 rand = "0.9.1"
@@ -64,16 +68,9 @@ tokio = { version = "1.45.0", features = [
     "signal",
 ] }
 tokio-util = { version = "0.7.15", features = ["rt"] }
+tower = "0.5.2"
+tower-http = { version = "0.6.3", features = ["cors", "fs", "trace"] }
 tracing = "0.1.41"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
-tower = "0.5.2"
-tower-http = { version = "0.6.3", features = ["cors", "fs", "trace"] }
 url = { version = "2.5.3", features = ["serde"] }
-
-# We compile the Docker container with musl to get a static library. Smaller, faster.
-# BUT that means that we need to include openssl
-# Documentation on the syntax:
-# https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies
-[target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
-openssl = { version = "0.10.72", features = ["vendored"] }
