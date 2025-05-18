@@ -3,7 +3,7 @@
 # sane defaults
 compiler="gcc"
 # static linking
-flags="-Clink-self-contained=yes -Clinker=rust-lld"
+flags="-Clink-self-contained=yes -Clinker=rust-lld --cfg tokio_unstable"
 
 # mind the space between the [ and "
 if [[ "$BUILDPLATFORM" != "$TARGETPLATFORM" ]]; then
