@@ -30,7 +30,12 @@
             "request": "launch",
             "name": "Debug unit tests in executable 'magwords'",
             "cargo": {
-                "args": ["test", "--no-run", "--bin=magwords", "--package=magwords"],
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=magwords",
+                    "--package=magwords"
+                ],
                 "filter": {
                     "name": "magwords",
                     "kind": "bin"
@@ -51,7 +56,12 @@
             "request": "launch",
             "name": "Debug integration test 'integration_tests'",
             "cargo": {
-                "args": ["test", "--no-run", "--test=integration_tests", "--package=magwords"],
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=integration_tests",
+                    "--package=magwords"
+                ],
                 "filter": {
                     "name": "integration_tests",
                     "kind": "test"
