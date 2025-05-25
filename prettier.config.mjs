@@ -20,6 +20,7 @@ export default {
             files: ["**/*.json"],
             options: {
                 trailingComma: "none",
+                printWidth: 80,
             },
         },
         {
