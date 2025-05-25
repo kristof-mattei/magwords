@@ -1,5 +1,5 @@
 import js from "@eslint/js";
-import stylistic from "@stylistic/eslint-plugin-ts";
+import stylistic from "@stylistic/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import love from "eslint-config-love";
 import commentsPlugin from "eslint-plugin-eslint-comments";
