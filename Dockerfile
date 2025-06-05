@@ -72,7 +72,7 @@ RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
     ./build.sh install --path . --target ${TARGET} --root /output
 
 # Front-end (NPM) build
-FROM --platform=${BUILDPLATFORM} node:22.12.0-alpine AS typescript-build
+FROM --platform=${BUILDPLATFORM} node:22.12.0-alpine@sha256:51eff88af6dff26f59316b6e356188ffa2c422bd3c3b76f2556a2e7e89d080bd AS typescript-build
 
 # The following block
 # creates an empty app, and we copy in package.json and packge-lock.json as they represent our dependencies
