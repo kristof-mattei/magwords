@@ -1,20 +1,21 @@
 shared: &shared
-  - ".nvmrc"
   - ".github/**"
+  - ".nvmrc"
+  - "assets/**"
+  - "build-scripts/**"
 docker:
   - *shared
   - Dockerfile
 rust:
   - *shared
+  - "*.toml"
   - ".cargo/**"
   - "backend-end/**"
   - Cargo.lock
-  - "*.toml"
 typescript:
   - *shared
-  - "front-end/**"
   - "**/*.ts"
-  - "**/*.cjs"
   - "**/*.mjs"
+  - "front-end/**"
   - "package.json"
   - "package-lock.json"
