@@ -2,8 +2,9 @@
 name: Build Rust
 
 permissions:
-  contents: read
   checks: write
+  contents: read
+  id-token: write
   pull-requests: write
 
 env:
@@ -252,26 +253,37 @@ jobs:
       - name: Run grcov
         shell: bash
         run: |
-          grcov $(find . -name "profile-*.profraw" -print) --source-dir ./back-end/ --binary-path ./target/debug/ --output-type lcov --branch --ignore-not-existing --llvm --keep-only "src/**" --output-path ./reports/lcov.info
+          grcov $(find . -name "profile-*.profraw" -print) \
+            --binary-path ./target/debug/ \
+            --branch \
+            --ignore-not-existing \
+            --keep-only "src/**" \
+            --llvm \
+            --output-path ./reports/lcov.info \
+            --output-type lcov \
+            --source-dir .
 
       - name: Upload coverage results (to Codecov.io)
         uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
         with:
           disable_search: true
+          disable_telem: true
           fail_ci_if_error: true
           flags: back-end
           files: reports/lcov.info
           plugins: ""
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@47f89e9acb64b76debcd5ea40642d25a4adced9f # v1.1.1
         with:
           disable_search: true
+          # doesn't exist here... yet
+          # disable_telem: true
           fail_ci_if_error: true
-          files: reports/results.xml
           flags: back-end
-          token: ${{ secrets.CODECOV_TOKEN }}
+          files: reports/results.xml
+          use_oidc: true
 
       - name: Fail if tests failed
         shell: bash
