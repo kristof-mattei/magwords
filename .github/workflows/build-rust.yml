@@ -245,7 +245,7 @@ jobs:
       - name: Upload test results
         uses: EnricoMi/publish-unit-test-result-action@3a74b2957438d0b6e2e61d67b05318aa25c9e6c6 # v2.20.0
         with:
-          check_name: Test results
+          check_name: Test results for Rust
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             reports/results.xml
@@ -261,7 +261,7 @@ jobs:
             --llvm \
             --output-path ./reports/lcov.info \
             --output-type lcov \
-            --source-dir .
+            --source-dir ./back-end/
 
       - name: Upload coverage results (to Codecov.io)
         uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3

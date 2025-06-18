@@ -1,14 +1,17 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Build TypeScript
 
+on:
+  workflow_call:
+
 permissions:
   checks: write
   contents: read
   id-token: write
   pull-requests: write
 
-on:
-  workflow_call:
+env:
+  NPM_CONFIG_FUND: "false"
 
 jobs:
   warm-up-cache:
@@ -181,6 +184,14 @@ jobs:
         continue-on-error: true
         run: |
           npm run test -- --reporter=basic --reporter=github-actions --reporter=junit --coverage.reporter=text --coverage.reporter=lcovonly
+
+      - name: Upload test results
+        uses: EnricoMi/publish-unit-test-result-action@3a74b2957438d0b6e2e61d67b05318aa25c9e6c6 # v2.20.0
+        with:
+          check_name: Test results for TypeScript
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            reports/vitest/test-report.xml
 
       - name: Upload coverage results (to Codecov.io)
         uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
