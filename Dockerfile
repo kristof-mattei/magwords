@@ -58,6 +58,7 @@ WORKDIR /build
 
 # now we copy in the source which is more prone to changes and build it
 COPY ./back-end ./back-end
+COPY ./assets ./assets
 
 # ensure cargo picks up on the change
 RUN touch ./back-end/src/main.rs
