@@ -357,8 +357,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - cargo-build
-      - cargo-fmt
       - cargo-clippy-and-report
+      - cargo-fmt
       - cargo-test-and-report
     if: |
       always()
