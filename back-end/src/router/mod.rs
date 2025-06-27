@@ -16,7 +16,6 @@ use self::api_router::build_api_router;
 use self::html_router::build_html_router;
 use crate::state::ApplicationState;
 
-#[expect(clippy::unused_async)]
 async fn handler_404() -> impl IntoResponse {
     (StatusCode::NOT_FOUND, "nothing to see here")
 }

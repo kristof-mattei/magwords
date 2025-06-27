@@ -1,6 +1,6 @@
 use url::Url;
 
-#[expect(dead_code)]
+#[cfg_attr(not(test), expect(dead_code))]
 pub fn add_segments(mut base_url: Url, segments: &[&str]) -> Url {
     {
         let mut s = base_url.path_segments_mut().expect("URL is relative");
