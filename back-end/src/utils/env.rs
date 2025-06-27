@@ -2,7 +2,7 @@ use color_eyre::Report;
 use color_eyre::eyre::Context;
 use url::Url;
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 pub fn get_env_as_url(key: &str) -> Result<Url, Report> {
     let value = std::env::var(key)?;
 
