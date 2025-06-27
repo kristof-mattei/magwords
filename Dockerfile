@@ -25,10 +25,11 @@ ARG TARGET=aarch64-unknown-linux-musl
 
 FROM rust-${TARGETPLATFORM//\//-} AS rust-cargo-build
 
-COPY ./build-scripts/setup-env.sh .
+COPY ./build-scripts /build-scripts
+
 RUN --mount=type=cache,id=apt-cache,from=rust-base,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=apt-lib,from=rust-base,target=/var/lib/apt,sharing=locked \
-    ./setup-env.sh
+    /build-scripts/setup-env.sh
 
 RUN rustup target add ${TARGET}
 
@@ -37,46 +38,42 @@ RUN rustup target add ${TARGET}
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
-RUN cargo new ${APPLICATION_NAME}
 
-WORKDIR /build/${APPLICATION_NAME}
+RUN cargo init --name ${APPLICATION_NAME}
 
-COPY ./build-scripts/build.sh .
-
-COPY .cargo ./.cargo
-COPY Cargo.toml Cargo.lock ./
+COPY ./.cargo ./Cargo.toml ./Cargo.lock ./
 
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
 RUN mkdir -p back-end/src && mv src/main.rs back-end/src/main.rs
 
-RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
-    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db,sharing=locked \
-    --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
-    ./build.sh build --release --target ${TARGET}
+RUN --mount=type=cache,target=/build/target,sharing=locked \
+    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
+    --mount=type=cache,id=cargo-registry,target=/usr/local/cargo/registry \
+    /build-scripts/build.sh build --release --target ${TARGET}
 
 # Rust full build
 FROM rust-cargo-build AS rust-build
 
-WORKDIR /build/${APPLICATION_NAME}
+WORKDIR /build
 
 # now we copy in the source which is more prone to changes and build it
-COPY back-end ./back-end
-COPY assets ./assets
+COPY ./back-end ./back-end
+COPY ./assets ./assets
 
 # ensure cargo picks up on the change
 RUN touch ./back-end/src/main.rs
 
 # --release not needed, it is implied with install
-RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
-    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db,sharing=locked \
-    --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
-    ./build.sh install --path . --locked --target ${TARGET} --root /output
+RUN --mount=type=cache,target=/build/target,sharing=locked \
+    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
+    --mount=type=cache,id=cargo-registry,target=/usr/local/cargo/registry \
+    /build-scripts/build.sh install --path . --locked --target ${TARGET} --root /output
 
 # Front-end (NPM) build
 FROM --platform=${BUILDPLATFORM} node:22.17.0-alpine@sha256:5340cbfc2df14331ab021555fdd9f83f072ce811488e705b0e736b11adeec4bb AS typescript-build
 
 # The following block
-# creates an empty app, and we copy in package.json and packge-lock.json as they represent our dependencies
+# creates an empty app, and we copy in package.json and package-lock.json as they represent our dependencies
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
@@ -110,13 +107,13 @@ ARG APPLICATION_NAME
 COPY --from=passwd-build /tmp/group_appuser /etc/group
 COPY --from=passwd-build /tmp/passwd_appuser /etc/passwd
 
-USER appuser
-
-WORKDIR /app
-
 COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/entrypoint
 COPY --from=typescript-build /build/dist /app/dist
 
+USER appuser
+
 ENV RUST_BACKTRACE=full
+
+WORKDIR /app
 
 ENTRYPOINT ["/app/entrypoint"]
