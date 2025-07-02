@@ -33,11 +33,21 @@ jobs:
     name: Build Rust code
     uses: ./.github/workflows/build-rust.yml
     secrets: inherit
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
+      pull-requests: write
 
   build-typescript:
     name: Build TypeScript code
     uses: ./.github/workflows/build-typescript.yml
     secrets: inherit
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
+      pull-requests: write
 
   repo-has-container:
     name: Repo has container?
