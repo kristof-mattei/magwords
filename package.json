@@ -1,16 +1,16 @@
 {
   "name": "magwords",
   "version": "0.0.0-development",
-  "description": "It's written in Rust!",
+  "description": "Magnetic words",
   "type": "module",
-  "main": "src/main.rs",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:watch": "vite build --watch",
     "test": "vitest --coverage.enabled=true",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "npm run lint --fix",
     "preview": "vite preview",
     "format": "prettier --write .",
     "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err front-end/src",
@@ -18,32 +18,32 @@
     "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src"
   },
   "engines": {
-    "node": ">=22.17.0",
-    "npm": ">=11.4.2"
+    "node": "22.17.0",
+    "pnpm": "9.15.9"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/kristof-mattei/magwords"
   },
-  "author": "",
+  "author": "Kristof Mattei",
   "license": "ISC",
+  "homepage": "https://github.com/kristof-mattei/magwords#readme",
   "bugs": {
     "url": "https://github.com/kristof-mattei/magwords/issues"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint -- ",
+      "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate -- "
+    ],
+    "*": [
+      "prettier --ignore-unknown --"
+    ]
   },
   "dependencies": {
     "bootstrap": "5.3.7",
     "socket.io-client": "4.8.1"
   },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix -- ",
-      "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate -- "
-    ],
-    "*": [
-      "prettier --ignore-unknown --write --"
-    ]
-  },
-  "homepage": "https://github.com/kristof-mattei/magwords#readme",
   "devDependencies": {
     "@codecov/vite-plugin": "1.9.1",
     "@eslint/js": "9.30.1",
@@ -66,10 +66,11 @@
     "eslint-plugin-unicorn": "59.0.1",
     "prettier": "3.6.2",
     "prettier-plugin-sh": "0.18.0",
-    "sass": "1.89.2",
+    "sass-embedded": "1.89.2",
     "typescript": "5.8.3",
     "vite": "6.3.5",
     "vite-plugin-checker": "0.9.3",
+    "vite-plugin-dts": "4.5.4",
     "vite-plugin-svgr": "4.3.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"

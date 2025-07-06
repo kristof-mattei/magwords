@@ -72,22 +72,27 @@ RUN --mount=type=cache,target=/build/target,sharing=locked \
 # Front-end (NPM) build
 FROM --platform=${BUILDPLATFORM} node:22.17.0-alpine@sha256:5340cbfc2df14331ab021555fdd9f83f072ce811488e705b0e736b11adeec4bb AS typescript-build
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 # The following block
 # creates an empty app, and we copy in package.json and package-lock.json as they represent our dependencies
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
-COPY package.json package-lock.json vite.config.ts tsconfig.json ./
+COPY package.json pnpm-lock.yaml vite.config.ts tsconfig.json ./
 
-ARG NPM_CONFIG_FUND=false
-RUN --mount=type=cache,id=npm-dependencies,target=/root/.npm \
-    npm i -g npm@latest \
-    && npm ci --include=dev
+RUN npm pkg delete scripts.prepare
+# install the corepack our package requires
+RUN corepack install
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # now we copy in the rest
 COPY front-end ./front-end/
 
-RUN npm run build
+RUN pnpm run build
 
 # Container user setup
 FROM --platform=${BUILDPLATFORM} alpine:3.22.0@sha256:8a1f59ffb675680d47db6337b49d22281a139e9d709335b492be023728e11715 AS passwd-build
