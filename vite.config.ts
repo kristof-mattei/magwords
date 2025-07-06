@@ -5,7 +5,6 @@ import type { UserConfig } from "vite";
 import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
 
-import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
@@ -42,7 +41,6 @@ export default defineConfig(({ mode }) => {
         plugins: [
             svgr(),
             viteTsConfigPaths(),
-            dts(),
             checker({ typescript: true }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
