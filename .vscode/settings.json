@@ -11,5 +11,6 @@
         "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
     },
     "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifierEnding": "js",
     "typescript.tsdk": "node_modules/typescript/lib"
 }
