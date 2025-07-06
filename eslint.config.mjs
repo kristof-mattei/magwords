@@ -59,9 +59,11 @@ const sharedRules = {
 
     "import/extensions": [
         "error",
-        "never",
+        "ignorePackages",
         {
             json: "always",
+            ts: "always",
+            tsx: "always",
         },
     ],
     "import/newline-after-import": ["error"],
@@ -100,9 +102,7 @@ export default tseslint.config(
         },
         settings: {
             "import/resolver": {
-                node: {
-                    extensions: [".d.ts", ".ts"],
-                },
+                node: {},
                 typescript: {
                     alwaysTryTypes: true,
                 },
@@ -144,9 +144,7 @@ export default tseslint.config(
         ],
         settings: {
             "import/resolver": {
-                node: {
-                    extensions: [".ts"],
-                },
+                node: {},
                 typescript: {
                     alwaysTryTypes: true,
                 },
