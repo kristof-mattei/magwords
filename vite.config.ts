@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => {
             checker({ typescript: true }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
-                bundleName: "library",
+                bundleName: "magwords-front-end",
                 uploadToken: environment["CODECOV_TOKEN"] ?? "",
             }),
         ],
