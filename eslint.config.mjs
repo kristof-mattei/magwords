@@ -18,7 +18,7 @@ const sharedRules = {
     curly: ["error", "all"],
     "eol-last": ["error", "always"],
     eqeqeq: ["error", "always"],
-    // "no-alert": ["off"],
+    "no-alert": ["off"],
     "no-console": ["off"],
     "max-len": ["off"],
     "max-nested-callbacks": ["off"],
@@ -31,7 +31,6 @@ const sharedRules = {
         },
     ],
     "no-restricted-syntax": ["error", "DebuggerStatement", "LabeledStatement", "WithStatement"],
-    "no-return-await": ["error"],
     "no-shadow": ["error"],
     "no-underscore-dangle": ["off"],
     "no-unused-expressions": ["error"],
@@ -85,7 +84,7 @@ export default tseslint.config(
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
     },
-    eslintPluginUnicorn.configs["flat/all"],
+    eslintPluginUnicorn.configs["all"],
     {
         languageOptions: {
             parser: tsParser,
@@ -109,7 +108,7 @@ export default tseslint.config(
                 },
             },
         },
-        extends: [eslintPluginUnicorn.configs["flat/recommended"]],
+        extends: [eslintPluginUnicorn.configs["recommended"]],
         rules: {
             ...importPlugin.configs.recommended.rules,
 
@@ -159,7 +158,7 @@ export default tseslint.config(
 
             ...sharedRules,
 
-            "no-return-await": ["off"],
+            "no-restricted-imports": ["off"],
 
             "@stylistic/ts/no-extra-semi": ["error"],
 

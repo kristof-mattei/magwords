@@ -8,7 +8,7 @@ back-end/src   # rust-fmt
 back-end/tests # rust-fmt
 target
 package.json
-package-lock.json
+pnpm-lock.yaml
 tsconfig.json
 tsconfig.dev.json
 tsconfig.build.json

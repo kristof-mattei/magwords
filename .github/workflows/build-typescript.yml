@@ -7,9 +7,6 @@ on:
 permissions:
   contents: read
 
-env:
-  NPM_CONFIG_FUND: "false"
-
 jobs:
   warm-up-cache:
     name: Warm up the cache
@@ -20,22 +17,20 @@ jobs:
         with:
           submodules: true
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+
       - name: Set up node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Ensure latest version of npm, older versions v8 have broken caching
+      - name: Install dependencies
         shell: bash
         run: |
-          npm install --location=global npm@latest
-
-      - name: Download dependencies
-        shell: bash
-        run: |
-          npm ci
+          pnpm install --frozen-lockfile
 
   changes:
     name: Detect changes
@@ -72,33 +67,33 @@ jobs:
           show-progress: false
           submodules: true
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+
       - name: Set up node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Ensure latest version of npm, older versions v8 have broken caching
+      - name: Install dependencies
         shell: bash
         run: |
-          npm install --location=global npm@latest
-
-      - name: Download dependencies from cache
-        shell: bash
-        run: |
-          npm ci --offline
+          pnpm install --frozen-lockfile --offline
 
       - name: Run build
         shell: bash
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
-          npm run build
+          pnpm run build
 
   npm-lint:
     name: Lint the code
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
     needs:
       - changes
       - warm-up-cache
@@ -112,27 +107,25 @@ jobs:
           show-progress: false
           submodules: true
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+
       - name: Set up node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Ensure latest version of npm, older versions v8 have broken caching
+      - name: Install dependencies
         shell: bash
         run: |
-          npm install --location=global npm@latest
-
-      - name: Download dependencies from cache
-        shell: bash
-        run: |
-          npm ci --offline
+          pnpm install --frozen-lockfile --offline
 
       - name: Run lint
         shell: bash
         run: |
-          npm run lint -- --format=json --output-file reports/lint-report.json || true
+          pnpm run lint --format=json --output-file reports/lint-report.json || true
 
           # hack to print results in the console
           node --print "require('./node_modules/eslint/lib/cli-engine/formatters/stylish.js')(require('./reports/lint-report.json'))"
@@ -163,28 +156,26 @@ jobs:
           submodules: true
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+
       - name: Set up node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Ensure latest version of npm, older versions v8 have broken caching
+      - name: Install dependencies
         shell: bash
         run: |
-          npm install --location=global npm@latest
-
-      - name: Download dependencies from cache
-        shell: bash
-        run: |
-          npm ci --offline
+          pnpm install --frozen-lockfile --offline
 
       - name: Run Vitest
         id: tests
         continue-on-error: true
         run: |
-          npm run test -- --reporter=basic --reporter=github-actions --reporter=junit --coverage.reporter=text --coverage.reporter=lcovonly
+          pnpm run test --reporter=basic --reporter=github-actions --reporter=junit --coverage.reporter=text --coverage.reporter=lcovonly
 
       - name: Upload test results
         uses: EnricoMi/publish-unit-test-result-action@3a74b2957438d0b6e2e61d67b05318aa25c9e6c6 # v2.20.0
@@ -239,27 +230,25 @@ jobs:
         with:
           show-progress: false
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+
       - name: Set up node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Ensure latest version of npm, older versions v8 have broken caching
+      - name: Install dependencies
         shell: bash
         run: |
-          npm install --location=global npm@latest
-
-      - name: Download dependencies from cache
-        shell: bash
-        run: |
-          npm ci --offline
+          pnpm install --frozen-lockfile --offline
 
       - name: Check dependencies
         shell: bash
         run: |
-          npm run deps:ci
+          pnpm run deps:ci
 
   all-done:
     name: TypeScript All done
