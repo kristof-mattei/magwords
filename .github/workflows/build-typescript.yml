@@ -84,8 +84,6 @@ jobs:
 
       - name: Run build
         shell: bash
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
           pnpm run build
 
