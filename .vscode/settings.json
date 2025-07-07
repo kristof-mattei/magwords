@@ -7,8 +7,8 @@
     "lldb.launch.terminal": "integrated",
     "prettier.configPath": "./prettier.config.mjs",
     "rust-analyzer.runnables.extraEnv": {
-        "USE_PROXY": "true",
-        "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+        "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE",
+        "USE_PROXY": "true"
     },
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.preferences.importModuleSpecifierEnding": "js",
