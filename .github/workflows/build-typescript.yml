@@ -57,6 +57,10 @@ jobs:
     needs:
       - changes
       - warm-up-cache
+    permissions:
+      checks: write
+      id-token: write
+      pull-requests: write
     if: |
       github.event_name == 'pull_request' &&
       fromJSON(needs.changes.outputs.typescript) == true
