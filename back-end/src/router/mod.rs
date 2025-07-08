@@ -1,5 +1,3 @@
-#![deny(clippy::unused_async)]
-
 use axum::Router;
 use axum::handler::HandlerWithoutStateExt;
 use axum::http::StatusCode;
