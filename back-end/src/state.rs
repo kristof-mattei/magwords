@@ -5,15 +5,23 @@ use axum::http::request::Parts;
 
 use crate::states::config::Config;
 
+/// This is to be able to do
+/// ```no_run
+/// async fn get_handler(State(config): State<Config>) -> impl IntoResponse {
+///     // ...
+/// }
+/// ```
+///
+/// Note that `Arc::<Config>` then is cloned.
 impl FromRef<ApplicationState> for Arc<Config> {
-    fn from_ref(input: &ApplicationState) -> Self {
-        input.config.clone()
+    fn from_ref(state: &ApplicationState) -> Self {
+        state.config.clone()
     }
 }
 
 #[derive(Clone)]
 pub struct ApplicationState {
-    pub(crate) config: Arc<Config>,
+    pub config: Arc<Config>,
 }
 
 impl ApplicationState {
@@ -24,6 +32,14 @@ impl ApplicationState {
     }
 }
 
+/// This is to be able to do
+/// ```no_run
+/// async fn get_handler(state: ApplicationState) -> impl IntoResponse {
+///     // ...
+/// }
+/// ```
+///
+/// Note that `ApplicationState` then is cloned.
 impl<S> FromRequestParts<S> for ApplicationState
 where
     Self: FromRef<S>,

@@ -1,6 +1,5 @@
 [package]
 name = "magwords"
-# don't change this, it's updated before an actual build by update-version.sh
 version = "0.0.0-development"
 edition = "2024"
 rust-version = "1.88.0"
