@@ -141,7 +141,7 @@ export default {
                 "section of your package.json. If this module is development only - add it to the " +
                 "from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration",
             from: {
-                path: "^(front-end)",
+                path: "^(front-end/src)",
                 pathNot: "[.](?:spec|test)[.](?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$",
             },
             to: {
@@ -375,4 +375,4 @@ export default {
         },
     },
 };
-// generated: dependency-cruiser@16.10.3 on 2025-06-25T15:37:45.778Z
+// generated: dependency-cruiser@16.10.4 on 2025-07-08T20:45:22.690Z
