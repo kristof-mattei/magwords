@@ -1,15 +1,19 @@
 [package]
-name = "rust-seed"
+name = "rust-seed-with-web"
 # don't change this, it's updated before an actual build by update-version.sh
 version = "0.0.0-development"
 edition = "2024"
 rust-version = "1.88.0"
 authors = ["Kristof Mattei"]
-description = "Rust seed application"
+description = "rust-seed-with-web in Rust"
 license-file = "LICENSE"
-categories = ["starter", "seed"]
-keywords = ["integrity", "seed", "starter", "docker", "release"]
-repository = "https://github.com/kristof-mattei/rust-seed"
+categories = ["fun"]
+keywords = ["random"]
+repository = "https://github.com/kristof-mattei/rust-seed-with-web"
+
+[[bin]]
+name = "rust-seed-with-web"
+path = "back-end/src/main.rs"
 
 [lints.clippy]
 # don't stop from compiling / running
@@ -41,9 +45,33 @@ uninlined-format-args = { level = "allow", priority = 127 }
 let_underscore_drop = { level = "deny", priority = 127 }
 non_ascii_idents = { level = "deny", priority = 127 }
 
-[dependencies]
-color-eyre = "0.6.5"
+[[test]]
+name = "rust-seed-with-web"
+path = "back-end/tests/integration_tests.rs"
 
-# OpenSSL for musl
-[target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
-openssl = { version = "0.10.73", features = ["vendored"] }
+[features]
+default = []
+tokio-console = ["dep:console-subscriber"]
+
+[dependencies]
+axum = { version = "0.8.4", features = ["macros"] }
+axum-proxy = { version = "0.5.1", features = ["axum"] }
+color-eyre = "0.6.5"
+console-subscriber = { version = "0.4.1", optional = true }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+tokio = { version = "1.46.1", features = [
+    "macros",
+    "io-util",
+    "io-std",
+    "rt-multi-thread",
+    "signal",
+    "time",
+] }
+tokio-util = { version = "0.7.15", features = ["rt"] }
+tower = "0.5.2"
+tower-http = { version = "0.6.6", features = ["cors", "fs", "trace"] }
+tracing = "0.1.41"
+tracing-error = "0.2.1"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+url = { version = "2.5.4", features = ["serde"] }

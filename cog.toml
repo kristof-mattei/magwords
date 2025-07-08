@@ -11,7 +11,7 @@ path = "CHANGELOG.md"
 authors = [{ signature = "Kristof Mattei", username = "kristof-mattei" }]
 template = "remote"
 remote = "github.com"
-repository = "rust-seed"
+repository = "rust-seed-with-web"
 owner = "kristof-mattei"
 
 [bump_profiles]

@@ -4,7 +4,7 @@
 c_compiler="gcc"
 cpp_compiler="g++"
 
-rust_flags="-Clink-self-contained=yes -Clinker=rust-lld"
+rust_flags="-Clink-self-contained=yes -Clinker=rust-lld --cfg tokio_unstable"
 
 case $TARGET in
     x86_64-unknown-linux-*)
