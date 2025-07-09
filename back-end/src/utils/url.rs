@@ -1,13 +1,19 @@
+use color_eyre::eyre;
 use url::Url;
 
-#[cfg_attr(not(test), expect(dead_code))]
-pub fn add_segments(mut base_url: Url, segments: &[&str]) -> Url {
+/// Adds a segment to a Url
+/// # Errors
+/// When the Url given is relative
+#[cfg_attr(not(test), expect(unused))]
+pub fn add_segments(mut base_url: Url, segments: &[&str]) -> Result<Url, eyre::Report> {
     {
-        let mut s = base_url.path_segments_mut().expect("URL is relative");
+        let mut s = base_url
+            .path_segments_mut()
+            .map_err(|()| eyre::Report::msg("Url is not a base"))?;
         s.extend(segments);
     }
 
-    base_url
+    Ok(base_url)
 }
 
 #[cfg(test)]
@@ -24,7 +30,10 @@ mod tests {
 
         let new_url = add_segments(url, &["foobar"]);
 
-        assert_eq!(new_url.as_str(), "https://example.com/foobar");
+        assert!(matches!(
+            new_url.map(Into::<String>::into).as_deref(),
+            Ok("https://example.com/foobar")
+        ));
     }
 
     #[test]
@@ -33,6 +42,9 @@ mod tests {
 
         let new_url = add_segments(url, &["foo", "bar"]);
 
-        assert_eq!(new_url.as_str(), "https://example.com/foo/bar");
+        assert!(matches!(
+            new_url.map(Into::<String>::into).as_deref(),
+            Ok("https://example.com/foo/bar")
+        ));
     }
 }
