@@ -2,15 +2,11 @@ use axum::Router;
 use tower_http::services::{ServeDir, ServeFile};
 use tracing::{Level, event};
 
-pub(crate) fn build_html_router() -> Router {
-    if let Ok("true") = std::env::var("USE_PROXY")
-        .map(|v| v.to_ascii_lowercase())
-        .as_deref()
-    {
+pub fn build_html_router() -> Router {
+    if let Ok(front_end_proxy) = std::env::var("FRONT_END_PROXY").as_deref() {
         event!(Level::INFO, "Serving website via proxy");
 
-        // TODO we'll want to be able to pass this in as an ENV variable
-        let vite_proxy_service_builder = axum_proxy::builder_http("127.0.0.1:4000").unwrap();
+        let vite_proxy_service_builder = axum_proxy::builder_http(front_end_proxy).unwrap();
 
         let svc: axum_proxy::ReusedService<
             axum_proxy::Identity,

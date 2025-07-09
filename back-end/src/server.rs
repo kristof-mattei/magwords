@@ -5,6 +5,11 @@ use color_eyre::eyre::Context;
 use tokio_util::sync::CancellationToken;
 use tracing::{Level, event};
 
+/// Set up server on socket, with a router, and a cancellation token for graceful shutdown
+///
+/// # Errors
+/// * Couldn't bind to address
+/// * Server failure
 pub(crate) async fn setup_server(
     bind_to: SocketAddr,
     router: Router,

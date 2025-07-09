@@ -121,19 +121,19 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     // another task when they complete (which means they failed)
     tokio::select! {
         r = utils::wait_for_sigterm() => {
-            if let Err(e) = r {
-                event!(Level::ERROR, message = "Failed to register SIGERM handler, aborting", ?e);
+            if let Err(err) = r {
+                event!(Level::ERROR, ?err, "Failed to register SIGERM handler, aborting");
             } else {
                 // we completed because ...
-                event!(Level::WARN, message = "Sigterm detected, stopping all tasks");
+                event!(Level::WARN, "Sigterm detected, stopping all tasks");
             }
         },
         r = signal::ctrl_c() => {
-            if let Err(e) = r {
-                event!(Level::ERROR, message = "Failed to register CTRL+C handler, aborting", ?e);
+            if let Err(err) = r {
+                event!(Level::ERROR, ?err, "Failed to register CTRL+C handler, aborting");
             } else {
                 // we completed because ...
-                event!(Level::WARN, message = "CTRL+C detected, stopping all tasks");
+                event!(Level::WARN, "CTRL+C detected, stopping all tasks");
             }
         },
         () = token.cancelled() => {
@@ -153,10 +153,7 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
         .await
         .is_err()
     {
-        event!(
-            Level::ERROR,
-            message = "Tasks didn't stop within allotted time!"
-        );
+        event!(Level::ERROR, "Tasks didn't stop within allotted time!");
     }
 
     event!(Level::INFO, message = "Goodbye");

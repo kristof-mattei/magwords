@@ -7,7 +7,7 @@ use crate::states::config::Config;
 
 /// This is to be able to do
 /// ```no_run
-/// async fn get_handler(State(config): State<Config>) -> impl IntoResponse {
+/// async fn get_handler(State(config): State<Arc<Config>>) -> impl IntoResponse {
 ///     // ...
 /// }
 /// ```

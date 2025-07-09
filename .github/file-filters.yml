@@ -10,7 +10,7 @@ rust:
   - *shared
   - "*.toml"
   - ".cargo/**"
-  - "backend-end/**"
+  - "back-end/**"
   - Cargo.lock
 typescript:
   - *shared
