@@ -52,7 +52,7 @@
     "@stylistic/eslint-plugin": "5.1.0",
     "@tailwindcss/vite": "4.1.11",
     "@types/eslint": "9.6.1",
-    "@types/node": "22.16.1",
+    "@types/node": "22.16.2",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.6.0",
