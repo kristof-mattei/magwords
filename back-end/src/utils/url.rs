@@ -4,7 +4,7 @@ use url::Url;
 /// Adds a segment to a Url
 /// # Errors
 /// When the Url given is relative
-#[cfg_attr(not(test), expect(unused))]
+#[cfg_attr(not(test), expect(dead_code))]
 pub fn add_segments(mut base_url: Url, segments: &[&str]) -> Result<Url, eyre::Report> {
     {
         let mut s = base_url
