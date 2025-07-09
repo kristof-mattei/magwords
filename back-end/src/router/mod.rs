@@ -1,10 +1,11 @@
+mod api_router;
+mod html_router;
+
 use axum::Router;
 use axum::handler::HandlerWithoutStateExt;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::routing::get;
-mod api_router;
-mod html_router;
 use socketioxide::layer::SocketIoLayer;
 use tower_http::cors::CorsLayer;
 use tower_http::trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer};
@@ -22,7 +23,7 @@ async fn healthz() -> impl IntoResponse {
     (StatusCode::OK, "Hello, world!")
 }
 
-pub(crate) fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> Router {
+pub fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> Router {
     let api_router = build_api_router(state);
     let html_router = build_html_router();
 
