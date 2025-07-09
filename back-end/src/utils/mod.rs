@@ -5,7 +5,6 @@ use color_eyre::eyre;
 use tokio::signal::unix::{SignalKind, signal};
 use tokio::task::JoinHandle;
 
-#[expect(dead_code)]
 /// Use this when you have a `JoinHandle<Result<T, E>>`
 /// and you want to use it with `tokio::try_join!`
 /// when the task completes with an `Result::Err`
@@ -17,6 +16,7 @@ use tokio::task::JoinHandle;
 /// # Errors
 /// * When there is an issue executing the task
 /// * When the task itself failed
+#[expect(dead_code)]
 pub(crate) async fn flatten_handle<T, E>(
     handle: JoinHandle<Result<T, E>>,
 ) -> Result<T, eyre::Report>
