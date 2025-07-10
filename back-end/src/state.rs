@@ -15,7 +15,7 @@ use crate::states::config::Config;
 /// Note that `Arc::<Config>` then is cloned.
 impl FromRef<ApplicationState> for Arc<Config> {
     fn from_ref(state: &ApplicationState) -> Self {
-        state.config.clone()
+        Arc::clone(&state.config)
     }
 }
 
