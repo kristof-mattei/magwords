@@ -1,15 +1,15 @@
 [package]
 name = "rust-seed-with-web"
-# don't change this, it's updated before an actual build by update-version.sh
 version = "0.0.0-development"
 edition = "2024"
 rust-version = "1.88.0"
 authors = ["Kristof Mattei"]
 description = "rust-seed-with-web in Rust"
-license-file = "LICENSE"
+license = "MIT"
 categories = ["fun"]
 keywords = ["random"]
 repository = "https://github.com/kristof-mattei/rust-seed-with-web"
+include = ["src/**", "/LICENSE", "/LICENSE-*"]
 
 [[bin]]
 name = "rust-seed-with-web"
