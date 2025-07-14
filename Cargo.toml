@@ -5,10 +5,11 @@ edition = "2024"
 rust-version = "1.88.0"
 authors = ["Kristof Mattei"]
 description = "Magwords in Rust"
-license-file = "LICENSE"
+license = "MIT"
 categories = ["fun"]
 keywords = ["random"]
 repository = "https://github.com/kristof-mattei/magwords"
+include = ["src/**", "/LICENSE", "/LICENSE-*"]
 
 [[bin]]
 name = "magwords"
