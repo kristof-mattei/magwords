@@ -5,10 +5,11 @@ edition = "2024"
 rust-version = "1.88.0"
 authors = ["Kristof Mattei"]
 description = "Magwords in Rust"
-license-file = "LICENSE"
+license = "MIT"
 categories = ["fun"]
 keywords = ["random"]
 repository = "https://github.com/kristof-mattei/magwords"
+include = ["src/**", "/LICENSE", "/LICENSE-*"]
 
 [[bin]]
 name = "magwords"
@@ -69,10 +70,10 @@ serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
 socketioxide = { version = "0.17.2", features = ["tracing"] }
 tokio = { version = "1.46.1", features = [
-    "rt-multi-thread",
     "macros",
-    "time",
+    "rt-multi-thread",
     "signal",
+    "time",
 ] }
 tokio-util = { version = "0.7.15", features = ["rt"] }
 tower = "0.5.2"

@@ -81,9 +81,9 @@ importers:
       prettier-plugin-sh:
         specifier: 0.18.0
         version: 0.18.0(prettier@3.6.2)
-      sass-embedded:
-        specifier: 1.89.2
-        version: 1.89.2
+      prettier-plugin-toml:
+        specifier: 2.0.6
+        version: 2.0.6(prettier@3.6.2)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -736,6 +736,12 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@svgr/core': '*'
+
+  '@taplo/core@0.2.0':
+    resolution: {integrity: sha512-r8bl54Zj1In3QLkiW/ex694bVzpPJ9EhwqT9xkcUVODnVUGirdB1JTsmiIv0o1uwqZiwhi8xNnTOQBRQCpizrQ==}
+
+  '@taplo/lib@0.5.0':
+    resolution: {integrity: sha512-+xIqpQXJco3T+VGaTTwmhxLa51qpkQxCjRwezjFZgr+l21ExlywJFcDfTrNmL6lG6tqb0h8GyJKO3UPGPtSCWg==}
 
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
@@ -2124,6 +2130,12 @@ packages:
     peerDependencies:
       prettier: ^3.6.0
 
+  prettier-plugin-toml@2.0.6:
+    resolution: {integrity: sha512-12N/wBuHa9jd/KVy9pRP20NMKxQfQLMseQCt66lIbLaPLItvGUcSIryE1eZZMJ7loSws6Ig3M2Elc2EreNh76w==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      prettier: ^3.0.3
+
   prettier@3.6.2:
     resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
@@ -2958,7 +2970,8 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@bufbuild/protobuf@2.6.0': {}
+  '@bufbuild/protobuf@2.6.0':
+    optional: true
 
   '@codecov/bundler-plugin-core@1.9.1':
     dependencies:
@@ -3402,6 +3415,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@taplo/core@0.2.0': {}
+
+  '@taplo/lib@0.5.0':
+    dependencies:
+      '@taplo/core': 0.2.0
+
   '@tybys/wasm-util@0.10.0':
     dependencies:
       tslib: 2.8.1
@@ -3785,7 +3804,8 @@ snapshots:
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.1)
 
-  buffer-builder@0.2.0: {}
+  buffer-builder@0.2.0:
+    optional: true
 
   builtin-modules@5.0.0: {}
 
@@ -3845,7 +3865,8 @@ snapshots:
 
   color-name@1.1.4: {}
 
-  colorjs.io@0.5.2: {}
+  colorjs.io@0.5.2:
+    optional: true
 
   commander@13.1.0: {}
 
@@ -4529,7 +4550,8 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  immutable@5.1.3: {}
+  immutable@5.1.3:
+    optional: true
 
   import-fresh@3.3.1:
     dependencies:
@@ -4953,6 +4975,11 @@ snapshots:
       prettier: 3.6.2
       sh-syntax: 0.5.8
 
+  prettier-plugin-toml@2.0.6(prettier@3.6.2):
+    dependencies:
+      '@taplo/lib': 0.5.0
+      prettier: 3.6.2
+
   prettier@3.6.2: {}
 
   prompts@2.4.2:
@@ -5043,6 +5070,7 @@ snapshots:
   rxjs@7.8.2:
     dependencies:
       tslib: 2.8.1
+    optional: true
 
   safe-array-concat@1.1.3:
     dependencies:
@@ -5142,6 +5170,7 @@ snapshots:
       sass-embedded-linux-x64: 1.89.2
       sass-embedded-win32-arm64: 1.89.2
       sass-embedded-win32-x64: 1.89.2
+    optional: true
 
   semver@6.3.1: {}
 
@@ -5317,6 +5346,7 @@ snapshots:
   supports-color@8.1.1:
     dependencies:
       has-flag: 4.0.0
+    optional: true
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
@@ -5325,8 +5355,10 @@ snapshots:
   sync-child-process@1.0.2:
     dependencies:
       sync-message-port: 1.1.3
+    optional: true
 
-  sync-message-port@1.1.3: {}
+  sync-message-port@1.1.3:
+    optional: true
 
   synckit@0.11.8:
     dependencies:
@@ -5507,7 +5539,8 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  varint@6.0.0: {}
+  varint@6.0.0:
+    optional: true
 
   vite-node@3.2.4(@types/node@22.16.3)(sass-embedded@1.89.2):
     dependencies:

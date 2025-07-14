@@ -1,14 +1,17 @@
-.git
-.mypy_cache
-.vscode/rust-prettifier-for-lldb
-CHANGELOG.md
-profiling
-reports
-back-end/src   # rust-fmt
-back-end/tests # rust-fmt
-target
-package.json
-pnpm-lock.yaml
-tsconfig.json
-tsconfig.dev.json
-tsconfig.build.json
+/.git
+/.mypy_cache
+/.vscode/rust-prettifier-for-lldb
+
+/profiling
+/reports
+/back-end/src   # rust-fmt
+/back-end/tests # rust-fmt
+/target
+
+/Cargo.lock
+/CHANGELOG.md
+/package.json
+/pnpm-lock.yaml
+/tsconfig.json
+/tsconfig.dev.json
+/tsconfig.build.json
