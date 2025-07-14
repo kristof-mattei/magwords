@@ -21,8 +21,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint -- ",
-      "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate -- "
+      "eslint --",
+      "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate --"
     ],
     "*": [
       "prettier --ignore-unknown --"
