@@ -21,11 +21,11 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix -- ",
-      "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate -- "
+      "eslint --",
+      "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate --"
     ],
     "*": [
-      "prettier --ignore-unknown --write --"
+      "prettier --ignore-unknown --"
     ]
   },
   "dependencies": {
