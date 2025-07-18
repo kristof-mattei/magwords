@@ -16,7 +16,7 @@ use tokio::task::JoinHandle;
 /// # Errors
 /// * When there is an issue executing the task
 /// * When the task itself failed
-#[expect(dead_code)]
+#[expect(unused, reason = "Library code")]
 pub(crate) async fn flatten_handle<T, E>(
     handle: JoinHandle<Result<T, E>>,
 ) -> Result<T, eyre::Report>

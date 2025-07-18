@@ -1,7 +1,7 @@
 use std::net::SocketAddr;
 
 use axum::Router;
-use color_eyre::eyre::{self, Context};
+use color_eyre::eyre::{self, Context as _};
 use tokio_util::sync::CancellationToken;
 use tracing::{Level, event};
 
