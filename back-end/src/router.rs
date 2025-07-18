@@ -2,7 +2,7 @@ mod api_router;
 mod html_router;
 
 use axum::Router;
-use axum::handler::HandlerWithoutStateExt;
+use axum::handler::HandlerWithoutStateExt as _;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::routing::get;
