@@ -12,7 +12,7 @@ use std::net::SocketAddr;
 use std::time::Duration;
 
 use color_eyre::eyre;
-use futures_util::StreamExt;
+use futures_util::StreamExt as _;
 use serde_json::json;
 use socketioxide::SocketIo;
 use states::config::Config;
@@ -21,17 +21,17 @@ use tokio::time::{sleep, timeout};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
 use tracing::{Level, event};
-use tracing_subscriber::Layer;
+use tracing_subscriber::Layer as _;
 use tracing_subscriber::filter::EnvFilter;
-use tracing_subscriber::layer::SubscriberExt;
-use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::layer::SubscriberExt as _;
+use tracing_subscriber::util::SubscriberInitExt as _;
 use words::WordsSocket;
 
 use crate::router::build_router;
 use crate::server::setup_server;
 use crate::state::ApplicationState;
 
-#[expect(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps, reason = "We will expand this later")]
 fn build_configs() -> Result<Config, eyre::Report> {
     let config = Config {
         bind_to: SocketAddr::from(([0, 0, 0, 0], 3000)),
@@ -119,27 +119,31 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     // * ctrl + c
     // * a message on the shutdown channel, sent either by the server task or
     // another task when they complete (which means they failed)
-    tokio::select! {
-        r = utils::wait_for_sigterm() => {
-            if let Err(err) = r {
-                event!(Level::ERROR, ?err, "Failed to register SIGERM handler, aborting");
-            } else {
-                // we completed because ...
-                event!(Level::WARN, "Sigterm detected, stopping all tasks");
-            }
-        },
-        r = signal::ctrl_c() => {
-            if let Err(err) = r {
-                event!(Level::ERROR, ?err, "Failed to register CTRL+C handler, aborting");
-            } else {
-                // we completed because ...
-                event!(Level::WARN, "CTRL+C detected, stopping all tasks");
-            }
-        },
-        () = token.cancelled() => {
-            event!(Level::ERROR, message = "Underlying task stopped, stopping all others tasks");
-        },
-    };
+
+    #[expect(clippy::pattern_type_mismatch, reason = "Tokio macro")]
+    {
+        tokio::select! {
+            r = utils::wait_for_sigterm() => {
+                if let Err(err) = r {
+                    event!(Level::ERROR, ?err, "Failed to register SIGERM handler, aborting");
+                } else {
+                    // we completed because ...
+                    event!(Level::WARN, "Sigterm detected, stopping all tasks");
+                }
+            },
+            r = signal::ctrl_c() => {
+                if let Err(err) = r {
+                    event!(Level::ERROR, ?err, "Failed to register CTRL+C handler, aborting");
+                } else {
+                    // we completed because ...
+                    event!(Level::WARN, "CTRL+C detected, stopping all tasks");
+                }
+            },
+            () = token.cancelled() => {
+                event!(Level::ERROR, message = "Underlying task stopped, stopping all others tasks");
+            },
+        };
+    }
 
     // announce cancel
     token.cancel();
