@@ -1127,8 +1127,6 @@ dependencies = [
  "axum-proxy",
  "color-eyre",
  "console-subscriber",
- "serde",
- "serde_json",
  "tokio",
  "tokio-util",
  "tower 0.5.2",
