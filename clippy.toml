@@ -1,1 +1,7 @@
-absolute-paths-allowed-crates = ["axum", "axum_proxy","std", "tokio","tracing_subscriber"]
+absolute-paths-allowed-crates = [
+    "axum",
+    "axum_proxy",
+    "std",
+    "tokio",
+    "tracing_subscriber",
+]
