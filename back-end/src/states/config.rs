@@ -1,5 +1,5 @@
 use std::net::SocketAddr;
 
 pub struct Config {
-    pub(crate) bind_to: SocketAddr,
+    pub bind_to: SocketAddr,
 }

@@ -1,7 +1,7 @@
 use std::net::SocketAddr;
 
 use axum::Router;
-use color_eyre::eyre::Context;
+use color_eyre::eyre::Context as _;
 use tokio_util::sync::CancellationToken;
 use tracing::{Level, event};
 
@@ -10,7 +10,7 @@ use tracing::{Level, event};
 /// # Errors
 /// * Couldn't bind to address
 /// * Server failure
-pub(crate) async fn setup_server(
+pub async fn setup_server(
     bind_to: SocketAddr,
     router: Router,
     token: CancellationToken,

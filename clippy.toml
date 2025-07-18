@@ -1,0 +1,8 @@
+absolute-paths-allowed-crates = [
+    "axum",
+    "axum_proxy",
+    "color_eyre",
+    "std",
+    "tokio",
+    "tracing_subscriber",
+]

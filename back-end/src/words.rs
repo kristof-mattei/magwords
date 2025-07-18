@@ -1,7 +1,7 @@
-use std::ops::IndexMut;
+use std::ops::IndexMut as _;
 use std::sync::atomic::AtomicUsize;
 
-use rand::Rng;
+use rand::Rng as _;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use socketioxide::SocketIo;
@@ -31,16 +31,16 @@ struct WordInfo {
     y: u32,
 }
 
-pub(crate) struct WordsSocket {
+pub struct WordsSocket {
     io: SocketIo,
 }
 
 impl WordsSocket {
-    pub(crate) fn get_socket(&self) -> SocketIo {
+    pub fn get_socket(&self) -> SocketIo {
         self.io.clone()
     }
 
-    pub(crate) async fn build(io: SocketIo, raw_words: &str) -> WordsSocket {
+    pub async fn build(io: SocketIo, raw_words: &str) -> WordsSocket {
         let word_list = build_words(raw_words);
 
         {

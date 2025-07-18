@@ -16,10 +16,8 @@ use tokio::task::JoinHandle;
 /// # Errors
 /// * When there is an issue executing the task
 /// * When the task itself failed
-#[expect(dead_code)]
-pub(crate) async fn flatten_handle<T, E>(
-    handle: JoinHandle<Result<T, E>>,
-) -> Result<T, eyre::Report>
+#[expect(unused, reason = "Library code")]
+pub async fn flatten_handle<T, E>(handle: JoinHandle<Result<T, E>>) -> Result<T, eyre::Report>
 where
     E: 'static + Sync + Send,
     eyre::Report: From<E>,
@@ -34,7 +32,7 @@ where
 /// Waits forever for a sigterm
 /// # Errors
 /// When the handler can not be registered
-pub(crate) async fn wait_for_sigterm() -> Result<(), std::io::Error> {
+pub async fn wait_for_sigterm() -> Result<(), std::io::Error> {
     signal(SignalKind::terminate())?.recv().await;
     Ok(())
 }
