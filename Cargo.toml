@@ -15,9 +15,37 @@ include = ["src/**", "/LICENSE", "/LICENSE-*"]
 name = "magwords"
 path = "back-end/src/main.rs"
 
+[[test]]
+name = "magwords"
+path = "back-end/tests/integration_tests.rs"
+
 [features]
 default = []
 tokio-console = ["dep:console-subscriber"]
+
+[dependencies]
+axum = { version = "0.8.4", features = ["macros"] }
+axum-proxy = { version = "0.5.1", features = ["axum"] }
+color-eyre = "0.6.5"
+console-subscriber = { version = "0.4.1", optional = true }
+futures-util = "0.3.31"
+rand = "0.9.1"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.141"
+socketioxide = { version = "0.17.2", features = ["tracing"] }
+tokio = { version = "1.46.1", features = [
+    "macros",
+    "rt-multi-thread",
+    "signal",
+    "time",
+] }
+tokio-util = { version = "0.7.15", features = ["rt"] }
+tower = "0.5.2"
+tower-http = { version = "0.6.6", features = ["cors", "fs", "trace"] }
+tracing = "0.1.41"
+tracing-error = "0.2.1"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+url = { version = "2.5.4", features = ["serde"] }
 
 [lints.clippy]
 # don't stop from compiling / running
@@ -47,7 +75,8 @@ allow_attributes = { level = "deny", priority = 127 }
 allow_attributes_without_reason = { level = "deny", priority = 127 }
 # Debatable
 # arithmetic_side_effects = { level = "deny", priority = 127 }
-as_conversions = { level = "deny", priority = 127 }
+# Debatable
+# as_conversions = { level = "deny", priority = 127 }
 as_pointer_underscore = { level = "deny", priority = 127 }
 as_underscore = { level = "deny", priority = 127 }
 assertions_on_result_states = { level = "deny", priority = 127 }
@@ -87,7 +116,6 @@ inline_asm_x86_att_syntax = { level = "deny", priority = 127 }
 # integer_division = { level = "deny", priority = 127 }
 # Debatable
 # integer_division_remainder_used = { level = "deny", priority = 127 }
-iter_over_hash_type = { level = "deny", priority = 127 }
 large_include_file = { level = "deny", priority = 127 }
 let_underscore_must_use = { level = "deny", priority = 127 }
 let_underscore_untyped = { level = "deny", priority = 127 }
@@ -118,7 +146,6 @@ precedence_bits = { level = "deny", priority = 127 }
 # print_stderr = { level = "deny", priority = 127 }
 # Debatable
 # print_stdout = { level = "deny", priority = 127 }
-pub_use = { level = "deny", priority = 127 }
 pub_without_shorthand = { level = "deny", priority = 127 }
 rc_buffer = { level = "deny", priority = 127 }
 rc_mutex = { level = "deny", priority = 127 }
@@ -151,13 +178,9 @@ unnecessary_safety_comment = { level = "deny", priority = 127 }
 unnecessary_safety_doc = { level = "deny", priority = 127 }
 unnecessary_self_imports = { level = "deny", priority = 127 }
 unneeded_field_pattern = { level = "deny", priority = 127 }
-# No, to signify invariants
-# unreachable = { level = "deny", priority = 127 }
 unseparated_literal_suffix = { level = "deny", priority = 127 }
 unused_result_ok = { level = "deny", priority = 127 }
 unused_trait_names = { level = "deny", priority = 127 }
-# No, we separate fatal from recoverable
-# unwrap_in_result = { level = "deny", priority = 127 }
 verbose_file_reads = { level = "deny", priority = 127 }
 wildcard_enum_match_arm = { level = "deny", priority = 127 }
 
@@ -189,31 +212,3 @@ uninlined-format-args = { level = "allow", priority = 127 }
 [lints.rust]
 let_underscore_drop = { level = "deny", priority = 127 }
 non_ascii_idents = { level = "deny", priority = 127 }
-
-[[test]]
-name = "magwords"
-path = "back-end/tests/integration_tests.rs"
-
-[dependencies]
-axum = { version = "0.8.4" }
-axum-proxy = { version = "0.5.1", features = ["axum"] }
-color-eyre = "0.6.5"
-console-subscriber = { version = "0.4.1", optional = true }
-futures-util = "0.3.31"
-rand = "0.9.1"
-serde = { version = "1.0.219", features = ["derive"] }
-serde_json = "1.0.141"
-socketioxide = { version = "0.17.2", features = ["tracing"] }
-tokio = { version = "1.46.1", features = [
-    "macros",
-    "rt-multi-thread",
-    "signal",
-    "time",
-] }
-tokio-util = { version = "0.7.15", features = ["rt"] }
-tower = "0.5.2"
-tower-http = { version = "0.6.6", features = ["cors", "fs", "trace"] }
-tracing = "0.1.41"
-tracing-error = "0.2.1"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
-url = { version = "2.5.4", features = ["serde"] }
