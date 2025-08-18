@@ -12,15 +12,18 @@ jobs:
     name: Warm up the cache
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
+      - &checkout
+        name: Check out code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
-          submodules: true
+          show-progress: false
 
-      - name: Install pnpm
+      - &install_pnpm
+        name: Install pnpm
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
 
-      - name: Set up node
+      - &setup_node
+        name: Set up node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: package.json
@@ -38,11 +41,7 @@ jobs:
     outputs:
       typescript: ${{ steps.filter.outputs.typescript }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-        with:
-          show-progress: false
-          submodules: true
+      - *checkout
 
       - name: Check if we actually made changes
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
@@ -61,23 +60,14 @@ jobs:
       id-token: write
       pull-requests: write
     steps:
-      - name: Check out code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-        with:
-          show-progress: false
-          submodules: true
+      - *checkout
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - *install_pnpm
 
-      - name: Set up node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+      - *setup_node
 
-      - name: Install dependencies
+      - &install_dependencies_from_cache
+        name: Install dependencies
         shell: bash
         run: |
           pnpm install --frozen-lockfile --offline
@@ -99,26 +89,13 @@ jobs:
       github.event_name == 'pull_request' &&
       fromJSON(needs.changes.outputs.typescript) == true
     steps:
-      - name: Check out code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-        with:
-          show-progress: false
-          submodules: true
+      - *checkout
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - *install_pnpm
 
-      - name: Set up node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+      - *setup_node
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          pnpm install --frozen-lockfile --offline
+      - *install_dependencies_from_cache
 
       - name: Run lint
         shell: bash
@@ -147,27 +124,13 @@ jobs:
       id-token: write
       pull-requests: write
     steps:
-      - name: Check out code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-        with:
-          show-progress: false
-          submodules: true
-          fetch-depth: 0
+      - *checkout
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - *install_pnpm
 
-      - name: Set up node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+      - *setup_node
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          pnpm install --frozen-lockfile --offline
+      - *install_dependencies_from_cache
 
       - name: Run Vitest
         id: tests
@@ -223,25 +186,13 @@ jobs:
       github.event_name == 'pull_request' &&
       fromJSON(needs.changes.outputs.typescript) == true
     steps:
-      - name: Check out code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-        with:
-          show-progress: false
+      - *checkout
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      - *install_pnpm
 
-      - name: Set up node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+      - *setup_node
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          pnpm install --frozen-lockfile --offline
+      - *install_dependencies_from_cache
 
       - name: Check dependencies
         shell: bash
