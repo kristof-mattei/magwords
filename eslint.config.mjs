@@ -213,6 +213,13 @@ export default tseslint.config(
             "@typescript-eslint/parameter-properties": ["error"],
             "@typescript-eslint/promise-function-async": ["off"],
 
+            "@typescript-eslint/restrict-template-expressions": [
+                "error",
+                {
+                    allowNumber: true,
+                },
+            ],
+
             "@typescript-eslint/return-await": ["error", "in-try-catch"],
 
             "@typescript-eslint/require-await": ["error"],
