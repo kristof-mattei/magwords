@@ -49,6 +49,10 @@ COPY ./.cargo ./Cargo.toml ./Cargo.lock ./
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
 RUN mkdir -p back-end/src && mv src/main.rs back-end/src/main.rs
 
+RUN --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
+    --mount=type=cache,id=cargo-registry,target=/usr/local/cargo/registry \
+    /build-scripts/build.sh fetch
+
 RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
     --mount=type=cache,id=cargo-registry,target=/usr/local/cargo/registry \
