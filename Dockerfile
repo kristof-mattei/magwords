@@ -49,10 +49,10 @@ COPY ./.cargo ./Cargo.toml ./Cargo.lock ./
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
 RUN mkdir -p back-end/src && mv src/main.rs back-end/src/main.rs
 
-RUN --mount=type=cache,target=/build/target,sharing=locked \
+RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
     --mount=type=cache,id=cargo-registry,target=/usr/local/cargo/registry \
-    /build-scripts/build.sh build --release --target ${TARGET}
+    /build-scripts/build.sh build --release --target ${TARGET} --target-dir ./target/${TARGET}
 
 # Rust full build
 FROM rust-cargo-build AS rust-build
@@ -66,10 +66,10 @@ COPY ./back-end ./back-end
 RUN touch ./back-end/src/main.rs
 
 # --release not needed, it is implied with install
-RUN --mount=type=cache,target=/build/target,sharing=locked \
+RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
     --mount=type=cache,id=cargo-registry,target=/usr/local/cargo/registry \
-    /build-scripts/build.sh install --path . --locked --target ${TARGET} --root /output
+    /build-scripts/build.sh install --path . --locked --target ${TARGET} --target-dir ./target/${TARGET} --root /output
 
 # Front-end (NPM) build
 FROM --platform=${BUILDPLATFORM} node:22.18.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786fcd5fe231d63de5b AS typescript-build
