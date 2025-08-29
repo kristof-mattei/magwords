@@ -3,7 +3,7 @@
   "type": "module",
   "packageManager": "pnpm@10.15.0",
   "engines": {
-    "node": "22.18.0",
+    "node": "24.7.0",
     "pnpm": "10.15.0"
   },
   "scripts": {
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@codecov/vite-plugin": "1.9.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
     "@eslint/js": "9.34.0",
     "@stylistic/eslint-plugin": "5.2.3",
     "@tailwindcss/vite": "4.1.12",
@@ -47,11 +48,10 @@
     "@vitest/ui": "3.2.4",
     "dependency-cruiser": "17.0.1",
     "eslint": "9.34.0",
-    "eslint-config-love": "121.0.0",
+    "eslint-config-love": "122.0.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-node": "0.3.9",
     "eslint-import-resolver-typescript": "4.4.4",
-    "eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-n": "17.21.3",
     "eslint-plugin-perfectionist": "4.15.0",
