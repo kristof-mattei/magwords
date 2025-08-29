@@ -39,7 +39,7 @@ tower = "0.5.2"
 tower-http = { version = "0.6.6", features = ["cors", "fs", "trace"] }
 tracing = "0.1.41"
 tracing-error = "0.2.1"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
 url = { version = "2.5.7", features = ["serde"] }
 
 [lints.clippy]
