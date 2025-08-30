@@ -3,6 +3,7 @@
 
 # And explicitly include...
 !/.cargo
+!/assets
 !/back-end
 !/build-scripts
 !/Cargo.lock
