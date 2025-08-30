@@ -1,6 +1,15 @@
-target
-.github
-.git
-.vscode
-Dockerfile
-node_modules
+# Ignore all
+*
+
+# And explicitly include...
+!/.cargo
+!/back-end
+!/build-scripts
+!/Cargo.lock
+!/Cargo.toml
+!/front-end
+!/package.json
+!/pnpm-lock.yaml
+!/tailwind.config.mjs
+!/tsconfig.json
+!/vite.config.ts
