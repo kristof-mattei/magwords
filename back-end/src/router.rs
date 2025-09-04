@@ -8,7 +8,7 @@ use axum::response::IntoResponse;
 use axum::routing::get;
 use socketioxide::layer::SocketIoLayer;
 use tower_http::cors::CorsLayer;
-use tower_http::trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer};
+use tower_http::trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer};
 use tracing::Level;
 
 use self::api_router::build_api_router;
@@ -27,6 +27,8 @@ pub fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> 
     let api_router = build_api_router(state);
     let html_router = build_html_router();
 
+    // we can move the `/healthz` layer beneath the `TraceLayer` to prevent it from being logged
+
     html_router
         .nest(
             "/api",
@@ -37,7 +39,8 @@ pub fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> 
         .layer(CorsLayer::permissive())
         .layer(
             TraceLayer::new_for_http()
+                .make_span_with(DefaultMakeSpan::new().level(Level::INFO))
                 .on_request(DefaultOnRequest::new().level(Level::TRACE))
-                .on_response(DefaultOnResponse::new().level(Level::DEBUG)),
+                .on_response(DefaultOnResponse::new().level(Level::INFO)),
         )
 }
