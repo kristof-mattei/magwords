@@ -1,6 +1,7 @@
 mod router;
 mod routes;
 mod server;
+mod span;
 mod state;
 mod states;
 mod utils;
