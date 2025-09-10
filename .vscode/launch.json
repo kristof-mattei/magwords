@@ -31,6 +31,30 @@
         {
             "type": "lldb",
             "request": "launch",
+            "name": "Debug executable 'rust-seed-with-web' without RUST_LOG",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust-seed-with-web",
+                    "--package=rust-seed-with-web"
+                ],
+                "filter": {
+                    "name": "rust-seed-with-web",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "RUST_BACKTRACE": "1"
+            },
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
+        },
+
+        {
+            "type": "lldb",
+            "request": "launch",
             "name": "Debug unit tests in executable 'rust-seed-with-web'",
             "cargo": {
                 "args": [
