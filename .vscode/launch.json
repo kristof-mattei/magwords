@@ -23,11 +23,35 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust-seed-with-web=TRACE"
+                "RUST_LOG": "DEBUG,rust_seed_with_web=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
         },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'rust-seed-with-web' without RUST_LOG",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust-seed-with-web",
+                    "--package=rust-seed-with-web"
+                ],
+                "filter": {
+                    "name": "rust-seed-with-web",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "RUST_BACKTRACE": "1"
+            },
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
+        },
+
         {
             "type": "lldb",
             "request": "launch",
@@ -48,7 +72,7 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust-seed-with-web=TRACE"
+                "RUST_LOG": "DEBUG,rust_seed_with_web=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
@@ -73,7 +97,7 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust-seed-with-web=TRACE"
+                "RUST_LOG": "DEBUG,rust_seed_with_web=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
