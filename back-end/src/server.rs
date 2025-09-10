@@ -10,7 +10,7 @@ use tracing::{Level, event};
 /// # Errors
 /// * Couldn't bind to address
 /// * Server failure
-pub(crate) async fn setup_server(
+pub async fn setup_server(
     bind_to: SocketAddr,
     router: Router,
     token: CancellationToken,
