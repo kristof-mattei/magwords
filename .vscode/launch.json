@@ -20,7 +20,7 @@
             "env": {
                 "RUST_BACKTRACE": "1",
                 "USE_PROXY": "true",
-                "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
@@ -46,7 +46,7 @@
             "env": {
                 "RUST_BACKTRACE": "1",
                 "USE_PROXY": "true",
-                "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
@@ -72,7 +72,7 @@
             "env": {
                 "RUST_BACKTRACE": "1",
                 "USE_PROXY": "true",
-                "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+                "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"

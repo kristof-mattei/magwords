@@ -13,6 +13,7 @@ use tokio::task::JoinHandle;
 /// `Result::Ok(T)` when both the join-handle AND
 /// the result of the inner function are `Result::Ok`, and `Result::Err`
 /// when either the join failed, or the inner task failed
+///
 /// # Errors
 /// * When there is an issue executing the task
 /// * When the task itself failed
@@ -30,9 +31,11 @@ where
 }
 
 /// Waits forever for a sigterm
+///
 /// # Errors
 /// When the handler can not be registered
 pub async fn wait_for_sigterm() -> Result<(), std::io::Error> {
     signal(SignalKind::terminate())?.recv().await;
+
     Ok(())
 }

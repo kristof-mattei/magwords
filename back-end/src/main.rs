@@ -1,16 +1,18 @@
 mod router;
 mod routes;
 mod server;
+mod span;
 mod state;
 mod states;
 mod tasks;
 mod utils;
 mod words;
 
-use std::env;
+use std::env::{self, VarError};
 use std::net::SocketAddr;
 use std::time::Duration;
 
+use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
 use futures_util::StreamExt as _;
 use serde_json::json;
@@ -165,29 +167,45 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     Ok(())
 }
 
-fn init_tracing() -> Result<(), eyre::Report> {
-    let main_filter = EnvFilter::builder().parse(
-        env::var(EnvFilter::DEFAULT_ENV)
-            .unwrap_or_else(|_| format!("INFO,{}=TRACE", env!("CARGO_CRATE_NAME"))),
-    )?;
-
-    let layers = vec![
-        #[cfg(feature = "tokio-console")]
-        console_subscriber::ConsoleLayer::builder()
-            .with_default_env()
-            .spawn()
-            .boxed(),
-        tracing_subscriber::fmt::layer()
-            .with_filter(main_filter)
-            .boxed(),
-        tracing_error::ErrorLayer::default().boxed(),
-    ];
-
-    Ok(tracing_subscriber::registry().with(layers).try_init()?)
+fn build_default_filter() -> EnvFilter {
+    EnvFilter::builder()
+        .parse(format!(
+            "DEBUG,{}=TRACE,tower_http::trace=TRACE",
+            env!("CARGO_CRATE_NAME")
+        ))
+        .expect("Default filter should always work")
 }
 
-fn main() -> Result<(), color_eyre::Report> {
-    color_eyre::config::HookBuilder::default().install()?;
+fn init_tracing() -> Result<(), eyre::Report> {
+    let (filter, filter_parsing_error) = match env::var(EnvFilter::DEFAULT_ENV) {
+        Ok(user_directive) => match EnvFilter::builder().parse(user_directive) {
+            Ok(filter) => (filter, None),
+            Err(error) => (build_default_filter(), Some(eyre::Report::new(error))),
+        },
+        Err(VarError::NotPresent) => (build_default_filter(), None),
+        Err(error @ VarError::NotUnicode(_)) => {
+            (build_default_filter(), Some(eyre::Report::new(error)))
+        },
+    };
+
+    let registry = tracing_subscriber::registry();
+
+    #[cfg(feature = "tokio-console")]
+    let registry = registry.with(console_subscriber::ConsoleLayer::builder().spawn());
+
+    registry
+        .with(tracing_subscriber::fmt::layer().with_filter(filter))
+        .with(tracing_error::ErrorLayer::default())
+        .try_init()?;
+
+    filter_parsing_error.map_or(Ok(()), Err)
+}
+
+fn main() -> Result<(), eyre::Report> {
+    HookBuilder::default()
+        .capture_span_trace_by_default(true)
+        .display_env_section(false)
+        .install()?;
 
     init_tracing()?;
 
@@ -195,7 +213,7 @@ fn main() -> Result<(), color_eyre::Report> {
     let rt = tokio::runtime::Runtime::new().unwrap();
 
     // start service
-    let result: Result<(), color_eyre::Report> = rt.block_on(start_tasks());
+    let result: Result<(), eyre::Report> = rt.block_on(start_tasks());
 
     result
 }

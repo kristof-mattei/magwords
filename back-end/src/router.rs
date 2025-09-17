@@ -8,11 +8,12 @@ use axum::response::IntoResponse;
 use axum::routing::get;
 use socketioxide::layer::SocketIoLayer;
 use tower_http::cors::CorsLayer;
-use tower_http::trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer};
+use tower_http::trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer};
 use tracing::Level;
 
-use self::api_router::build_api_router;
-use self::html_router::build_html_router;
+use crate::router::api_router::build_api_router;
+use crate::router::html_router::build_html_router;
+use crate::span::MakeSpanWithUuid;
 use crate::state::ApplicationState;
 
 async fn handler_404() -> impl IntoResponse {
@@ -39,7 +40,7 @@ pub fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> 
         .layer(CorsLayer::permissive())
         .layer(
             TraceLayer::new_for_http()
-                .make_span_with(DefaultMakeSpan::new().level(Level::INFO))
+                .make_span_with(MakeSpanWithUuid::new().level(Level::INFO))
                 .on_request(DefaultOnRequest::new().level(Level::TRACE))
                 .on_response(DefaultOnResponse::new().level(Level::INFO)),
         )
