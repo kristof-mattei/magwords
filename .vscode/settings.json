@@ -5,7 +5,7 @@
     "prettier.configPath": "./prettier.config.mjs",
     "rust-analyzer.runnables.extraEnv": {
         "FRONT_END_PROXY": "127.0.0.1:4000",
-        "RUST_LOG": "INFO,socketioxide=INFO,engineioxide=INFO,magwords=TRACE"
+        "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE,tower_http::trace=TRACE"
     },
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.preferences.importModuleSpecifierEnding": "js",
