@@ -2,7 +2,6 @@ pub mod env;
 pub mod url;
 
 use color_eyre::eyre;
-use tokio::signal::unix::{SignalKind, signal};
 use tokio::task::JoinHandle;
 
 /// Use this when you have a `JoinHandle<Result<T, E>>`
@@ -28,14 +27,4 @@ where
         Ok(Err(err)) => Err(err.into()),
         Err(err) => Err(err.into()),
     }
-}
-
-/// Waits forever for a sigterm
-///
-/// # Errors
-/// When the handler can not be registered
-pub async fn wait_for_sigterm() -> Result<(), std::io::Error> {
-    signal(SignalKind::terminate())?.recv().await;
-
-    Ok(())
 }
