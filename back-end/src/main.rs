@@ -1,6 +1,7 @@
 mod router;
 mod routes;
 mod server;
+mod signal_handlers;
 mod span;
 mod state;
 mod states;
@@ -18,7 +19,6 @@ use futures_util::StreamExt as _;
 use serde_json::json;
 use socketioxide::SocketIo;
 use states::config::Config;
-use tokio::signal;
 use tokio::time::{sleep, timeout};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
@@ -117,34 +117,30 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     };
 
     // now we wait forever for either
-    // * sigterm
-    // * ctrl + c
+    // * SIGTERM
+    // * ctrl + c (SIGINT)
     // * a message on the shutdown channel, sent either by the server task or
     // another task when they complete (which means they failed)
-
-    #[expect(clippy::pattern_type_mismatch, reason = "Tokio macro")]
-    {
-        tokio::select! {
-            r = utils::wait_for_sigterm() => {
-                if let Err(err) = r {
-                    event!(Level::ERROR, ?err, "Failed to register SIGERM handler, aborting");
-                } else {
-                    // we completed because ...
-                    event!(Level::WARN, "Sigterm detected, stopping all tasks");
-                }
-            },
-            r = signal::ctrl_c() => {
-                if let Err(err) = r {
-                    event!(Level::ERROR, ?err, "Failed to register CTRL+C handler, aborting");
-                } else {
-                    // we completed because ...
-                    event!(Level::WARN, "CTRL+C detected, stopping all tasks");
-                }
-            },
-            () = token.cancelled() => {
-                event!(Level::ERROR, message = "Underlying task stopped, stopping all others tasks");
-            },
-        };
+    tokio::select! {
+        result = signal_handlers::wait_for_sigterm() => {
+            if let Err(error) = result {
+                event!(Level::ERROR, ?error, "Failed to register SIGERM handler, aborting");
+            } else {
+                // we completed because ...
+                event!(Level::WARN, "Sigterm detected, stopping all tasks");
+            }
+        },
+        result = signal_handlers::wait_for_sigint() => {
+            if let Err(error) = result {
+                event!(Level::ERROR, ?error, "Failed to register CTRL+C handler, aborting");
+            } else {
+                // we completed because ...
+                event!(Level::WARN, "CTRL+C detected, stopping all tasks");
+            }
+        },
+        () = token.cancelled() => {
+            event!(Level::WARN, "Underlying task stopped, stopping all others tasks");
+        },
     }
 
     // announce cancel
