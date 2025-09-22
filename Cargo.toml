@@ -25,7 +25,7 @@ tokio-console = ["dep:console-subscriber"]
 
 [dependencies]
 axum = { version = "0.8.4", features = ["macros"] }
-axum-proxy = { version = "0.5.1", features = ["axum"] }
+axum-proxy = { version = "0.6.0", features = ["axum"] }
 color-eyre = "0.6.5"
 console-subscriber = { version = "0.4.1", optional = true }
 futures-util = "0.3.31"
