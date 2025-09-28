@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: returntocorp/semgrep:1.137.0@sha256:6e5ea431a619d781f41181520c6e95dcbab63265078b9208cdbc36f26b55aaa8
+      image: returntocorp/semgrep:1.138.0@sha256:ee3c01c9d33a975209d6bcda050520a45366d79e2919c15baca4014e8634a9ac
 
     steps:
       - name: Checkout
@@ -37,6 +37,6 @@ jobs:
       - name: Upload SARIF file for GitHub Advanced Security Dashboard
         if: |
           always()
-        uses: github/codeql-action/upload-sarif@192325c86100d080feab897ff886c34abd4c83a3 # v3.30.3
+        uses: github/codeql-action/upload-sarif@3599b3baa15b485a2e49ef411a7a4bb2452e7f93 # v3.30.5
         with:
           sarif_file: semgrep.sarif
