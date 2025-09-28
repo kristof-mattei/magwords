@@ -106,11 +106,11 @@ dependencies = [
 
 [[package]]
 name = "axum"
-version = "0.8.4"
+version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "021e862c184ae977658b36c4500f7feac3221ca5da43e3f25bd04ab6c79a29b5"
+checksum = "98e529aee37b5c8206bb4bf4c44797127566d72f76952c970bd3d1e85de8f4e2"
 dependencies = [
- "axum-core 0.5.2",
+ "axum-core 0.5.4",
  "axum-macros",
  "bytes",
  "form_urlencoded",
@@ -126,8 +126,7 @@ dependencies = [
  "mime",
  "percent-encoding",
  "pin-project-lite",
- "rustversion",
- "serde",
+ "serde_core",
  "serde_json",
  "serde_path_to_error",
  "serde_urlencoded",
@@ -161,9 +160,9 @@ dependencies = [
 
 [[package]]
 name = "axum-core"
-version = "0.5.2"
+version = "0.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68464cd0412f486726fb3373129ef5d2993f90c34bc2bc1c1e9943b2f4fc7ca6"
+checksum = "0ac7a6beb1182c7e30253ee75c3e918080bfb83f5a3023bcdf7209d85fd147e6"
 dependencies = [
  "bytes",
  "futures-core",
@@ -172,7 +171,6 @@ dependencies = [
  "http-body-util",
  "mime",
  "pin-project-lite",
- "rustversion",
  "sync_wrapper",
  "tower-layer",
  "tower-service",
@@ -196,7 +194,7 @@ version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d686949b8a7a9e0a998cb7a8bba2c0235b8f63384f805065c2b6765c7e275190"
 dependencies = [
- "axum 0.8.4",
+ "axum 0.8.5",
  "http",
  "http-body",
  "hyper",
@@ -1137,14 +1135,13 @@ checksum = "caf4aa5b0f434c91fe5c7f1ecb6a5ece2130b02ad2a590589dda5146df959001"
 name = "rust-seed-with-web"
 version = "0.0.0-development"
 dependencies = [
- "axum 0.8.4",
+ "axum 0.8.5",
  "axum-proxy",
  "color-eyre",
  "console-subscriber",
  "http",
  "tokio",
  "tokio-util",
- "tower 0.5.2",
  "tower-http",
  "tracing",
  "tracing-error",
