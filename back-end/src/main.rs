@@ -40,6 +40,22 @@ fn build_configs() -> Result<Config, eyre::Report> {
 async fn start_tasks() -> Result<(), eyre::Report> {
     let config = build_configs()?;
 
+    let name = env!("CARGO_PKG_NAME");
+    let version = env!("CARGO_PKG_VERSION");
+
+    event!(
+        Level::INFO,
+        "{} v{} - built for {}-{}",
+        name,
+        version,
+        std::env::var("TARGETARCH")
+            .as_deref()
+            .unwrap_or("unknown-arch"),
+        std::env::var("TARGETVARIANT")
+            .as_deref()
+            .unwrap_or("base variant")
+    );
+
     // this channel is used to communicate between
     // tasks and this function, in the case that a task fails, they'll send a message on the shutdown channel
     // after which we'll gracefully terminate other services
