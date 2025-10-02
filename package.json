@@ -61,7 +61,7 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hook-form": "0.3.1",
     "eslint-plugin-react-hooks": "5.2.0",
-    "eslint-plugin-react-refresh": "0.4.22",
+    "eslint-plugin-react-refresh": "0.4.23",
     "eslint-plugin-unicorn": "61.0.2",
     "prettier": "3.6.2",
     "prettier-plugin-sh": "0.18.0",
