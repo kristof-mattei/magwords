@@ -80,6 +80,8 @@ COPY ./assets ./assets
 # ensure cargo picks up on the change
 RUN touch ./back-end/src/main.rs
 
+ENV PATH="/output/bin:$PATH"
+
 # --release not needed, it is implied with install
 RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
