@@ -1,3 +1,4 @@
+import { defineConfig } from "@eslint/config-helpers";
 import js from "@eslint/js";
 import commentsPlugin from "@eslint-community/eslint-plugin-eslint-comments";
 import stylistic from "@stylistic/eslint-plugin";
@@ -10,6 +11,7 @@ import prettier from "eslint-plugin-prettier/recommended";
 import promise from "eslint-plugin-promise";
 import reactPlugin from "eslint-plugin-react";
 import reactHookFormPlugin from "eslint-plugin-react-hook-form";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
@@ -83,7 +85,7 @@ const sharedRules = {
     "import/prefer-default-export": ["off"],
 };
 
-export default tseslint.config(
+export default defineConfig(
     js.configs.recommended,
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
@@ -104,6 +106,7 @@ export default tseslint.config(
         plugins: {
             import: importPlugin,
             "react-refresh": reactRefreshPlugin,
+            "react-hooks": reactHooksPlugin,
             "react-hook-form": reactHookFormPlugin,
         },
         settings: {
@@ -121,7 +124,29 @@ export default tseslint.config(
         rules: {
             ...importPlugin.configs.recommended.rules,
             ...importPlugin.configs.react.rules,
+            ...reactHooksPlugin.configs.recommended.rules,
             ...reactHookFormPlugin.configs.recommended.rules,
+
+            // Core hooks rules
+            "react-hooks/rules-of-hooks": "error",
+            "react-hooks/exhaustive-deps": "warn",
+
+            // React Compiler rules
+            "react-hooks/config": "error",
+            "react-hooks/error-boundaries": "error",
+            "react-hooks/component-hook-factories": "error",
+            "react-hooks/gating": "error",
+            "react-hooks/globals": "error",
+            "react-hooks/immutability": "error",
+            "react-hooks/preserve-manual-memoization": "error",
+            "react-hooks/purity": "error",
+            "react-hooks/refs": "error",
+            "react-hooks/set-state-in-effect": "error",
+            "react-hooks/set-state-in-render": "error",
+            "react-hooks/static-components": "error",
+            "react-hooks/unsupported-syntax": "warn",
+            "react-hooks/use-memo": "error",
+            "react-hooks/incompatible-library": "warn",
 
             "react-refresh/only-export-components": "error",
 
