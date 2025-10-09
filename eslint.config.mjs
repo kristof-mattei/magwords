@@ -1,3 +1,4 @@
+import { defineConfig } from "@eslint/config-helpers";
 import js from "@eslint/js";
 import commentsPlugin from "@eslint-community/eslint-plugin-eslint-comments";
 import stylistic from "@stylistic/eslint-plugin";
@@ -80,7 +81,7 @@ const sharedRules = {
     "import/prefer-default-export": ["off"],
 };
 
-export default tseslint.config(
+export default defineConfig(
     js.configs.recommended,
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
