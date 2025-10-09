@@ -16,10 +16,8 @@ use tokio::task::JoinHandle;
 /// # Errors
 /// * When there is an issue executing the task
 /// * When the task itself failed
-#[expect(unused, reason = "Library code")]
 pub async fn flatten_handle<T, E>(handle: JoinHandle<Result<T, E>>) -> Result<T, eyre::Report>
 where
-    E: 'static + Sync + Send,
     eyre::Report: From<E>,
 {
     match handle.await {

@@ -32,6 +32,7 @@ use words::WordsSocket;
 use crate::router::build_router;
 use crate::server::setup_server;
 use crate::state::ApplicationState;
+use crate::utils::flatten_handle;
 
 #[expect(clippy::unnecessary_wraps, reason = "We will expand this later")]
 fn build_configs() -> Result<Config, eyre::Report> {
@@ -222,10 +223,18 @@ fn main() -> Result<(), eyre::Report> {
     init_tracing()?;
 
     // initialize the runtime
-    let rt = tokio::runtime::Runtime::new().unwrap();
+    let result: Result<(), eyre::Report> = tokio::runtime::Builder::new_multi_thread()
+        .enable_io()
+        .enable_time()
+        .build()
+        .expect("Failed building the Runtime")
+        .block_on(async {
+            // explicitly launch everything in a spawned task
+            // see https://docs.rs/tokio/latest/tokio/attr.main.html#non-worker-async-function
+            let handle = tokio::task::spawn(start_tasks());
 
-    // start service
-    let result: Result<(), eyre::Report> = rt.block_on(start_tasks());
+            flatten_handle(handle).await
+        });
 
     result
 }
