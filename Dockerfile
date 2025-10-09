@@ -89,7 +89,7 @@ RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     /build-scripts/build.sh install --path . --locked --target ${TARGET} --target-dir ./target/${TARGET} --root /output
 
 # Front-end (NPM) build
-FROM --platform=${BUILDPLATFORM} node:24.9.0-alpine3.22@sha256:f8baf2c963e3bff767993135ae3447bb433e8d64a5e4bb65780cd29ef3a525c2 AS typescript-build
+FROM --platform=${BUILDPLATFORM} node:24.9.0-alpine3.22@sha256:b0d33ed19a912e1a18ceb83e139815233cd49c123fe025e67a7c506c93e3f728 AS typescript-build
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
