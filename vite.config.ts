@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
 
     const config: UserConfig = {
         appType: "spa",
+        cacheDir: "../../node_modules/.cache/",
         build: {
             minify: false,
             target: "esnext",
