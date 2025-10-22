@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
 
     const config: UserConfig = {
         appType: "spa",
+        cacheDir: "../../node_modules/.cache/",
         css: {
             preprocessorOptions: {
                 scss: {

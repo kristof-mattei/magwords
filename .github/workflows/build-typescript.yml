@@ -136,7 +136,7 @@ jobs:
         id: tests
         continue-on-error: true
         run: |
-          pnpm run test --reporter=basic --reporter=github-actions --reporter=junit --coverage.reporter=text --coverage.reporter=lcovonly
+          pnpm run test --reporter=default --reporter=github-actions --reporter=junit --coverage.reporter=text --coverage.reporter=lcovonly
 
       - name: Upload test results
         uses: EnricoMi/publish-unit-test-result-action@3a74b2957438d0b6e2e61d67b05318aa25c9e6c6 # v2.20.0
