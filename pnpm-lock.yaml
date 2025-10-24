@@ -100,8 +100,8 @@ importers:
         specifier: 0.3.1
         version: 0.3.1
       eslint-plugin-react-hooks:
-        specifier: 7.0.0
-        version: 7.0.0(eslint@9.38.0(jiti@2.6.1))
+        specifier: 7.0.1
+        version: 7.0.1(eslint@9.38.0(jiti@2.6.1))
       eslint-plugin-react-refresh:
         specifier: 0.4.24
         version: 0.4.24(eslint@9.38.0(jiti@2.6.1))
@@ -1590,8 +1590,8 @@ packages:
     resolution: {integrity: sha512-+KHoQvjGa6gxxDaVTDPXmqOL+tJ2fWTBggBQTafoVTTe41xLnq94+ZXpb7oTDDRMP97UN908iIX3mNwQqnRxHw==}
     engines: {node: '>=0.10.0'}
 
-  eslint-plugin-react-hooks@7.0.0:
-    resolution: {integrity: sha512-fNXaOwvKwq2+pXiRpXc825Vd63+KM4DLL40Rtlycb8m7fYpp6efrTp1sa6ZbP/Ap58K2bEKFXRmhURE+CJAQWw==}
+  eslint-plugin-react-hooks@7.0.1:
+    resolution: {integrity: sha512-O0d0m04evaNzEPoSW+59Mezf8Qt0InfgGIBJnpC0h3NH/WjUAR7BIKUfysC6todmtiZ/A0oUVS8Gce0WhBrHsA==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -4529,7 +4529,7 @@ snapshots:
     dependencies:
       requireindex: 1.1.0
 
-  eslint-plugin-react-hooks@7.0.0(eslint@9.38.0(jiti@2.6.1)):
+  eslint-plugin-react-hooks@7.0.1(eslint@9.38.0(jiti@2.6.1)):
     dependencies:
       '@babel/core': 7.28.4
       '@babel/parser': 7.28.4
