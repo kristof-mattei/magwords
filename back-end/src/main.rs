@@ -34,6 +34,9 @@ use crate::server::setup_server;
 use crate::state::ApplicationState;
 use crate::utils::flatten_handle;
 
+#[global_allocator]
+static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
 #[expect(clippy::unnecessary_wraps, reason = "We will expand this later")]
 fn build_configs() -> Result<Config, eyre::Report> {
     let config = Config {
