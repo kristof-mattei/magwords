@@ -46,8 +46,8 @@
     "@types/react-dom": "19.2.2",
     "@typescript-eslint/parser": "8.46.2",
     "@vitejs/plugin-react": "5.1.0",
-    "@vitest/coverage-v8": "4.0.4",
-    "@vitest/ui": "4.0.4",
+    "@vitest/coverage-v8": "4.0.5",
+    "@vitest/ui": "4.0.5",
     "dependency-cruiser": "17.2.0",
     "eslint": "9.38.0",
     "eslint-config-love": "133.0.0",
@@ -74,6 +74,6 @@
     "vite-plugin-checker": "0.11.0",
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "4.0.4"
+    "vitest": "4.0.5"
   }
 }
