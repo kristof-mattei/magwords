@@ -48,7 +48,8 @@ RUN cargo init --name ${APPLICATION_NAME}
 COPY ./.cargo ./Cargo.toml ./Cargo.lock ./
 
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
-RUN mkdir -p back-end/src && mv src/main.rs back-end/src/main.rs
+RUN mkdir -p ./back-end/src && mv ./src/main.rs ./back-end/src/main.rs
+RUN echo "fn main() {}" > ./back-end/src/build.rs
 
 # We use `fetch` to pre-download the files to the cache
 # Notice we do this in the target arch specific branch
@@ -66,18 +67,21 @@ RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
     --mount=type=cache,id=cargo-registry-index,target=/usr/local/cargo/registry/index \
     --mount=type=cache,id=cargo-registry-cache,target=/usr/local/cargo/registry/cache \
-    /build-scripts/build.sh build --release --target ${TARGET} --target-dir ./target/${TARGET}
+    /build-scripts/build.sh build --release --target-dir ./target/${TARGET}
 
 # Rust full build
 FROM rust-cargo-build AS rust-build
+
+# to expose into `build.sh`
+ARG TARGETVARIANT
 
 WORKDIR /build
 
 # now we copy in the source which is more prone to changes and build it
 COPY ./back-end ./back-end
 
-# ensure cargo picks up on the change
-RUN touch ./back-end/src/main.rs
+# ensure cargo picks up on the fact that we copied in our code
+RUN touch ./back-end/src/main.rs ./back-end/src/build.rs
 
 ENV PATH="/output/bin:$PATH"
 
@@ -86,7 +90,7 @@ RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db \
     --mount=type=cache,id=cargo-registry-index,target=/usr/local/cargo/registry/index \
     --mount=type=cache,id=cargo-registry-cache,target=/usr/local/cargo/registry/cache \
-    /build-scripts/build.sh install --path . --locked --target ${TARGET} --target-dir ./target/${TARGET} --root /output
+    /build-scripts/build.sh install --path . --locked --target-dir ./target/${TARGET} --root /output
 
 # Front-end (NPM) build
 FROM --platform=${BUILDPLATFORM} node:24.11.0-alpine3.22@sha256:f36fed0b2129a8492535e2853c64fbdbd2d29dc1219ee3217023ca48aebd3787 AS typescript-build
@@ -127,8 +131,6 @@ RUN cat /etc/passwd | grep appuser > /tmp/passwd_appuser
 FROM scratch
 
 ARG APPLICATION_NAME
-ARG TARGETARCH
-ARG TARGETVARIANT
 
 COPY --from=passwd-build /tmp/group_appuser /etc/group
 COPY --from=passwd-build /tmp/passwd_appuser /etc/passwd
@@ -139,8 +141,6 @@ COPY --from=typescript-build /build/dist /app/dist
 USER appuser
 
 ENV RUST_BACKTRACE=full
-ENV TARGETARCH=${TARGETARCH}
-ENV TARGETVARIANT=${TARGETVARIANT}
 
 WORKDIR /app
 
