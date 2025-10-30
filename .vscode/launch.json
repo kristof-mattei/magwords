@@ -5,22 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug executable 'rust-seed-with-web'",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rust-seed-with-web'",
             "cargo": {
-                "args": [
-                    "build",
-                    "--bin=rust-seed-with-web",
-                    "--package=rust-seed-with-web"
-                ],
-                "filter": {
-                    "name": "rust-seed-with-web",
-                    "kind": "bin"
-                }
+                "args": ["run", "--bin=rust-seed-with-web"]
             },
             "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,rust_seed_with_web=TRACE,tower_http::trace=TRACE"
@@ -29,47 +20,26 @@
             "terminal": "integrated"
         },
         {
+            "name": "Debug executable 'rust-seed-with-web' without RUST_LOG",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rust-seed-with-web' without RUST_LOG",
             "cargo": {
-                "args": [
-                    "build",
-                    "--bin=rust-seed-with-web",
-                    "--package=rust-seed-with-web"
-                ],
-                "filter": {
-                    "name": "rust-seed-with-web",
-                    "kind": "bin"
-                }
+                "args": ["run", "--bin=rust-seed-with-web"]
             },
             "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
         },
-
         {
+            "name": "Debug unit tests in executable 'rust-seed-with-web'",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'rust-seed-with-web'",
             "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--bin=rust-seed-with-web",
-                    "--package=rust-seed-with-web"
-                ],
-                "filter": {
-                    "name": "rust-seed-with-web",
-                    "kind": "bin"
-                }
+                "args": ["test", "--bin=rust-seed-with-web"]
             },
-            "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,rust_seed_with_web=TRACE,tower_http::trace=TRACE"
@@ -78,23 +48,12 @@
             "terminal": "integrated"
         },
         {
+            "name": "Debug integration test 'integration_tests'",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug integration test 'integration_tests'",
             "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--test=integration_tests",
-                    "--package=rust-seed-with-web"
-                ],
-                "filter": {
-                    "name": "integration_tests",
-                    "kind": "test"
-                }
+                "args": ["test", "--test=integration_tests"]
             },
-            "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,rust_seed_with_web=TRACE,tower_http::trace=TRACE"
