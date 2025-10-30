@@ -1,3 +1,4 @@
+mod build_env;
 mod router;
 mod routes;
 mod server;
@@ -29,6 +30,7 @@ use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
 use words::WordsSocket;
 
+use crate::build_env::get_build_env;
 use crate::router::build_router;
 use crate::server::setup_server;
 use crate::state::ApplicationState;
@@ -46,26 +48,28 @@ fn build_configs() -> Result<Config, eyre::Report> {
     Ok(config)
 }
 
+fn print_header() {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+    let build_env = get_build_env();
+
+    event!(
+        Level::INFO,
+        "{} v{} - built for {} ({})",
+        NAME,
+        VERSION,
+        build_env.get_target(),
+        build_env.get_target_cpu().unwrap_or("base cpu variant"),
+    );
+}
+
 /// starts all the tasks, such as the web server, the key refresh, ...
 /// ensures all tasks are gracefully shutdown in case of error, ctrl+c or sigterm
 async fn start_tasks() -> Result<(), color_eyre::Report> {
     let config = build_configs()?;
 
-    let name = env!("CARGO_PKG_NAME");
-    let version = env!("CARGO_PKG_VERSION");
-
-    event!(
-        Level::INFO,
-        "{} v{} - built for {}-{}",
-        name,
-        version,
-        std::env::var("TARGETARCH")
-            .as_deref()
-            .unwrap_or("unknown-arch"),
-        std::env::var("TARGETVARIANT")
-            .as_deref()
-            .unwrap_or("base variant")
-    );
+    print_header();
 
     // this channel is used to communicate between
     // tasks and this function, in the case that a task fails, they'll send a message on the shutdown channel
