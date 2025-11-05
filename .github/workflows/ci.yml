@@ -540,7 +540,7 @@ jobs:
             new_tags+=(${tag})
           done <<< "${{ steps.meta.outputs.tags }}"
 
-          docker buildx imagetools create "${new_tags[@]}" \
+          docker buildx imagetools create --progress rawjson "${new_tags[@]}" \
             ${{ needs.docker-build.outputs.full_image_name_local_registry }}:${{ needs.docker-build.outputs.unique_tag }}
 
           for new_tag in $(echo "${{ join(steps.meta.outputs.tags, ' ') }}"); do
