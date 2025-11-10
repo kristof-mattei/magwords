@@ -161,7 +161,6 @@ export default defineConfig(
             parser: tsParser,
             parserOptions: {
                 ecmaVersion: "latest",
-                project: "./tsconfig.json",
                 projectService: true,
                 sourceType: "module", // Allows for the use of imports
                 tsconfigRootDir: import.meta.dirname,
