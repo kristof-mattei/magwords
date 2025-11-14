@@ -42,8 +42,8 @@
     "@types/eslint": "9.6.1",
     "@types/node": "24.10.1",
     "@typescript-eslint/parser": "8.46.4",
-    "@vitest/coverage-v8": "4.0.8",
-    "@vitest/ui": "4.0.8",
+    "@vitest/coverage-v8": "4.0.9",
+    "@vitest/ui": "4.0.9",
     "dependency-cruiser": "17.2.0",
     "eslint": "9.39.1",
     "eslint-config-love": "133.0.0",
@@ -66,6 +66,6 @@
     "vite-plugin-checker": "0.11.0",
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "4.0.8"
+    "vitest": "4.0.9"
   }
 }
