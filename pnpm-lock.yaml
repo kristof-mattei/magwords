@@ -49,8 +49,8 @@ importers:
         specifier: 4.0.9
         version: 4.0.9(vitest@4.0.9)
       dependency-cruiser:
-        specifier: 17.2.0
-        version: 17.2.0
+        specifier: 17.3.1
+        version: 17.3.1
       eslint:
         specifier: 9.39.1
         version: 9.39.1(jiti@2.6.1)
@@ -1391,8 +1391,8 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
 
-  dependency-cruiser@17.2.0:
-    resolution: {integrity: sha512-EiOkB41fdAOCef3ycMX4pAXqkWrCOQ+G4IKOjcs9uPILShAuki2fHlTQPnv4aIHka/3lGJJdpRVrrwTMD7v1dg==}
+  dependency-cruiser@17.3.1:
+    resolution: {integrity: sha512-yWwszB4GKIBKK/xiHSQ6TVIV6k8byd+gMGT2RMQ+03wb1jGH48cSsLH29iUUZgGtKyLSH51NurbnjXV0+niUjA==}
     engines: {node: ^20.12||^22||>=24}
     hasBin: true
 
@@ -2948,9 +2948,9 @@ packages:
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
-  watskeburt@4.2.3:
-    resolution: {integrity: sha512-uG9qtQYoHqAsnT711nG5iZc/8M5inSmkGCOp7pFaytKG2aTfIca7p//CjiVzAE4P7hzaYuCozMjNNaLgmhbK5g==}
-    engines: {node: ^18||>=20}
+  watskeburt@5.0.0:
+    resolution: {integrity: sha512-fEMhfIzu9WOuAJdDcTT+aPjn0JHI2+UeJ+zWSEs/tgMvc+MFDZVmhlZ8C1uJWXax1ETYc4trUnHFHyx2DrG0jQ==}
+    engines: {node: ^20.12||^22.13||>=24.0}
     hasBin: true
 
   webpack-virtual-modules@0.6.2:
@@ -4228,7 +4228,7 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
-  dependency-cruiser@17.2.0:
+  dependency-cruiser@17.3.1:
     dependencies:
       acorn: 8.15.0
       acorn-jsx: 5.3.2(acorn@8.15.0)
@@ -4249,7 +4249,7 @@ snapshots:
       safe-regex: 2.1.1
       semver: 7.7.3
       tsconfig-paths-webpack-plugin: 4.2.0
-      watskeburt: 4.2.3
+      watskeburt: 5.0.0
 
   deprecation@2.3.1: {}
 
@@ -5920,7 +5920,7 @@ snapshots:
 
   vscode-uri@3.1.0: {}
 
-  watskeburt@4.2.3: {}
+  watskeburt@5.0.0: {}
 
   webpack-virtual-modules@0.6.2: {}
 
