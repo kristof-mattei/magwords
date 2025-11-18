@@ -273,12 +273,6 @@ jobs:
       - changes
       - repo-has-container
     if: |
-      github.event_name == 'pull_request' &&
-      fromJSON(needs.repo-has-container.outputs.has_container) == true &&
-      (!(
-        contains(needs.*.result, 'failure') ||
-        contains(needs.*.result, 'cancelled')
-      )) &&
       (
         fromJSON(needs.changes.outputs.docker) == true ||
         fromJSON(needs.changes.outputs.rust) == true ||
@@ -458,6 +452,8 @@ jobs:
       packages: write
     needs:
       - docker-build
+      - build-rust
+      - build-typescript
     # Check if the event is not triggered by a fork
     if: |
       github.event.pull_request.head.repo.full_name == github.repository &&
