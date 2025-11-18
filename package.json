@@ -42,7 +42,7 @@
     "@tailwindcss/vite": "4.1.17",
     "@types/eslint": "9.6.1",
     "@types/node": "24.10.1",
-    "@types/react": "19.2.5",
+    "@types/react": "19.2.6",
     "@types/react-dom": "19.2.3",
     "@typescript-eslint/parser": "8.47.0",
     "@vitejs/plugin-react": "5.1.1",
