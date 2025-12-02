@@ -48,7 +48,7 @@ tracing = "0.1.43"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.22", features = ["env-filter"] }
 url = { version = "2.5.7", features = ["serde"] }
-uuid = { version = "1.18.1", features = ["v7"] }
+uuid = { version = "1.19.0", features = ["v7"] }
 
 [lints.clippy]
 # don't stop from compiling / running
