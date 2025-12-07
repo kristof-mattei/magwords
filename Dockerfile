@@ -105,7 +105,7 @@ RUN corepack enable
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
-COPY package.json pnpm-lock.yaml vite.config.ts tsconfig.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml vite.config.ts tsconfig.json ./
 
 RUN npm pkg delete scripts.prepare
 # install the corepack our package requires
