@@ -3,7 +3,7 @@ use std::sync::atomic::AtomicUsize;
 
 use rand::Rng as _;
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{Value as JsonValue, json};
 use socketioxide::SocketIo;
 use socketioxide::extract::{Data, SocketRef, TryData};
 use socketioxide::socket::DisconnectReason;
@@ -95,7 +95,7 @@ fn build_words(words: &str) -> Vec<WordInfo> {
         .collect::<Vec<_>>()
 }
 
-async fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
+async fn on_connect(socket: SocketRef, Data(_data): Data<JsonValue>) {
     event!(
         Level::DEBUG,
         socket.ns = socket.ns(),
