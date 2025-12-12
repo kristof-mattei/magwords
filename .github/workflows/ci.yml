@@ -216,8 +216,8 @@ jobs:
           # store
           echo "version=${VERSION}" >> ${GITHUB_OUTPUT}
 
-  pre-build-cargo-edit-cargo-get:
-    name: Pre-build cargo-edit and cargo-get for ${{ matrix.runs-on }} for caching purposes
+  pre-build-cargo-edit:
+    name: Pre-build cargo-edit for ${{ matrix.runs-on }} for caching purposes
     strategy:
       matrix:
         runs-on:
@@ -267,7 +267,7 @@ jobs:
       - calculate-version
       - architectures
       # ensures cache of cargo-edit and cargo-get
-      - pre-build-cargo-edit-cargo-get
+      - pre-build-cargo-edit
       - changes
       - repo-has-container
     if: |
