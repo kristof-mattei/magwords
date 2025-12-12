@@ -94,10 +94,20 @@ RUN --mount=type=cache,target=/build/target/${TARGET},sharing=locked \
     /build-scripts/build.sh install --path . --locked --target-dir ./target/${TARGET} --root /output
 
 # Front-end (NPM) build
+<<<<<<< HEAD
 FROM --platform=${BUILDPLATFORM} node:24.12.0-alpine3.22@sha256:4f4a059445c5a6ef2b9d169d9afde176301263178141fc05ba657dab1c84f9a7 AS typescript-build
+||||||| 9f9b32ce
+FROM --platform=${BUILDPLATFORM} node:24.11.1-alpine3.22@sha256:2867d550cf9d8bb50059a0fff528741f11a84d985c732e60e19e8e75c7239c43 AS typescript-build
+=======
+FROM --platform=${BUILDPLATFORM} node:25.2.1-alpine3.23@sha256:fd164609b5ab0c6d49bac138ae06c347e72261ec6ae1de32b6aa9f5ee2271110 AS typescript-build
+>>>>>>> upstream/main
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+RUN rm /usr/local/bin/yarn
+RUN rm /usr/local/bin/yarnpkg
+RUN npm uninstall --global yarn pnpm
+RUN npm install --global corepack
 RUN corepack enable
 
 # The following block
