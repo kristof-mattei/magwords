@@ -626,6 +626,7 @@ jobs:
     # combination of upstream skip and success: success
     runs-on: ubuntu-latest
     needs:
+      - pre-build-cargo-edit
       - build-rust
       - build-typescript
       - docker-build
