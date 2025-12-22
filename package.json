@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "bootstrap": "5.3.8",
-    "socket.io-client": "4.8.1"
+    "socket.io-client": "4.8.2"
   },
   "devDependencies": {
     "@codecov/vite-plugin": "1.9.1",
