@@ -65,8 +65,8 @@ fn print_header() {
 }
 
 /// starts all the tasks, such as the web server, the key refresh, ...
-/// ensures all tasks are gracefully shutdown in case of error, ctrl+c or sigterm
-async fn start_tasks() -> Result<(), color_eyre::Report> {
+/// ensures all tasks are gracefully shutdown in case of error, ctrl-c or `SIGTERM`
+async fn start_tasks() -> Result<(), eyre::Report> {
     let config = build_configs()?;
 
     print_header();
