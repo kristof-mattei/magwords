@@ -1,7 +1,7 @@
 use std::net::SocketAddr;
 
 use axum::Router;
-use color_eyre::eyre::Context as _;
+use color_eyre::eyre::{self, Context as _};
 use tokio_util::sync::CancellationToken;
 use tracing::{Level, event};
 
@@ -14,7 +14,7 @@ pub async fn setup_server(
     bind_to: SocketAddr,
     router: Router,
     token: CancellationToken,
-) -> Result<(), color_eyre::Report> {
+) -> Result<(), eyre::Report> {
     event!(Level::INFO, ?bind_to, "Trying to bind");
 
     let listener = tokio::net::TcpListener::bind(bind_to)
