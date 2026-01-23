@@ -11,11 +11,11 @@ use tokio::task::JoinHandle;
 /// trigger the `tokio::try_join!`. This function flattens the 2:
 /// `Result::Ok(T)` when both the join-handle AND
 /// the result of the inner function are `Result::Ok`, and `Result::Err`
-/// when either the join failed, or the inner task failed
+/// when either the join failed, or the inner task failed.
 ///
 /// # Errors
 /// * When there is an issue executing the task
-/// * When the task itself failed
+/// * When the task itself failed.
 pub async fn flatten_handle<T, E>(handle: JoinHandle<Result<T, E>>) -> Result<T, eyre::Report>
 where
     eyre::Report: From<E>,
