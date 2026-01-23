@@ -5,7 +5,7 @@ use axum::http::request::Parts;
 
 use crate::states::config::Config;
 
-/// This is to be able to do
+/// This is to be able to do:
 /// ```no_run
 /// async fn get_handler(State(config): State<Arc<Config>>) -> impl IntoResponse {
 ///     // ...
@@ -32,7 +32,7 @@ impl ApplicationState {
     }
 }
 
-/// This is to be able to do
+/// This is to be able to do:
 /// ```no_run
 /// async fn get_handler(state: ApplicationState) -> impl IntoResponse {
 ///     // ...

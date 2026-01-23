@@ -35,7 +35,7 @@ env:
 jobs:
   architectures:
     name: Build matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       architectures: ${{ steps.matrix.outputs.architectures }}
     steps:
@@ -72,7 +72,7 @@ jobs:
 
   repo-has-container:
     name: Repo has container?
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       has_container: ${{ steps.determine.outputs.has_container }}
     steps:
@@ -85,7 +85,7 @@ jobs:
 
   changes:
     name: Detect changes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       contents: read
       pull-requests: read
@@ -109,7 +109,9 @@ jobs:
 
   calculate-version:
     name: Calculate version
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    permissions:
+      contents: read
     needs:
       - changes
       - repo-has-container
@@ -130,7 +132,37 @@ jobs:
           show-progress: false
           fetch-depth: 0
 
-      # when updating this, ensure you update the `Cache cargo` step in the `docker-build` job
+      - name: Install git-cliff to generate changelog & next version number
+        uses: taiki-e/install-action@a632d43378d77581e7441d0833ad517e52ca1fef # v2.67.5
+        with:
+          tool: git-cliff
+
+      - name: Calculate next version
+        shell: bash
+        id: version
+        run: |
+          version=$(git-cliff --bumped-version --unreleased --github-token ${{ secrets.GITHUB_TOKEN }})
+
+          # remove v
+          version="${version//v/}"
+
+          # store
+          echo "version=${VERSION}" >> ${GITHUB_OUTPUT}
+
+  pre-build-cargo-edit:
+    name: Pre-build cargo-edit for ${{ matrix.runs-on }} for caching purposes
+    strategy:
+      matrix:
+        runs-on:
+          - "ubuntu-latest"
+          - "ubuntu-24.04-arm"
+    runs-on: ${{ matrix.runs-on }}
+    needs:
+      - repo-has-container
+    if: fromJSON(needs.repo-has-container.outputs.has_container) == true
+    steps:
+      - *checkout
+
       - &cache_cargo
         name: Cache cargo
         uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
@@ -167,43 +199,6 @@ jobs:
           rustup show
 
           cargo --version
-
-      - name: Install git-cliff to generate changelog & next version number
-        uses: taiki-e/install-action@a632d43378d77581e7441d0833ad517e52ca1fef # v2.67.5
-        with:
-          tool: git-cliff
-
-      - name: Calculate next version
-        shell: bash
-        id: version
-        run: |
-          version=$(git-cliff --bumped-version --unreleased --github-token ${{ secrets.GITHUB_TOKEN }})
-
-          # remove v
-          version="${version//v/}"
-
-          # store
-          echo "version=${VERSION}" >> ${GITHUB_OUTPUT}
-
-  pre-build-cargo-edit:
-    name: Pre-build cargo-edit for ${{ matrix.runs-on }} for caching purposes
-    strategy:
-      matrix:
-        runs-on:
-          - "ubuntu-latest"
-          - "ubuntu-24.04-arm"
-    runs-on: ${{ matrix.runs-on }}
-    needs:
-      - repo-has-container
-    if: fromJSON(needs.repo-has-container.outputs.has_container) == true
-    steps:
-      - *checkout
-
-      - *cache_cargo
-
-      - *set_up_mold
-
-      - *set_up_toolchain
 
       - name: Install cargo-edit to do set-version
         uses: taiki-e/install-action@a632d43378d77581e7441d0833ad517e52ca1fef # v2.67.5
@@ -590,7 +585,7 @@ jobs:
     # when all upstream skips: pass
     # when all upstream success: success
     # combination of upstream skip and success: success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs:
       - pre-build-cargo-edit
       - build-rust
