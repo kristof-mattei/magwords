@@ -8,9 +8,9 @@ docker:
   - Dockerfile
 rust:
   - *shared
-  - "*.toml"
+  - "**/*.toml"
   - ".cargo/**"
-  - "back-end/**"
+  - "crates/**"
   - Cargo.lock
 typescript:
   - *shared

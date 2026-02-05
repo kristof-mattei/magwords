@@ -53,14 +53,14 @@ impl WordsSocket {
         io.ns("/", |socket, data| async move {
             on_connect(socket, data).await;
 
-            if let Err(e) = socket_clone
+            if let Err(error) = socket_clone
             .emit(
                 "poets",
                 &json!({ "count": POETS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1 }),
             )
             .await
         {
-            event!(Level::ERROR, ?e, "Failed to announce new poet");
+            event!(Level::ERROR, ?error, "Failed to announce new poet");
         }
         });
 
@@ -73,8 +73,8 @@ impl Drop for WordsSocket {
         let io = self.io.clone();
 
         tokio::task::spawn(async move {
-            if let Err(e) = io.emit("goodbye", &json!({})).await {
-                event!(Level::ERROR, ?e, "Failed to announce shutting down");
+            if let Err(error) = io.emit("goodbye", &json!({})).await {
+                event!(Level::ERROR, ?error, "Failed to announce shutting down");
             }
         });
     }
@@ -112,8 +112,8 @@ async fn on_connect(socket: SocketRef, Data(_data): Data<JsonValue>) {
     // socket.on("ack", on_ack);
 
     // send client current words
-    if let Err(e) = socket.emit("words", &[&*WORD_LIST.lock().await]) {
-        event!(Level::TRACE, ?e, "Failed to send words to new client");
+    if let Err(error) = socket.emit("words", &[&*WORD_LIST.lock().await]) {
+        event!(Level::TRACE, ?error, "Failed to send words to new client");
     }
 }
 
@@ -121,12 +121,12 @@ async fn on_disconnect(socket: SocketRef, reason: DisconnectReason) {
     // adjust
     let new_poets = POETS.fetch_sub(1, std::sync::atomic::Ordering::Relaxed) - 1;
 
-    if let Err(e) = socket
+    if let Err(error) = socket
         .broadcast()
         .emit("poets", &json!({ "count": new_poets }))
         .await
     {
-        event!(Level::ERROR, ?e, "Failed to announce poet gone");
+        event!(Level::ERROR, ?error, "Failed to announce poet gone");
     }
 
     event!(Level::TRACE, ?reason, ns = socket.ns(), %socket.id, "Client disconnected");
@@ -142,12 +142,12 @@ async fn on_move(socket: SocketRef, TryData(data): TryData<MoveEventParams>) {
             word.x = m.x;
             word.y = m.y;
 
-            if let Err(e) = socket.broadcast().emit("move", &m).await {
-                event!(Level::TRACE, ?e, "Failed to broadcast");
+            if let Err(error) = socket.broadcast().emit("move", &m).await {
+                event!(Level::TRACE, ?error, "Failed to broadcast");
             }
         },
-        Err(e) => {
-            event!(Level::TRACE, ?e, "Invalid move received");
+        Err(error) => {
+            event!(Level::TRACE, ?error, "Invalid move received");
         },
     }
 }
