@@ -45,7 +45,8 @@ WORKDIR /build
 
 RUN cargo init --name ${APPLICATION_NAME}
 
-COPY ./.cargo ./Cargo.toml ./Cargo.lock ./
+COPY ./.cargo ./.cargo
+COPY ./Cargo.toml ./Cargo.lock ./
 
 # because have our source in a subfolder, we need to ensure that the path in the [[bin]] section exists
 RUN mkdir -p ./back-end/src && mv ./src/main.rs ./back-end/src/main.rs
