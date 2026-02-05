@@ -81,7 +81,7 @@ async fn start_tasks() -> Result<(), eyre::Report> {
     let (layer, socket_io) = SocketIo::new_layer();
 
     let word_socket = {
-        let words = include_str!("../../assets/word-list-all.txt");
+        let words = include_str!("../../../assets/word-list-all.txt");
 
         WordsSocket::build(socket_io, words).await
     };
@@ -100,11 +100,11 @@ async fn start_tasks() -> Result<(), eyre::Report> {
             let server = setup_server(bind_to, router, token.clone()).await;
 
             match server {
-                Err(e) => {
-                    event!(Level::ERROR, message = "Server shutting down", ?e);
-                },
                 Ok(()) => {
                     event!(Level::INFO, "Server shutting down gracefully");
+                },
+                Err(error) => {
+                    event!(Level::ERROR, ?error, "Server shutting down");
                 },
             }
         });
@@ -129,8 +129,8 @@ async fn start_tasks() -> Result<(), eyre::Report> {
                         act.for_each_concurrent(Some(10), |(_sid, _ack)| async move {})
                             .await;
                     },
-                    Err(e) => {
-                        event!(Level::ERROR, ?e, "Failed to broadcast");
+                    Err(error) => {
+                        event!(Level::ERROR, ?error, "Failed to broadcast");
                         break;
                     },
                 }

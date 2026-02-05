@@ -207,11 +207,11 @@ jobs:
             --binary-path ./target/debug/ \
             --branch \
             --ignore-not-existing \
-            --keep-only "src/**" \
+            --keep-only "crates/**/src/**" \
             --llvm \
             --output-path ./reports/lcov.info \
             --output-type lcov \
-            --source-dir ./back-end/
+            --source-dir .
 
       - name: Upload coverage results (to Codecov.io)
         uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
