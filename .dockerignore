@@ -3,10 +3,10 @@
 
 # And explicitly include...
 !/.cargo
-!/back-end
 !/build-scripts
 !/Cargo.lock
 !/Cargo.toml
+!/crates
 !/front-end
 !/package.json
 !/pnpm-lock.yaml
