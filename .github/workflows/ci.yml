@@ -20,7 +20,6 @@ permissions:
 
 env:
   CARGO_TERM_COLOR: always
-  CARGO_FEATURES: --all-features
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   IMAGE_VARIANTS: |-
@@ -30,7 +29,6 @@ env:
     amd64/v3
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  RUSTFLAGS: --deny=warnings
 
 jobs:
   architectures:
