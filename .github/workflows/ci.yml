@@ -50,9 +50,9 @@ jobs:
 
             core.setOutput("architectures", json);
 
-  build-rust:
+  rust-build:
     name: Build Rust code
-    uses: ./.github/workflows/build-rust.yml
+    uses: ./.github/workflows/rust.yml
     secrets: inherit
     permissions:
       checks: write
@@ -60,9 +60,9 @@ jobs:
       id-token: write
       pull-requests: write
 
-  build-typescript:
+  typescript-build:
     name: Build TypeScript code
-    uses: ./.github/workflows/build-typescript.yml
+    uses: ./.github/workflows/typescript.yml
     secrets: inherit
     permissions:
       checks: write
@@ -412,8 +412,8 @@ jobs:
       packages: write
     needs:
       - docker-build
-      - build-rust
-      - build-typescript
+      - rust-build
+      - typescript-build
     # Check if the event is not triggered by a fork
     if: |
       github.event.pull_request.head.repo.full_name == github.repository &&
@@ -588,8 +588,8 @@ jobs:
     runs-on: ubuntu-slim
     needs:
       - pre-build-cargo-edit
-      - build-rust
-      - build-typescript
+      - rust-build
+      - typescript-build
       - docker-build
       - docker-publish
       - docker-attest
