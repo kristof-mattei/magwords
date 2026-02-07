@@ -71,7 +71,7 @@ jobs:
       - name: Fetch
         shell: bash
         run: |
-          cargo fetch
+          cargo fetch --locked
 
   changes:
     name: Detect changes
