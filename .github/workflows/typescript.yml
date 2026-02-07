@@ -152,7 +152,7 @@ jobs:
           disable_search: true
           disable_telem: true
           fail_ci_if_error: true
-          flags: front-end
+          flags: ${{ github.job }}
           files: coverage/vitest/lcov.info
           plugins: ""
           report_type: "coverage"
@@ -164,7 +164,7 @@ jobs:
           disable_search: true
           disable_telem: true
           fail_ci_if_error: true
-          flags: front-end
+          flags: ${{ github.job }}
           files: reports/vitest/test-report.xml
           plugins: ""
           report_type: "test_results"

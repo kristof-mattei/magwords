@@ -9,6 +9,7 @@ permissions:
 
 env:
   CARGO_FEATURES: --all-features
+  CARGO_TERM_COLOR: always
   RUSTFLAGS: --deny=warnings
 
 jobs:
@@ -227,7 +228,7 @@ jobs:
           disable_search: true
           disable_telem: true
           fail_ci_if_error: true
-          flags: back-end
+          flags: ${{ github.job }}
           files: reports/lcov.info
           plugins: ""
           report_type: "coverage"
@@ -239,7 +240,7 @@ jobs:
           disable_search: true
           disable_telem: true
           fail_ci_if_error: true
-          flags: back-end
+          flags: ${{ github.job }}
           files: reports/results.xml
           plugins: ""
           report_type: "test_results"
