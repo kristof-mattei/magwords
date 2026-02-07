@@ -147,7 +147,7 @@ jobs:
           version="${version//v/}"
 
           # store
-          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
 
   pre-build-cargo-edit:
     name: Pre-build cargo-edit for ${{ matrix.runs-on }} for caching purposes
