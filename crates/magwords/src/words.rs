@@ -1,7 +1,7 @@
 use std::ops::IndexMut as _;
 use std::sync::atomic::AtomicUsize;
 
-use rand::Rng as _;
+use rand::RngExt as _;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value as JsonValue, json};
 use socketioxide::SocketIo;
