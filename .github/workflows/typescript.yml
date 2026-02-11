@@ -226,7 +226,7 @@ jobs:
       - npm-lint
       - npm-test
     if: |
-      always()
+      !cancelled()
     steps:
       - name: Fail!
         shell: bash
