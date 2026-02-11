@@ -146,14 +146,22 @@ jobs:
           files: |
             reports/vitest/test-report.xml
 
+      - name: Record Node and Typescript version
+        shell: bash
+        run: |
+          echo "NODE=$(node --version)" >> "$GITHUB_ENV"
+          echo "TYPESCRIPT=$(pnpm tsc --version)" >> "$GITHUB_ENV"
+
       - name: Upload coverage results (to Codecov.io)
         uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         with:
           disable_search: true
           disable_telem: true
+          env_vars: OS,NODE,TYPESCRIPT
           fail_ci_if_error: true
-          flags: ${{ github.job }}
+          flags: front-end
           files: coverage/vitest/lcov.info
+          name: code-coverage
           plugins: ""
           report_type: "coverage"
           use_oidc: true
@@ -163,9 +171,11 @@ jobs:
         with:
           disable_search: true
           disable_telem: true
+          env_vars: OS,NODE,TYPESCRIPT
           fail_ci_if_error: true
-          flags: ${{ github.job }}
+          flags: front-end
           files: reports/vitest/test-report.xml
+          name: test-results
           plugins: ""
           report_type: "test_results"
           use_oidc: true
