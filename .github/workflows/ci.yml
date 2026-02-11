@@ -589,6 +589,8 @@ jobs:
     # combination of upstream skip and success: success
     runs-on: ubuntu-slim
     needs:
+      - changes
+      - calculate-version
       - docker-prepare-variables
       - rust-build
       - typescript-build
