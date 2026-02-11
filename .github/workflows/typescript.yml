@@ -220,12 +220,13 @@ jobs:
     # combination of upstream skip and success: success
     runs-on: ubuntu-slim
     needs:
+      - changes
       - npm-build
       - npm-dependencies
       - npm-lint
       - npm-test
     if: |
-      always()
+      !cancelled()
     steps:
       - name: Fail!
         shell: bash
