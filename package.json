@@ -37,7 +37,7 @@
     "@eslint-community/eslint-plugin-eslint-comments": "4.6.0",
     "@eslint/config-helpers": "0.5.2",
     "@eslint/js": "10.0.1",
-    "@stylistic/eslint-plugin": "5.8.0",
+    "@stylistic/eslint-plugin": "5.9.0",
     "@tailwindcss/vite": "4.2.0",
     "@types/eslint": "9.6.1",
     "@types/node": "24.10.13",
