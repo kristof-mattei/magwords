@@ -112,7 +112,7 @@ RUN --mount=type=cache,id=target-${TARGETPLATFORMDASH},target=${CARGO_TARGET_DIR
     /build-scripts/build.sh install --frozen --path "./crates/${APPLICATION_NAME}/" --root /output
 
 # Front-end (NPM) build
-FROM --platform=${BUILDPLATFORM} node:24.13.1-alpine3.22@sha256:d28696cabe6a72c5addbb608b344818e5a158d849174abd4b1ae85ab48536280 AS typescript-build
+FROM --platform=${BUILDPLATFORM} node:24.14.0-alpine3.22@sha256:bcafe4bc8ca4901298df695837fafe2d896e2021f3a8431601ecdfe46c311880 AS typescript-build
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
