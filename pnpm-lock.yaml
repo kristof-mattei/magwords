@@ -1311,8 +1311,8 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
-  caniuse-lite@1.0.30001774:
-    resolution: {integrity: sha512-DDdwPGz99nmIEv216hKSgLD+D4ikHQHjBC/seF98N9CPqRX4M5mSxT9eTV6oyisnJcuzxtZy4n17yKKQYmYQOA==}
+  caniuse-lite@1.0.30001775:
+    resolution: {integrity: sha512-s3Qv7Lht9zbVKE9XoTyRG6wVDCKdtOFIjBGg3+Yhn6JaytuNKPIjBMTMIY1AnOH3seL5mvF+x33oGAyK3hVt3A==}
 
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
@@ -1452,6 +1452,10 @@ packages:
 
   enhanced-resolve@5.19.0:
     resolution: {integrity: sha512-phv3E1Xl4tQOShqSte26C7Fl84EwUdZsyOuSSk9qtAGyyQs2s3jJzComh+Abf4g187lUUAvH+H26omrqia2aGg==}
+    engines: {node: '>=10.13.0'}
+
+  enhanced-resolve@5.20.0:
+    resolution: {integrity: sha512-/ce7+jQ1PQ6rVXwe+jKEg5hW5ciicHwIQUagZkp6IufBoY3YDgdTTY1azVs0qoRgVmvsNB+rbjLJxDAeHHtwsQ==}
     engines: {node: '>=10.13.0'}
 
   entities@4.5.0:
@@ -3602,7 +3606,7 @@ snapshots:
   '@tailwindcss/node@4.2.1':
     dependencies:
       '@jridgewell/remapping': 2.3.5
-      enhanced-resolve: 5.19.0
+      enhanced-resolve: 5.20.0
       jiti: 2.6.1
       lightningcss: 1.31.1
       magic-string: 0.30.21
@@ -4039,7 +4043,7 @@ snapshots:
   browserslist@4.28.1:
     dependencies:
       baseline-browser-mapping: 2.10.0
-      caniuse-lite: 1.0.30001774
+      caniuse-lite: 1.0.30001775
       electron-to-chromium: 1.5.302
       node-releases: 2.0.27
       update-browserslist-db: 1.2.3(browserslist@4.28.1)
@@ -4067,7 +4071,7 @@ snapshots:
 
   camelcase@6.3.0: {}
 
-  caniuse-lite@1.0.30001774: {}
+  caniuse-lite@1.0.30001775: {}
 
   chai@6.2.2: {}
 
@@ -4220,6 +4224,11 @@ snapshots:
   engine.io-parser@5.2.3: {}
 
   enhanced-resolve@5.19.0:
+    dependencies:
+      graceful-fs: 4.2.11
+      tapable: 2.3.0
+
+  enhanced-resolve@5.20.0:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.3.0
@@ -4473,7 +4482,7 @@ snapshots:
   eslint-plugin-n@17.24.0(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.2(jiti@2.6.1))
-      enhanced-resolve: 5.19.0
+      enhanced-resolve: 5.20.0
       eslint: 10.0.2(jiti@2.6.1)
       eslint-plugin-es-x: 7.8.0(eslint@10.0.2(jiti@2.6.1))
       get-tsconfig: 4.13.6
