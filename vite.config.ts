@@ -4,9 +4,7 @@ import { codecovVitePlugin } from "@codecov/vite-plugin";
 import type { UserConfig } from "vite";
 import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
-
 import svgr from "vite-plugin-svgr";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig(({ mode }) => {
@@ -19,7 +17,13 @@ export default defineConfig(({ mode }) => {
         css: {
             preprocessorOptions: {
                 scss: {
-                    silenceDeprecations: ["mixed-decls", "color-functions", "global-builtin", "import"],
+                    silenceDeprecations: [
+                        "color-functions",
+                        "global-builtin",
+                        "if-function",
+                        "import",
+                        "legacy-js-api",
+                    ],
                 },
             },
         },
@@ -38,10 +42,10 @@ export default defineConfig(({ mode }) => {
                 "@/": nodePath.resolve("src/"),
                 "~bootstrap": nodePath.resolve(import.meta.dirname, "node_modules/bootstrap"),
             },
+            tsconfigPaths: true,
         },
         plugins: [
             svgr(),
-            viteTsConfigPaths(),
             checker({ typescript: true }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["GITHUB_ACTIONS"] === "true",
