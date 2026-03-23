@@ -1,9 +1,12 @@
 # only in root
+/.local
+/.pnpm-store
 /coverage
 /dist
 /node_modules
 /reports
 /target
+/tsconfig.tsbuildinfo
 
 # emitted per-crate
 profiling/
@@ -12,4 +15,3 @@ profiling/
 /profile.json
 
 .env
-tsconfig.tsbuildinfo

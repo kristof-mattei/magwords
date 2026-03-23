@@ -5,9 +5,10 @@ import type { UserConfig } from "vite";
 import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
 import svgr from "vite-plugin-svgr";
+import type { ViteUserConfigFn } from "vitest/config";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
-export default defineConfig(({ mode }) => {
+const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
     const port = Number.parseInt(environment["VITE_PORT"] ?? "");
 
@@ -33,13 +34,12 @@ export default defineConfig(({ mode }) => {
             emptyOutDir: true,
             sourcemap: true,
             outDir: "../../dist",
-            rollupOptions: {
+            rolldownOptions: {
                 output: {},
             },
         },
         resolve: {
             alias: {
-                "@/": nodePath.resolve("src/"),
                 "~bootstrap": nodePath.resolve(import.meta.dirname, "node_modules/bootstrap"),
             },
             tsconfigPaths: true,
@@ -101,3 +101,5 @@ export default defineConfig(({ mode }) => {
 
     return config;
 });
+
+export default configFunction;

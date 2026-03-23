@@ -10,15 +10,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN rm -f /etc/apt/apt.conf.d/docker-clean \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
-# borrowed (Ba Dum Tss!) from
-# https://github.com/pablodeymo/rust-musl-builder/blob/7a7ea3e909b1ef00c177d9eeac32d8c9d7d6a08c/Dockerfile#L48-L49
-RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=apt-lib,target=/var/lib/apt,sharing=locked \
-    apt-get update \
+RUN apt-get update \
     && apt-get upgrade --yes \
     && apt-get install --no-install-recommends --yes \
         build-essential \
-        musl-dev
+        musl-dev \
+        patch
 
 FROM rust-base AS rust-linux-amd64
 ARG TARGET=x86_64-unknown-linux-musl
@@ -40,9 +37,7 @@ ARG CARGO_TARGET_DIR=/build/target/${TARGETPLATFORMDASH}
 
 COPY ./build-scripts /build-scripts
 
-RUN --mount=type=cache,id=apt-cache-${TARGET},from=rust-base,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=apt-lib-${TARGET},from=rust-base,target=/var/lib/apt,sharing=locked \
-    /build-scripts/setup-env.sh
+RUN /build-scripts/setup-env.sh
 
 RUN rustup target add ${TARGET}
 
@@ -67,31 +62,9 @@ COPY ./crates/shared/Cargo.toml ./shared/Cargo.toml
 
 WORKDIR /build
 
-# We use `fetch` to pre-download the files to the cache
-# 1. Notice `sharing=locked` to avoid 2 processes concurrently writing and corrupting the cache, as `cp` is non-atomic
-# 2. We do the copy back-and-forth, as we do need the files in the image for the next layer.
-# 3.
-RUN --mount=type=cache,id=cargo-git,target=/tmp/cache/git/db,sharing=locked \
-    --mount=type=cache,id=cargo-registry-index,target=/tmp/cache/registry/index,sharing=locked \
-    --mount=type=cache,id=cargo-registry-cache,target=/tmp/cache/registry/cache,sharing=locked \
-    \
-    # Copy in from cache
-    mkdir -p /usr/local/cargo/git/db \
-             /usr/local/cargo/registry/index \
-             /usr/local/cargo/registry/cache && \
-    cp -rp /tmp/cache/git/db/. /usr/local/cargo/git/db/ || true && \
-    cp -rp /tmp/cache/registry/index/. /usr/local/cargo/registry/index/ || true && \
-    cp -rp /tmp/cache/registry/cache/. /usr/local/cargo/registry/cache/ || true && \
-    \
-    cargo fetch --locked && \
-    \
-    # copy out
-    cp -rp /usr/local/cargo/git/db/. /tmp/cache/git/db/ && \
-    cp -rp /usr/local/cargo/registry/index/. /tmp/cache/registry/index/ && \
-    cp -rp /usr/local/cargo/registry/cache/. /tmp/cache/registry/cache/
+RUN cargo fetch --locked
 
-RUN --mount=type=cache,id=target-${TARGETPLATFORMDASH},target=${CARGO_TARGET_DIR},sharing=locked \
-    /build-scripts/build.sh build --frozen --release
+RUN /build-scripts/build.sh build --frozen --release
 
 # Rust full build
 FROM rust-cargo-build AS rust-build
@@ -107,11 +80,18 @@ RUN find ./crates -type f -name '*.rs' -exec touch {} +
 
 ENV PATH="/output/bin:$PATH"
 
-# --release not needed, it is implied with install
-RUN --mount=type=cache,id=target-${TARGETPLATFORMDASH},target=${CARGO_TARGET_DIR},sharing=locked \
-    /build-scripts/build.sh install --frozen --path "./crates/${APPLICATION_NAME}/" --root /output
+# build with sources with default version number
+RUN /build-scripts/build.sh build --frozen --release
 
-# Front-end (NPM) build
+# apply version bump (if any)
+COPY ./version-bump.patch ./
+RUN [ ! -s version-bump.patch ] || patch --strip 1 < version-bump.patch
+
+# build with new version number, minor update
+# --release not needed, it is implied with install
+RUN /build-scripts/build.sh install --frozen --path "./crates/${APPLICATION_NAME}/" --root /output
+
+# front-end (NPM) build
 FROM --platform=${BUILDPLATFORM} node:24.14.0-alpine3.22@sha256:76db75ca7e7da9148ae42c92d9be12d12a8d7b03e171f18339355d8078d644a0 AS typescript-build
 
 ENV PNPM_HOME="/pnpm"
@@ -129,7 +109,7 @@ RUN npm pkg delete scripts.prepare
 # install the corepack our package requires
 RUN corepack install
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # now we copy in the rest
 COPY front-end ./front-end/

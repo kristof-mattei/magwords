@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
-import { State } from "@/lib/state.ts";
-import { WebSocketHandler } from "@/lib/web-socket-handler.ts";
+import { State } from "../lib/state";
+import { WebSocketHandler } from "../lib/web-socket-handler";
 
 import "bootstrap";
 
