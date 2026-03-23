@@ -1,4 +1,4 @@
-import type { State } from "@/lib/state.ts";
+import type { State } from "./state";
 
 export function sendMove(state: State, id: string, x: number, y: number): void {
     state.socket.emit("move", {

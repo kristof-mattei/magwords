@@ -1,6 +1,6 @@
-import { sendMove } from "@/lib/emitters.ts";
-import type { State } from "@/lib/state.ts";
-import { toHtmlWordId } from "@/lib/utilities.ts";
+import { sendMove } from "./emitters";
+import type { State } from "./state";
+import { toHtmlWordId } from "./utilities";
 
 export function setupMovable(state: State, element: HTMLElement): void {
     let diffX = 0;

@@ -1,7 +1,7 @@
-import { purgeWords, setupMovable } from "@/lib/handlers.ts";
-import type { State } from "@/lib/state.ts";
-import type { Hup, MoveEventParameters, Poets, Word } from "@/lib/types.ts";
-import { reload, toHtmlWordId } from "@/lib/utilities.ts";
+import { purgeWords, setupMovable } from "./handlers";
+import type { State } from "./state";
+import type { Hup, MoveEventParameters, Poets, Word } from "./types";
+import { reload, toHtmlWordId } from "./utilities";
 
 export class WebSocketHandler {
     private readonly state: State;
