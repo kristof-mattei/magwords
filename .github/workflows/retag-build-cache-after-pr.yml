@@ -150,4 +150,8 @@ jobs:
 
           echo "Retagging ${source_ref} -> ${target_ref}"
 
-          docker buildx imagetools create --tag "${target_ref}" "${source_ref}"
+          skopeo copy \
+            --src-creds "${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}" \
+            --dest-creds "${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}" \
+            "docker://${source_ref}" \
+            "docker://${target_ref}"
