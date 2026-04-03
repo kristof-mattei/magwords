@@ -130,13 +130,12 @@ dependencies = [
 
 [[package]]
 name = "axum-proxy"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d686949b8a7a9e0a998cb7a8bba2c0235b8f63384f805065c2b6765c7e275190"
+checksum = "709d1b41a9efe118575e4bcf452adb1055809786f2f37207dd39cdc0b3e4a143"
 dependencies = [
  "axum",
  "http",
- "http-body",
  "hyper",
  "hyper-util",
  "regex",
