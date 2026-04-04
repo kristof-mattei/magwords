@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.0.2](https://github.com/kristof-mattei/magwords/compare/v0.0.1..v0.0.2) - 2026-04-04
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.1.0
 ## [0.0.1] - 2026-04-04
 
 ### 🚀 Features
@@ -57,6 +62,7 @@
 - Add username & PR by [@kristof-mattei](https://github.com/kristof-mattei) ([`e20ac88`](https://github.com/kristof-mattei/magwords/commit/e20ac88c0fa5c191e6f82a3e292060074a7acbb6))
 - Prerelease types by [@kristof-mattei](https://github.com/kristof-mattei) ([`c27ba7c`](https://github.com/kristof-mattei/magwords/commit/c27ba7c358bec30b3332520cd8aca88b73dafebf))
 - Remove crane by [@kristof-mattei](https://github.com/kristof-mattei) ([`073ba68`](https://github.com/kristof-mattei/magwords/commit/073ba68f70d54c2adebaa489958e9527f20b6c9f))
+- Raw websockets by [@kristof-mattei](https://github.com/kristof-mattei) ([`11384cd`](https://github.com/kristof-mattei/magwords/commit/11384cd94e036bb415ea746ad0d641ee71515133))
 
 ### 🐛 Bug Fixes
 
@@ -737,7 +743,7 @@
 - *(fmt)* Fmt by [@kristof-mattei](https://github.com/kristof-mattei) ([`f7b0a11`](https://github.com/kristof-mattei/magwords/commit/f7b0a1189c2e2b834199e2fc876b95aa63c8a246))
 - *(release)* Release v1.5.0 ([`5504d10`](https://github.com/kristof-mattei/magwords/commit/5504d10df91b765fac320a1ae903bc761017728c))
 - *(release)* Release 0.0.1 ([`a075d2d`](https://github.com/kristof-mattei/magwords/commit/a075d2d69cd0202de3d42c8a888ca14b49e0051f))
-- *(release)* Release v0.0.1
+- *(release)* Release v0.0.1 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`2dcde21`](https://github.com/kristof-mattei/magwords/commit/2dcde2172e39c8dd5dba00688150f61c665d191a))
 - *(version)* V1.2.0 by [@invalid-email-address](https://github.com/invalid-email-address) ([`1dbbec6`](https://github.com/kristof-mattei/magwords/commit/1dbbec608864c5cb559a90d8904996011daef52c))
 - *(version)* V1.3.0 by [@invalid-email-address](https://github.com/invalid-email-address) ([`bee1b83`](https://github.com/kristof-mattei/magwords/commit/bee1b83e6cfe1afd6286073fc1bb38787c0ba48e))
 - *(version)* V1.3.1 by [@invalid-email-address](https://github.com/invalid-email-address) ([`096c422`](https://github.com/kristof-mattei/magwords/commit/096c4229799cecace867a1de699a7f65eefe59bb))
