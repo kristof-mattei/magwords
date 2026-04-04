@@ -1,18 +1,26 @@
-import { io } from "socket.io-client";
-
 import { State } from "../lib/state";
 import { WebSocketHandler } from "../lib/web-socket-handler";
 
 import "bootstrap";
 
-const socket = new WebSocketHandler(
-    new State(
-        io({
-            transports: ["websocket"], // webtransport does not work
-        }),
-        1,
-    ),
-);
+function connect(): void {
+    const protocol = location.protocol === "https:" ? "wss:" : "ws:";
+    const ws = new WebSocket(`${protocol}//${location.host}/ws`);
 
-// this attaches the handlers, and because the handlers are attached, the socket does not get GC'ed
-socket.init();
+    ws.addEventListener("open", () => {
+        const state = new State(ws, 1);
+        const handler = new WebSocketHandler(state);
+
+        handler.init();
+    });
+
+    ws.addEventListener("close", () => {
+        setTimeout(connect, 2000);
+    });
+
+    ws.addEventListener("error", () => {
+        ws.close();
+    });
+}
+
+connect();

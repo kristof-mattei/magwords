@@ -13,7 +13,7 @@
     "rust-analyzer.runnables.extraEnv": {
         // "RUSTC_BOOTSTRAP": "1",
         "FRONT_END_PROXY": "127.0.0.1:4000",
-        "RUST_LOG": "DEBUG,socketioxide=INFO,engineioxide=INFO,magwords=TRACE,tower_http::trace=TRACE"
+        "RUST_LOG": "DEBUG,magwords=TRACE,tower_http::trace=TRACE"
     },
     "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
     "rust-analyzer.server.extraEnv": {}

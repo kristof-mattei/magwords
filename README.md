@@ -6,7 +6,7 @@ Technologies used:
 
 - Rust
 - Tokio
-- socketioxide (WebSockets)
+- WebSockets
 
 Original: <http://isnoop.net/toys/magwords.php> / <https://web.archive.org/web/20150719111342/http://isnoop.net:80/toys/magwords.php>
 

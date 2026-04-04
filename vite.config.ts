@@ -71,7 +71,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
             },
             cors: true,
             proxy: {
-                "/socket.io": {
+                "/ws": {
                     target: "http://localhost:3000",
                     changeOrigin: true,
                     secure: false,
