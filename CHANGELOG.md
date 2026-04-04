@@ -1,9 +1,18 @@
 <!-- header goes here -->
-## [0.0.2](https://github.com/kristof-mattei/magwords/compare/v0.0.1..v0.0.2) - 2026-04-04
+## [0.1.1](https://github.com/kristof-mattei/magwords/compare/v0.1.0..v0.1.1) - 2026-04-04
+
+### 🐛 Bug Fixes
+
+- Poets wasn't incrementing correctly by [@kristof-mattei](https://github.com/kristof-mattei) ([`119a7fe`](https://github.com/kristof-mattei/magwords/commit/119a7fe2bf170f04820eec9bcf5c2d1e1795c3ab))
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.1.0
+- *(release)* Release v0.1.1
+## [0.1.0](https://github.com/kristof-mattei/magwords/compare/v0.0.1..v0.1.0) - 2026-04-04
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.1.0 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`db77d17`](https://github.com/kristof-mattei/magwords/commit/db77d170c3cc7eb63b21ade7245859f39efdb3d5))
 ## [0.0.1] - 2026-04-04
 
 ### 🚀 Features
