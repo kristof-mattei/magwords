@@ -5,9 +5,7 @@ import { WebSocketHandler } from "../lib/web-socket-handler";
 
 import "bootstrap";
 
-// @ts-expect-error 6133 -- we must name it to keep it alive (or do we?)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- keep reference
-const _handler = new WebSocketHandler(
+const socket = new WebSocketHandler(
     new State(
         io({
             transports: ["websocket"], // webtransport does not work
@@ -16,4 +14,5 @@ const _handler = new WebSocketHandler(
     ),
 );
 
-// the socket from `io` keeps the handler alive
+// this attaches the handlers, and because the handlers are attached, the socket does not get GC'ed
+socket.init();
