@@ -59,7 +59,6 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
         optimizeDeps: {
             noDiscovery: true,
             include: [],
-            // exclude: ["src/entrypoints/index.ts"],
         },
         root: "front-end/src",
         server: {
