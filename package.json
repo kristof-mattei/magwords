@@ -71,12 +71,11 @@
     },
     "pnpm": {
         "overrides": {
-            "@codecov-plugin/vite>vite": "8.0.3",
+            "@codecov/vite-plugin>vite": "8.0.3",
             "undici": "8.0.1"
         },
         "ignoredBuiltDependencies": [
             "@parcel/watcher",
-            "esbuild",
             "unrs-resolver"
         ]
     }
