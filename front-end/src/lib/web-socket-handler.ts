@@ -9,12 +9,14 @@ export class WebSocketHandler {
 
     public constructor(state: State) {
         this.state = state;
+    }
 
-        state.socket.on("move", onMove);
-        state.socket.on("reload", onReload);
-        state.socket.on("poets", this.onPoets.bind(this));
-        state.socket.on("hup", this.onHup.bind(this));
-        state.socket.on("words", this.onWords.bind(this));
+    public init(): void {
+        this.state.socket.on("move", onMove);
+        this.state.socket.on("reload", onReload);
+        this.state.socket.on("poets", this.onPoets.bind(this));
+        this.state.socket.on("hup", this.onHup.bind(this));
+        this.state.socket.on("words", this.onWords.bind(this));
     }
 
     public onWords(words: Word[]): void {
