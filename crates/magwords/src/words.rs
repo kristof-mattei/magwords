@@ -232,6 +232,8 @@ async fn handle_socket(mut socket: WebSocket, state: Arc<WsState>, address: Sock
         }
     }
 
+    let mut broadcast_rx = state.broadcast_tx.subscribe();
+
     // increment poets and broadcast to all
     {
         let new_count = state
@@ -240,8 +242,6 @@ async fn handle_socket(mut socket: WebSocket, state: Arc<WsState>, address: Sock
             + 1;
         state.broadcast(None, ServerMessage::Poets { count: new_count });
     }
-
-    let mut broadcast_rx = state.broadcast_tx.subscribe();
     let mut last_pong = Instant::now();
 
     loop {
