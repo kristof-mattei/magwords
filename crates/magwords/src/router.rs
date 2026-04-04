@@ -6,7 +6,6 @@ use axum::handler::HandlerWithoutStateExt as _;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::routing::get;
-use socketioxide::layer::SocketIoLayer;
 use tower_http::cors::CorsLayer;
 use tower_http::trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer};
 use tracing::Level;
@@ -15,6 +14,7 @@ use crate::router::api_router::build_api_router;
 use crate::router::html_router::build_html_router;
 use crate::span::MakeSpanWithUuid;
 use crate::state::ApplicationState;
+use crate::words;
 
 async fn handler_404() -> impl IntoResponse {
     (StatusCode::NOT_FOUND, "nothing to see here")
@@ -24,9 +24,13 @@ async fn healthz() -> impl IntoResponse {
     (StatusCode::OK, "Hello, world!")
 }
 
-pub fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> Router {
-    let api_router = build_api_router(state);
+pub fn build_router(state: ApplicationState) -> Router {
+    let api_router = build_api_router(state.clone());
     let html_router = build_html_router();
+
+    let ws_router = Router::new()
+        .route("/ws", get(words::ws_handler))
+        .with_state(state);
 
     // we can move the `/healthz` layer beneath the `TraceLayer` to prevent it from being logged
 
@@ -36,7 +40,7 @@ pub fn build_router(state: ApplicationState, websocket_layer: SocketIoLayer) -> 
             api_router.fallback_service(handler_404.into_service()),
         )
         .route("/healthz", get(healthz))
-        .layer(websocket_layer)
+        .merge(ws_router)
         .layer(CorsLayer::permissive())
         .layer(
             TraceLayer::new_for_http()

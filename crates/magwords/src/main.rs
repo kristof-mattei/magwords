@@ -12,13 +12,11 @@ mod words;
 
 use std::env::{self, VarError};
 use std::net::SocketAddr;
+use std::sync::Arc;
 use std::time::Duration;
 
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
-use futures_util::StreamExt as _;
-use serde_json::json;
-use socketioxide::SocketIo;
 use states::config::Config;
 use tokio::time::{sleep, timeout};
 use tokio_util::sync::CancellationToken;
@@ -28,7 +26,7 @@ use tracing_subscriber::Layer as _;
 use tracing_subscriber::filter::EnvFilter;
 use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
-use words::WordsSocket;
+use words::ServerMessage;
 
 use crate::build_env::get_build_env;
 use crate::router::build_router;
@@ -76,15 +74,12 @@ async fn start_tasks() -> Result<(), eyre::Report> {
     // after which we'll gracefully terminate other services
     let token = CancellationToken::new();
 
-    let application_state = ApplicationState::new(config);
-
-    let (layer, socket_io) = SocketIo::new_layer();
-
-    let word_socket = {
+    let ws_state = {
         let words = include_str!("../../../assets/word-list-all.txt");
-
-        WordsSocket::build(socket_io, words).await
+        words::build_ws_state(words)
     };
+
+    let application_state = ApplicationState::new(config, Arc::clone(&ws_state));
 
     let tasks = TaskTracker::new();
 
@@ -92,7 +87,7 @@ async fn start_tasks() -> Result<(), eyre::Report> {
         let token = token.clone();
 
         let bind_to = application_state.config.bind_to;
-        let router = build_router(application_state, layer);
+        let router = build_router(application_state);
 
         tasks.spawn(async move {
             let _guard = token.clone().drop_guard();
@@ -112,6 +107,7 @@ async fn start_tasks() -> Result<(), eyre::Report> {
 
     {
         let token = token.clone();
+        let ws_state = Arc::clone(&ws_state);
 
         tasks.spawn(async move {
             let _guard = token.clone().drop_guard();
@@ -119,24 +115,10 @@ async fn start_tasks() -> Result<(), eyre::Report> {
             while !token.is_cancelled() {
                 sleep(Duration::from_millis(1000)).await;
 
-                let r = word_socket
-                    .get_socket()
-                    .emit_with_ack::<_, serde_json::Value>("hup", &json!({ "id": 1, "v": 1 }))
-                    .await;
-
-                match r {
-                    Ok(act) => {
-                        act.for_each_concurrent(Some(10), |(_sid, _ack)| async move {})
-                            .await;
-                    },
-                    Err(error) => {
-                        event!(Level::ERROR, ?error, "Failed to broadcast");
-                        break;
-                    },
-                }
+                ws_state.broadcast(None, ServerMessage::Hup { id: 1, v: 1 });
             }
 
-            drop(word_socket);
+            ws_state.broadcast(None, ServerMessage::Goodbye {});
         });
     };
 

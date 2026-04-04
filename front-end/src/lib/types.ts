@@ -20,3 +20,12 @@ export interface MoveEventParameters {
     x: number;
     y: number;
 }
+
+export type ServerMessage =
+    | { type: "goodbye"; data: Record<string, never> }
+    | { type: "hup"; data: Hup }
+    | { type: "move"; data: MoveEventParameters }
+    | { type: "poets"; data: Poets }
+    | { type: "words"; data: Word[] };
+
+export type ClientMessage = { type: "move"; data: MoveEventParameters } | { type: "pong"; data: { id: number } };

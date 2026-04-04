@@ -1,6 +1,6 @@
 import { purgeWords, setupMovable } from "./handlers";
 import type { State } from "./state";
-import type { Hup, MoveEventParameters, Poets, Word } from "./types";
+import type { ClientMessage, Hup, MoveEventParameters, Poets, ServerMessage, Word } from "./types";
 import { reload, toHtmlWordId } from "./utilities";
 
 export class WebSocketHandler {
@@ -12,11 +12,43 @@ export class WebSocketHandler {
     }
 
     public init(): void {
-        this.state.socket.on("move", onMove);
-        this.state.socket.on("reload", onReload);
-        this.state.socket.on("poets", this.onPoets.bind(this));
-        this.state.socket.on("hup", this.onHup.bind(this));
-        this.state.socket.on("words", this.onWords.bind(this));
+        this.state.socket.addEventListener("message", (event: MessageEvent<string>) => {
+            const message = ((): ServerMessage | undefined => {
+                try {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- we trust the server protocol
+                    return JSON.parse(event.data);
+                } catch (error) {
+                    console.error(`failed to parse message: ${String(error)}`);
+                    return undefined;
+                }
+            })();
+
+            if (message === undefined) {
+                return;
+            }
+
+            switch (message.type) {
+                case "words": {
+                    this.onWords(message.data);
+                    break;
+                }
+                case "poets": {
+                    this.onPoets(message.data);
+                    break;
+                }
+                case "move": {
+                    onMove(message.data);
+                    break;
+                }
+                case "hup": {
+                    this.onHup(message.data);
+                    break;
+                }
+                case "goodbye": {
+                    break;
+                }
+            }
+        });
     }
 
     public onWords(words: Word[]): void {
@@ -46,7 +78,7 @@ export class WebSocketHandler {
         this.state.poets = data.count;
     }
 
-    public onHup(data: Hup, callback: ({ id }: { id: number }) => void): void {
+    public onHup(data: Hup): void {
         if (data.id === undefined) {
             console.log("Invalid ping");
             return;
@@ -57,7 +89,8 @@ export class WebSocketHandler {
         }
 
         // pong
-        callback({ id: data.id });
+        const pong: ClientMessage = { type: "pong", data: { id: data.id } };
+        this.state.socket.send(JSON.stringify(pong));
     }
 }
 
@@ -91,10 +124,6 @@ function onMove({ id, x, y }: MoveEventParameters): void {
             element.style.setProperty("transition", "");
         });
     }
-}
-
-function onReload(_data: unknown): void {
-    reload();
 }
 
 function addWord(state: State, fridge: Element, word: Word): void {

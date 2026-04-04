@@ -23,8 +23,11 @@ pub async fn setup_server(
 
     event!(Level::INFO, ?bind_to, "Webserver bound successfully");
 
-    axum::serve(listener, router)
-        .with_graceful_shutdown(token.cancelled_owned())
-        .await
-        .map_err(Into::into)
+    axum::serve(
+        listener,
+        router.into_make_service_with_connect_info::<std::net::SocketAddr>(),
+    )
+    .with_graceful_shutdown(token.cancelled_owned())
+    .await
+    .map_err(Into::into)
 }

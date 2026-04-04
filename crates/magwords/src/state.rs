@@ -4,6 +4,7 @@ use axum::extract::{FromRef, FromRequestParts};
 use axum::http::request::Parts;
 
 use crate::states::config::Config;
+use crate::words::WsState;
 
 /// This is to be able to do:
 /// ```no_run
@@ -19,15 +20,23 @@ impl FromRef<ApplicationState> for Arc<Config> {
     }
 }
 
+impl FromRef<ApplicationState> for Arc<WsState> {
+    fn from_ref(input: &ApplicationState) -> Self {
+        Arc::clone(&input.ws_state)
+    }
+}
+
 #[derive(Clone)]
 pub struct ApplicationState {
     pub config: Arc<Config>,
+    pub ws_state: Arc<WsState>,
 }
 
 impl ApplicationState {
-    pub fn new(config: Config) -> Self {
+    pub fn new(config: Config, ws_state: Arc<WsState>) -> Self {
         ApplicationState {
             config: Arc::new(config),
+            ws_state,
         }
     }
 }
