@@ -35,7 +35,9 @@
     "devDependencies": {
         "@codecov/vite-plugin": "1.9.1",
         "@eslint-community/eslint-plugin-eslint-comments": "4.7.1",
-        "@eslint/config-helpers": "0.5.3",
+        "@eslint/compat": "2.0.4",
+        "@eslint/config-helpers": "0.5.4",
+        "@eslint/core": "1.2.0",
         "@eslint/js": "10.0.1",
         "@stylistic/eslint-plugin": "5.10.0",
         "@tailwindcss/vite": "4.2.2",
@@ -71,6 +73,11 @@
         "overrides": {
             "@codecov-plugin/vite>vite": "8.0.3",
             "undici": "8.0.1"
-        }
+        },
+        "ignoredBuiltDependencies": [
+            "@parcel/watcher",
+            "esbuild",
+            "unrs-resolver"
+        ]
     }
 }

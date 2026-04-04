@@ -48,14 +48,13 @@
     },
     "exclude": ["dist/"],
     "include": [
-        "front-end/**/*.ts",
         "front-end/**/*.tsx",
-        "*.ts",
-        "*.js",
-        "*.cjs",
+        "**/*.d.ts",
+        "**/*.ts",
+        "**/*.js",
         "dependency-cruiser.config.mjs",
-        "eslint.config.mjs",
-        "prettier.config.mjs",
-        "tailwind.config.mjs"
+        "eslint.config.ts",
+        "tailwind.config.mjs",
+        "prettier.config.ts"
     ]
 }

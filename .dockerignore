@@ -11,7 +11,6 @@
 !/front-end
 !/package.json
 !/pnpm-lock.yaml
-!/pnpm-workspace.yaml
 !/tailwind.config.mjs
 !/tsconfig.json
 !/version-bump.patch
