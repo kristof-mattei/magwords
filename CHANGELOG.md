@@ -1,4 +1,14 @@
 <!-- header goes here -->
+## [0.2.0](https://github.com/kristof-mattei/magwords/compare/v0.1.1..v0.2.0) - 2026-04-05
+
+### 🚀 Features
+
+- Position is relative to the word width by [@kristof-mattei](https://github.com/kristof-mattei) ([`e24d5d6`](https://github.com/kristof-mattei/magwords/commit/e24d5d62518c1d6a30654fd66265f02da09ff96c))
+- Size from backend config by [@kristof-mattei](https://github.com/kristof-mattei) ([`6138548`](https://github.com/kristof-mattei/magwords/commit/61385489ccca1bcb86cf0c5c8c725054b3e90b6c))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.2.0
 ## [0.1.1](https://github.com/kristof-mattei/magwords/compare/v0.1.0..v0.1.1) - 2026-04-04
 
 ### 🐛 Bug Fixes
@@ -7,7 +17,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.1.1
+- *(release)* Release v0.1.1 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`6317856`](https://github.com/kristof-mattei/magwords/commit/6317856e58ea3400b4eefc3cc3344d9af33e6273))
 ## [0.1.0](https://github.com/kristof-mattei/magwords/compare/v0.0.1..v0.1.0) - 2026-04-04
 
 ### ⚙️ Miscellaneous Tasks
