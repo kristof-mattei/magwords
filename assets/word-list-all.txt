@@ -245,7 +245,7 @@ net
 said
 tall
 try
-&amp;
+&
 ;
 a
 close
@@ -274,7 +274,7 @@ part
 read
 s
 such
-&amp;
+&
 add
 back
 day
@@ -291,7 +291,7 @@ must
 never
 still
 which
-&amp;
+&
 '
 .
 .

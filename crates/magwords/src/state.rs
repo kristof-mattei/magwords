@@ -3,7 +3,7 @@ use std::sync::Arc;
 use axum::extract::{FromRef, FromRequestParts};
 use axum::http::request::Parts;
 
-use crate::states::config::Config;
+use crate::states::config::{Config, FridgeDimensions};
 use crate::words::WsState;
 
 /// This is to be able to do:
@@ -23,6 +23,12 @@ impl FromRef<ApplicationState> for Arc<Config> {
 impl FromRef<ApplicationState> for Arc<WsState> {
     fn from_ref(input: &ApplicationState) -> Self {
         Arc::clone(&input.ws_state)
+    }
+}
+
+impl FromRef<ApplicationState> for FridgeDimensions {
+    fn from_ref(input: &ApplicationState) -> Self {
+        input.config.fridge_dimensions
     }
 }
 
