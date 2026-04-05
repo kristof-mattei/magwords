@@ -1,4 +1,19 @@
 <!-- header goes here -->
+## [0.2.1](https://github.com/kristof-mattei/magwords/compare/v0.2.0..v0.2.1) - 2026-04-05
+
+### 🐛 Bug Fixes
+
+- We can now release without having ANY tags on the repo by [@kristof-mattei](https://github.com/kristof-mattei) ([`80cbc44`](https://github.com/kristof-mattei/magwords/commit/80cbc44189bf721637640dbf7257f852ca82f877))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Upload edge to docker.io by [@kristof-mattei](https://github.com/kristof-mattei) ([`f235bac`](https://github.com/kristof-mattei/magwords/commit/f235bac7e7bf720a4c42711f12fa57cb361c6adf))
+- *(ci)* Reattest every stage by [@kristof-mattei](https://github.com/kristof-mattei) ([`19c7f04`](https://github.com/kristof-mattei/magwords/commit/19c7f048fad6474f798c9d810dbe1d2278731d6d))
+- *(ci)* Use skopeo wherever possible by [@kristof-mattei](https://github.com/kristof-mattei) ([`50a6786`](https://github.com/kristof-mattei/magwords/commit/50a678665fd200021293e938c0b493891077a5ef))
+- *(ci)* Scout for visualizing cves etc by [@kristof-mattei](https://github.com/kristof-mattei) ([`2fe6e06`](https://github.com/kristof-mattei/magwords/commit/2fe6e06ada42423eeacec95be6a29ccbd3806068))
+- *(ci)* Username is not secret by [@kristof-mattei](https://github.com/kristof-mattei) ([`7d168f4`](https://github.com/kristof-mattei/magwords/commit/7d168f446d7bbdabaf2bd58c2818af2a65b07c41))
+- *(release)* Release v0.2.1
+- Fix fmt by [@kristof-mattei](https://github.com/kristof-mattei) ([`1c63af5`](https://github.com/kristof-mattei/magwords/commit/1c63af585079ee98e0b241fc6683c31982159106))
 ## [0.2.0](https://github.com/kristof-mattei/magwords/compare/v0.1.1..v0.2.0) - 2026-04-05
 
 ### 🚀 Features
@@ -8,7 +23,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.2.0
+- *(release)* Release v0.2.0 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`9ede8fb`](https://github.com/kristof-mattei/magwords/commit/9ede8fb58c972b59ce085e6b864c36696cd5cfbc))
 ## [0.1.1](https://github.com/kristof-mattei/magwords/compare/v0.1.0..v0.1.1) - 2026-04-04
 
 ### 🐛 Bug Fixes
