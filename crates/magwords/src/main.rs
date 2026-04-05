@@ -1,4 +1,5 @@
 mod build_env;
+mod cli;
 mod router;
 mod routes;
 mod server;
@@ -15,6 +16,7 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 use std::time::Duration;
 
+use clap::Parser as _;
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
 use states::config::Config;
@@ -29,18 +31,24 @@ use tracing_subscriber::util::SubscriberInitExt as _;
 use words::ServerMessage;
 
 use crate::build_env::get_build_env;
+use crate::cli::Cli;
 use crate::router::build_router;
 use crate::server::setup_server;
 use crate::state::ApplicationState;
+use crate::states::config::FridgeDimensions;
 use crate::utils::flatten_handle;
 
 #[global_allocator]
 static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
 #[expect(clippy::unnecessary_wraps, reason = "We will expand this later")]
-fn build_configs() -> Result<Config, eyre::Report> {
+fn build_configs(args: &Cli) -> Result<Config, eyre::Report> {
     let config = Config {
         bind_to: SocketAddr::from(([0, 0, 0, 0], 3000)),
+        fridge_dimensions: FridgeDimensions {
+            fridge_width: args.fridge_width,
+            fridge_height: args.fridge_height,
+        },
     };
 
     Ok(config)
@@ -65,9 +73,12 @@ fn print_header() {
 /// Starts all the tasks, such as the web server, the key refresh, and
 /// ensures all tasks are gracefully shutdown in case of error, ctrl-c or `SIGTERM`.
 async fn start_tasks() -> Result<(), eyre::Report> {
-    let config = build_configs()?;
+    let args = cli::Cli::parse();
 
     print_header();
+    args.print();
+
+    let config = build_configs(&args)?;
 
     // this channel is used to communicate between
     // tasks and this function, in the case that a task fails, they'll send a message on the shutdown channel
@@ -76,7 +87,7 @@ async fn start_tasks() -> Result<(), eyre::Report> {
 
     let ws_state = {
         let words = include_str!("../../../assets/word-list-all.txt");
-        words::build_ws_state(words)
+        words::build_ws_state(words, config.fridge_dimensions)
     };
 
     let application_state = ApplicationState::new(config, Arc::clone(&ws_state));

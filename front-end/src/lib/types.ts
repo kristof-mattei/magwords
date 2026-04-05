@@ -5,6 +5,11 @@ export interface Word {
     y: number;
 }
 
+export interface Config {
+    fridge_width: number;
+    fridge_height: number;
+}
+
 export interface Poets {
     count: number;
 }
@@ -22,6 +27,7 @@ export interface MoveEventParameters {
 }
 
 export type ServerMessage =
+    | { type: "config"; data: Config }
     | { type: "goodbye"; data: Record<string, never> }
     | { type: "hup"; data: Hup }
     | { type: "move"; data: MoveEventParameters }

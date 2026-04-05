@@ -14,6 +14,8 @@ use tokio::sync::{RwLock, broadcast};
 use tokio::time::Instant;
 use tracing::{Level, event};
 
+use crate::states::config::FridgeDimensions;
+
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct MoveEventParams {
     id: usize,
@@ -33,9 +35,18 @@ pub struct WordInfo {
 #[derive(Debug, Serialize, Clone)]
 #[serde(tag = "type", content = "data", rename_all = "lowercase")]
 pub enum ServerMessage {
-    Poets { count: usize },
+    Config {
+        fridge_width: u32,
+        fridge_height: u32,
+    },
+    Poets {
+        count: usize,
+    },
     Move(MoveEventParams),
-    Hup { id: u64, v: u64 },
+    Hup {
+        id: u64,
+        v: u64,
+    },
     Goodbye {},
 }
 
@@ -72,8 +83,8 @@ impl WsState {
     }
 }
 
-pub fn build_ws_state(raw_words: &str) -> Arc<WsState> {
-    let word_list = build_words(raw_words);
+pub fn build_ws_state(raw_words: &str, fridge_dimensions: FridgeDimensions) -> Arc<WsState> {
+    let word_list = build_words(raw_words, fridge_dimensions);
     let (broadcast_tx, _) = broadcast::channel(256);
 
     Arc::new(WsState {
@@ -84,7 +95,13 @@ pub fn build_ws_state(raw_words: &str) -> Arc<WsState> {
     })
 }
 
-fn build_words(words: &str) -> Vec<WordInfo> {
+fn build_words(
+    words: &str,
+    FridgeDimensions {
+        fridge_width,
+        fridge_height,
+    }: FridgeDimensions,
+) -> Vec<WordInfo> {
     let mut rng = rand::rng();
 
     words
@@ -93,8 +110,8 @@ fn build_words(words: &str) -> Vec<WordInfo> {
         .map(|(i, line)| WordInfo {
             id: i,
             word: line.into(),
-            x: rng.random_range(0..1000),
-            y: rng.random_range(0..1000),
+            x: rng.random_range(0..=fridge_width),
+            y: rng.random_range(0..=fridge_height),
         })
         .collect::<Vec<_>>()
 }
@@ -102,9 +119,10 @@ fn build_words(words: &str) -> Vec<WordInfo> {
 pub async fn ws_handler(
     ws: WebSocketUpgrade,
     ConnectInfo(address): ConnectInfo<SocketAddr>,
+    State(fridge_dimensions): State<FridgeDimensions>,
     State(ws_state): State<Arc<WsState>>,
 ) -> impl IntoResponse {
-    ws.on_upgrade(move |socket| handle_socket(socket, ws_state, address))
+    ws.on_upgrade(move |socket| handle_socket(socket, ws_state, fridge_dimensions, address))
 }
 
 // max time to wait for a pong before considering the client stale
@@ -168,6 +186,7 @@ async fn handle_outbound(
 async fn handle_inbound(
     result: Option<Result<Message, axum::Error>>,
     client_id: u64,
+    fridge_dimensions: FridgeDimensions,
     address: SocketAddr,
     state: &WsState,
     last_pong: &mut Instant,
@@ -176,6 +195,13 @@ async fn handle_inbound(
         Some(Ok(Message::Text(text))) => {
             match serde_json::from_str::<ClientMessage>(&text) {
                 Ok(ClientMessage::Move(move_event)) => {
+                    if move_event.x > fridge_dimensions.fridge_width
+                        || move_event.y > fridge_dimensions.fridge_height
+                    {
+                        event!(Level::WARN, client_id, %address, x = move_event.x, y = move_event.y, "out of bounds move, disconnecting");
+                        return ControlFlow::Break(());
+                    }
+
                     let mut lock = state.word_list.write().await;
 
                     if let Some(word) = lock.get_mut(move_event.id) {
@@ -207,12 +233,38 @@ async fn handle_inbound(
     }
 }
 
-async fn handle_socket(mut socket: WebSocket, state: Arc<WsState>, address: SocketAddr) {
+async fn handle_socket(
+    mut socket: WebSocket,
+    state: Arc<WsState>,
+    fridge_dimensions: FridgeDimensions,
+    address: SocketAddr,
+) {
     let client_id = state
         .next_client_id
         .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
 
     event!(Level::DEBUG, client_id, %address, "Client connected");
+
+    // send fridge dimensions
+    {
+        let config = ServerMessage::Config {
+            fridge_width: fridge_dimensions.fridge_width,
+            fridge_height: fridge_dimensions.fridge_height,
+        };
+
+        let json = match serde_json::to_string(&config) {
+            Ok(json) => json,
+            Err(error) => {
+                event!(Level::ERROR, ?error, client_id, %address, "failed to serialize config");
+                return;
+            },
+        };
+
+        if let Err(error) = socket.send(Message::text(json)).await {
+            event!(Level::TRACE, ?error, client_id, %address, "failed to send config");
+            return;
+        }
+    }
 
     // send initial word list to this client
     {
@@ -242,12 +294,13 @@ async fn handle_socket(mut socket: WebSocket, state: Arc<WsState>, address: Sock
             + 1;
         state.broadcast(None, ServerMessage::Poets { count: new_count });
     }
+
     let mut last_pong = Instant::now();
 
     loop {
         let flow = tokio::select! {
             result = broadcast_rx.recv() => handle_outbound(result, client_id, address, &mut socket, last_pong).await,
-            result = socket.recv() => handle_inbound(result, client_id, address, &state, &mut last_pong).await,
+            result = socket.recv() => handle_inbound(result, client_id, fridge_dimensions, address, &state, &mut last_pong).await,
         };
 
         if flow.is_break() {

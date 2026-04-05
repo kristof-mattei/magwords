@@ -1,6 +1,7 @@
 import { sendMove } from "./emitters";
+import { pixelToCoordinate } from "./shared";
 import type { State } from "./state";
-import { toHtmlWordId } from "./utilities";
+import { outerHeight, outerWidth, toHtmlWordId } from "./utilities";
 
 export function setupMovable(state: State, element: HTMLElement): void {
     let diffX = 0;
@@ -129,7 +130,10 @@ export function setupMovable(state: State, element: HTMLElement): void {
         document.removeEventListener("mouseup", mouseUp);
         document.removeEventListener("scroll", scroll);
 
-        sendMove(state, element.id, Math.round(newLeft), Math.round(newTop));
+        const abstractX = Math.round(pixelToCoordinate(newLeft, outerWidth(element), state.fridgeWidth));
+        const abstractY = Math.round(pixelToCoordinate(newTop, outerHeight(element), state.fridgeHeight));
+
+        sendMove(state, element.id, abstractX, abstractY);
     }
 
     element.addEventListener("mousedown", mouseDown);
