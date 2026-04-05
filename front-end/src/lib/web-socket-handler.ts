@@ -59,6 +59,13 @@ export class WebSocketHandler {
     public onConfig(data: Config): void {
         this.state.fridgeWidth = data.fridge_width;
         this.state.fridgeHeight = data.fridge_height;
+
+        const fridge = document.querySelector<HTMLElement>("#fridge");
+
+        if (fridge !== null) {
+            fridge.style.width = `${data.fridge_width}px`;
+            fridge.style.height = `${data.fridge_height}px`;
+        }
     }
 
     public onWords(words: Word[]): void {
