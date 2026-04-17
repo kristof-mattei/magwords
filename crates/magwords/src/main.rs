@@ -124,7 +124,7 @@ async fn start_tasks() -> Result<(), eyre::Report> {
             let _guard = token.clone().drop_guard();
 
             while !token.is_cancelled() {
-                sleep(Duration::from_millis(1000)).await;
+                sleep(Duration::from_secs(1)).await;
 
                 ws_state.broadcast(None, ServerMessage::Hup { id: 1, v: 1 });
             }
@@ -168,7 +168,7 @@ async fn start_tasks() -> Result<(), eyre::Report> {
 
     // wait for the task that holds the server to exit gracefully
     // it listens to shutdown_send
-    if timeout(Duration::from_millis(10000), tasks.wait())
+    if timeout(Duration::from_secs(10), tasks.wait())
         .await
         .is_err()
     {
