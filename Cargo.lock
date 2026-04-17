@@ -173,21 +173,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "axum-proxy"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "709d1b41a9efe118575e4bcf452adb1055809786f2f37207dd39cdc0b3e4a143"
-dependencies = [
- "axum",
- "http",
- "hyper",
- "hyper-util",
- "regex",
- "tower-service",
- "tracing",
-]
-
-[[package]]
 name = "backtrace"
 version = "0.3.76"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1003,7 +988,6 @@ name = "magwords"
 version = "0.0.0-development"
 dependencies = [
  "axum",
- "axum-proxy",
  "clap",
  "color-eyre",
  "console-subscriber",
@@ -1016,6 +1000,7 @@ dependencies = [
  "tokio",
  "tokio-util",
  "tower-http",
+ "tower-proxy",
  "tracing",
  "tracing-error",
  "tracing-subscriber",
@@ -1750,6 +1735,21 @@ name = "tower-layer"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "121c2a6cda46980bb0fcd1647ffaf6cd3fc79a013de288782836f6df9c48780e"
+
+[[package]]
+name = "tower-proxy"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b56c71e76aa44bb711cf7baa89e923c38d09860b26c79d39d0f96245789e112a"
+dependencies = [
+ "axum",
+ "http",
+ "hyper",
+ "hyper-util",
+ "regex",
+ "tower-service",
+ "tracing",
+]
 
 [[package]]
 name = "tower-service"

@@ -1,8 +1,8 @@
 absolute-paths-allowed-crates = [
-    "axum_proxy",
     "axum",
     "std",
     "tokio",
+    "tower_proxy",
     "tracing_subscriber",
 ]
 disallowed-macros = [
