@@ -1,4 +1,24 @@
 <!-- header goes here -->
+## [0.2.2](https://github.com/kristof-mattei/magwords/compare/v0.2.1..v0.2.2) - 2026-04-17
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.51.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`b191ed1`](https://github.com/kristof-mattei/magwords/commit/b191ed1b48dff0cf0b9bd99df8aecf6f8100a34c))
+- *(deps)* Update rust crate rand to 0.10.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`44681e2`](https://github.com/kristof-mattei/magwords/commit/44681e2376ccfb856eb9b6efb877a031d3114042))
+- *(deps)* Update rust crate axum to 0.8.9 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6728407`](https://github.com/kristof-mattei/magwords/commit/6728407b7dea4156ea21a56c717bd8711c834e9e))
+- *(deps)* Update rust crate tokio to 1.52.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`0dc282d`](https://github.com/kristof-mattei/magwords/commit/0dc282d91422400dfb571497a05724d1767fe4a9))
+- *(deps)* Update rust crate clap to 4.6.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`fb72e81`](https://github.com/kristof-mattei/magwords/commit/fb72e812993b21bf2e46f30a18ee66ff327276e8))
+- *(deps)* Update rust crate uuid to 1.23.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`046a333`](https://github.com/kristof-mattei/magwords/commit/046a33328040c64e8caaf42a77225e45a32601fd))
+- *(deps)* Update rust crate tokio to 1.52.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`5c833f1`](https://github.com/kristof-mattei/magwords/commit/5c833f183e0e877ab75db1f34650f8eb2da9a35e))
+- Disable plugins by [@kristof-mattei](https://github.com/kristof-mattei) ([`3725751`](https://github.com/kristof-mattei/magwords/commit/37257510cce405e0426a57c6e76ec53d73454c91))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Restore ability to do prerelease versions by [@kristof-mattei](https://github.com/kristof-mattei) ([`7c5b0ea`](https://github.com/kristof-mattei/magwords/commit/7c5b0ea895c5e92aa3c69fec62e3a7156f2ca183))
+- *(ci)* Allow re-release pre-release without having to add features by [@kristof-mattei](https://github.com/kristof-mattei) ([`657a7db`](https://github.com/kristof-mattei/magwords/commit/657a7db145169f1dd3cd17b587324fae32ec4d04))
+- Use $vite to make sure the same version is used by [@kristof-mattei](https://github.com/kristof-mattei) ([`f3f1d3d`](https://github.com/kristof-mattei/magwords/commit/f3f1d3d0bf9457662c2478eab7bf50f3a4cafdbc))
+- From secs by [@kristof-mattei](https://github.com/kristof-mattei) ([`ad6c834`](https://github.com/kristof-mattei/magwords/commit/ad6c8345383acc3c6cc101d01b7c3ab1762527d5))
+- Axum-proxy is deprecated by [@kristof-mattei](https://github.com/kristof-mattei) ([`9dd2866`](https://github.com/kristof-mattei/magwords/commit/9dd28669d912e3aeed21fcdbc9e0e51271e349b3))
 ## [0.2.1](https://github.com/kristof-mattei/magwords/compare/v0.2.0..v0.2.1) - 2026-04-05
 
 ### 🐛 Bug Fixes
@@ -12,7 +32,7 @@
 - *(ci)* Use skopeo wherever possible by [@kristof-mattei](https://github.com/kristof-mattei) ([`50a6786`](https://github.com/kristof-mattei/magwords/commit/50a678665fd200021293e938c0b493891077a5ef))
 - *(ci)* Scout for visualizing cves etc by [@kristof-mattei](https://github.com/kristof-mattei) ([`2fe6e06`](https://github.com/kristof-mattei/magwords/commit/2fe6e06ada42423eeacec95be6a29ccbd3806068))
 - *(ci)* Username is not secret by [@kristof-mattei](https://github.com/kristof-mattei) ([`7d168f4`](https://github.com/kristof-mattei/magwords/commit/7d168f446d7bbdabaf2bd58c2818af2a65b07c41))
-- *(release)* Release v0.2.1
+- *(release)* Release v0.2.1 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`0dd0525`](https://github.com/kristof-mattei/magwords/commit/0dd05252a670f0b49d122c9bdcc6809a8f503f90))
 - Fix fmt by [@kristof-mattei](https://github.com/kristof-mattei) ([`1c63af5`](https://github.com/kristof-mattei/magwords/commit/1c63af585079ee98e0b241fc6683c31982159106))
 ## [0.2.0](https://github.com/kristof-mattei/magwords/compare/v0.1.1..v0.2.0) - 2026-04-05
 
