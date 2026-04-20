@@ -22,7 +22,7 @@ clap = { version = "4.6.1", features = ["derive", "env"] }
 color-eyre = "0.6.5"
 console-subscriber = { version = "0.5.0", optional = true }
 http = "1.4.0"
-mimalloc = { version = "0.1.48", features = ["v3"] }
+mimalloc = "0.1.49"
 rand = "0.10.1"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
