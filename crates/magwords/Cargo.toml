@@ -34,7 +34,7 @@ tokio = { version = "1.52.1", features = [
 ] }
 tokio-util = { version = "0.7.18", features = ["rt"] }
 tower-http = { version = "0.6.8", features = ["cors", "fs", "trace"] }
-tower-proxy = { version = "0.8.0", features = ["axum"] }
+tower-proxy = { version = "0.9.0", features = ["axum"] }
 tracing = "0.1.44"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
