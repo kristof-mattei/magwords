@@ -33,7 +33,12 @@ tokio = { version = "1.52.2", features = [
     "time",
 ] }
 tokio-util = { version = "0.7.18", features = ["rt"] }
-tower-http = { version = "0.6.8", features = ["cors", "fs", "trace"] }
+tower-http = { version = "0.6.9", features = [
+    "cors",
+    "fs",
+    "on-early-drop",
+    "trace",
+] }
 tower-proxy = { version = "0.9.0", features = ["axum"] }
 tracing = "0.1.44"
 tracing-error = "0.2.1"
