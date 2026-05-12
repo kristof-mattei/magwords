@@ -1,4 +1,32 @@
 <!-- header goes here -->
+## [0.3.0](https://github.com/kristof-mattei/magwords/compare/v0.2.2..v0.3.0) - 2026-05-12
+
+### 🚀 Features
+
+- Checkbox to allow for auto-merging a release PR by [@kristof-mattei](https://github.com/kristof-mattei) ([`8b67c89`](https://github.com/kristof-mattei/magwords/commit/8b67c89b30a8d6b3d4822110734fa4497caabe28))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate mimalloc to 0.1.49 by [@renovate[bot]](https://github.com/renovate[bot]) ([`11e1aa9`](https://github.com/kristof-mattei/magwords/commit/11e1aa9626bb0a99d6f60d10d395e0ad7d5ec9e3))
+- *(deps)* `mimalloc` by default now is v3, removing flag by [@kristof-mattei](https://github.com/kristof-mattei) ([`80c1f47`](https://github.com/kristof-mattei/magwords/commit/80c1f473333c4dee3fb3d858932bae83a54f60a7))
+- *(deps)* `mimalloc` by default now is v3, removing flag by [@kristof-mattei](https://github.com/kristof-mattei) ([`c0fdb8a`](https://github.com/kristof-mattei/magwords/commit/c0fdb8aa5fae0dd08bcfb2441388bd458dd23a0c))
+- *(deps)* Update rust crate mimalloc to 0.1.50 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6d59b71`](https://github.com/kristof-mattei/magwords/commit/6d59b7164a5cb662bf250cc89fb56540507dd1fe))
+- *(deps)* Update rust crate mimalloc to 0.1.50 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f488e9c`](https://github.com/kristof-mattei/magwords/commit/f488e9c023782304221631029603e77be7779648))
+- *(deps)* Update rust crate tower-proxy to 0.9.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`3be6404`](https://github.com/kristof-mattei/magwords/commit/3be640463882933299ebeb2183f33fe44c04cc68))
+- *(deps)* Update rust crate tokio to 1.52.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`1d44dd1`](https://github.com/kristof-mattei/magwords/commit/1d44dd169445005a8bffa9088fecb04f7da93162))
+- *(deps)* Update rust crate tower-http to 0.6.10 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ce4a1fb`](https://github.com/kristof-mattei/magwords/commit/ce4a1fbf93997dd98343b2fd86eaa9d087559e97))
+- *(deps)* Update rust crate tokio to 1.52.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`fe9dadb`](https://github.com/kristof-mattei/magwords/commit/fe9dadb7650491dd62217ccba423496562c3a13f))
+- ConfigError: Config (unnamed): Key "plugins": Cannot redefine plugin "n". by [@kristof-mattei](https://github.com/kristof-mattei) ([`13681da`](https://github.com/kristof-mattei/magwords/commit/13681dab34dd3964e898cebfe1e31bc935963da2))
+- Add on-early-drop handler by [@kristof-mattei](https://github.com/kristof-mattei) ([`a2afa5a`](https://github.com/kristof-mattei/magwords/commit/a2afa5a3a4afde34416e7b64b627cd775d463af3))
+- Broken update by [@kristof-mattei](https://github.com/kristof-mattei) ([`f90b671`](https://github.com/kristof-mattei/magwords/commit/f90b6718f771c7704290b36533407a72418ff28f))
+- Eslint rules correction by [@kristof-mattei](https://github.com/kristof-mattei) ([`9981672`](https://github.com/kristof-mattei/magwords/commit/9981672c944c8add9172cadb27f32d65b14e83aa))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Link in release proposal now points to sha as tag doesn't exist yet by [@kristof-mattei](https://github.com/kristof-mattei) ([`f2bcfc8`](https://github.com/kristof-mattei/magwords/commit/f2bcfc8ed61488c9863b26533432becd6e7267df))
+- Remove `--offline`, it just doesn't work, don't know why by [@kristof-mattei](https://github.com/kristof-mattei) ([`d2761fc`](https://github.com/kristof-mattei/magwords/commit/d2761fc5c8b9f246bcbeb42497764b541a658488))
+- Move to keep track by [@kristof-mattei](https://github.com/kristof-mattei) ([`53ce18a`](https://github.com/kristof-mattei/magwords/commit/53ce18a1350f757cf5b82cd128a6144bcd230c36))
+- Restore by [@kristof-mattei](https://github.com/kristof-mattei) ([`a2f746f`](https://github.com/kristof-mattei/magwords/commit/a2f746fdd62872a8593e8aca033fbc5b3c3e4b30))
 ## [0.2.2](https://github.com/kristof-mattei/magwords/compare/v0.2.1..v0.2.2) - 2026-04-17
 
 ### 🐛 Bug Fixes
