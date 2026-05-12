@@ -16,6 +16,21 @@ import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { configs as tseslintConfigs } from "typescript-eslint";
 
+interface CompatibleConfig {
+    name?: string;
+    rules?: object;
+}
+
+type CompatibleConfigArray = CompatibleConfig[];
+
+function flattenRules(configArray: CompatibleConfigArray): RulesConfig {
+    return Object.fromEntries(
+        configArray.flatMap((group) => {
+            return Object.entries(group.rules ?? {});
+        }),
+    );
+}
+
 const sharedRules: RulesConfig = {
     "arrow-body-style": ["error", "always"],
     complexity: ["off"],
@@ -38,6 +53,7 @@ const sharedRules: RulesConfig = {
     "no-shadow": ["error"],
     "no-underscore-dangle": ["off"],
     "no-unused-expressions": ["error"],
+    "no-unused-vars": ["off"],
     "no-useless-constructor": ["off"],
     "object-shorthand": ["error", "always"],
     "prefer-template": ["error"],
@@ -170,17 +186,12 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             },
         },
         plugins: {
+            ...love.plugins,
             "@stylistic/ts": stylistic,
             "eslint-comments": commentsPlugin,
             perfectionist,
         },
-        extends: [
-            [love],
-            tseslintConfigs.strictTypeChecked,
-            tseslintConfigs.stylisticTypeChecked,
-            promise.configs["flat/recommended"],
-            importPluginsFlatConfigs.react,
-        ],
+        extends: [promise.configs["flat/recommended"], importPluginsFlatConfigs.react],
         settings: {
             "import-x/resolver": {
                 node: {},
@@ -190,6 +201,12 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             },
         },
         rules: {
+            ...flattenRules(tseslintConfigs.strictTypeCheckedOnly),
+
+            ...flattenRules(tseslintConfigs.stylisticTypeCheckedOnly),
+
+            ...love.rules,
+
             ...sharedRules,
 
             "no-restricted-imports": ["off"],
