@@ -21,7 +21,7 @@ axum = { version = "0.8.9", features = ["macros"] }
 color-eyre = "0.6.5"
 console-subscriber = { version = "0.5.0", optional = true }
 http = "1.4.0"
-mimalloc = "0.1.50"
+mimalloc = "0.1.51"
 tokio = { version = "1.52.3", features = [
     "macros",
     "rt-multi-thread",
