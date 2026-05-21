@@ -14,8 +14,21 @@
             "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
-                "USE_PROXY": "true",
                 "RUST_LOG": "DEBUG,magwords=TRACE,tower_http::trace=TRACE"
+            },
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
+        },
+        {
+            "name": "Debug executable 'magwords' without RUST_LOG",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": ["run", "--bin=magwords"]
+            },
+            "args": [],
+            "env": {
+                "RUST_BACKTRACE": "1"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
@@ -30,7 +43,6 @@
             "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
-                "USE_PROXY": "true",
                 "RUST_LOG": "DEBUG,magwords=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
@@ -46,7 +58,6 @@
             "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
-                "USE_PROXY": "true",
                 "RUST_LOG": "DEBUG,magwords=TRACE,tower_http::trace=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
