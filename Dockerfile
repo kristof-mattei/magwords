@@ -104,7 +104,6 @@ RUN npm uninstall --global corepack && npm install --global corepack
 WORKDIR /build
 COPY package.json pnpm-lock.yaml vite.config.ts tailwind.config.mjs tsconfig.json pnpm-workspace.yaml ./
 
-RUN npm pkg delete scripts.prepare
 # install the corepack our package requires
 RUN corepack install
 
