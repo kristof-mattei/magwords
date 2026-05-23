@@ -1,4 +1,63 @@
 <!-- header goes here -->
+## [0.4.0](https://github.com/kristof-mattei/magwords/compare/v0.3.0..v0.4.0) - 2026-05-23
+
+### 🚀 Features
+
+- Update it all by [@kristof-mattei](https://github.com/kristof-mattei) ([`5d9bb2e`](https://github.com/kristof-mattei/magwords/commit/5d9bb2eedb10489cf2fed857cd971d404d13eafd))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tower-http to 0.6.11 by [@renovate[bot]](https://github.com/renovate[bot]) ([`986a00c`](https://github.com/kristof-mattei/magwords/commit/986a00cf0a606a72b43d8760a0c064a980a7250c))
+- *(deps)* Update rust crate tower-http to 0.6.11 (#2887) by [@renovate[bot]](https://github.com/renovate[bot]) in #2887 ([`a635ed0`](https://github.com/kristof-mattei/magwords/commit/a635ed051325ac735b9605cacc8f4913af858418))
+- *(deps)* Update rust crate mimalloc to 0.1.51 by [@renovate[bot]](https://github.com/renovate[bot]) ([`b4b417c`](https://github.com/kristof-mattei/magwords/commit/b4b417cf0ed8213e6ae0db63b75e26b358c77e22))
+- *(deps)* Update rust crate mimalloc to 0.1.51 (#2896) by [@renovate[bot]](https://github.com/renovate[bot]) in #2896 ([`50cf12a`](https://github.com/kristof-mattei/magwords/commit/50cf12a9bbfc2447b24c034cf5a638f7a7ef4a5c))
+- *(deps)* Update rust crate tracing-subscriber to 0.3.23 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ad48b1d`](https://github.com/kristof-mattei/magwords/commit/ad48b1d09073c85cb3dc3a67a8126392b2db42e1))
+- *(deps)* Update rust crate uuid to 1.23.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f4d6be5`](https://github.com/kristof-mattei/magwords/commit/f4d6be5f9240153b8c8bfd2a441fb5d1ce73df4e))
+- *(deps)* Update rust crate axum-proxy to 0.7.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d1e88e4`](https://github.com/kristof-mattei/magwords/commit/d1e88e4ed506a2e57fc4f388c9ad461bb209ae2d))
+- *(deps)* Update rust crate tokio to 1.51.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f33e90b`](https://github.com/kristof-mattei/magwords/commit/f33e90b41f736abafe8dfb090b32720915880a8d))
+- *(deps)* Update rust crate tokio to 1.51.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`30f7c05`](https://github.com/kristof-mattei/magwords/commit/30f7c0591b7db42da479e0290d9c1fbb3cede289))
+- *(deps)* Update react monorepo to v19.2.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d2a33b8`](https://github.com/kristof-mattei/magwords/commit/d2a33b8c7898641573df95bbe96398b5102511df))
+- *(deps)* Update rust crate axum to 0.8.9 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6e30d12`](https://github.com/kristof-mattei/magwords/commit/6e30d12a6650ec82af04d670c9bd6a457009de54))
+- *(deps)* Update rust crate tokio to 1.52.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`1e45f0b`](https://github.com/kristof-mattei/magwords/commit/1e45f0b86c11d3eb16e833a42be71bc67269b703))
+- *(deps)* Update rust crate uuid to 1.23.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7af18d4`](https://github.com/kristof-mattei/magwords/commit/7af18d4e985fb7b58730ed2dc33c4394cb11bae9))
+- *(deps)* Update rust crate tokio to 1.52.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`e6b5342`](https://github.com/kristof-mattei/magwords/commit/e6b5342b0e44cc04e2b9634a0a129d852d001582))
+- *(deps)* Update rust crate mimalloc to 0.1.49 by [@renovate[bot]](https://github.com/renovate[bot]) ([`2079c5b`](https://github.com/kristof-mattei/magwords/commit/2079c5bf28a6ca61b52e2de93807d208cbc15e6c))
+- *(deps)* `mimalloc` by default now is v3, removing flag by [@kristof-mattei](https://github.com/kristof-mattei) ([`5fba7a8`](https://github.com/kristof-mattei/magwords/commit/5fba7a8ba4fefdab3b2d25fb0aed8d034b149f81))
+- *(deps)* Update rust crate mimalloc to 0.1.50 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d19de97`](https://github.com/kristof-mattei/magwords/commit/d19de97408528e38dea8cf0c5d597f698c62384c))
+- *(deps)* Update rust crate tower-proxy to 0.9.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`c9d7295`](https://github.com/kristof-mattei/magwords/commit/c9d729553cd82d1889d28aedfa6aa6eace1e764b))
+- *(deps)* Update rust crate tokio to 1.52.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`848c01e`](https://github.com/kristof-mattei/magwords/commit/848c01e340ed4d943cd1739fa381392c722567e3))
+- *(deps)* Update react monorepo to v19.2.6 by [@renovate[bot]](https://github.com/renovate[bot]) ([`df0d499`](https://github.com/kristof-mattei/magwords/commit/df0d49923a7f0779665b5dd7490f4c887a1e2f51))
+- *(deps)* Update rust crate tower-http to 0.6.10 by [@renovate[bot]](https://github.com/renovate[bot]) ([`3ff6ed9`](https://github.com/kristof-mattei/magwords/commit/3ff6ed934d6c68d2caca9aaf50a1d36ba39e554c))
+- *(deps)* Update rust crate tokio to 1.52.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`bbe9b45`](https://github.com/kristof-mattei/magwords/commit/bbe9b45e56d129216f1228b046c2c84653ec23c8))
+- *(deps)* Update rust crate tower-http to 0.6.11 by [@renovate[bot]](https://github.com/renovate[bot]) ([`00151e8`](https://github.com/kristof-mattei/magwords/commit/00151e8823f9a45d7d43b8949fff7f37837145ba))
+- *(deps)* Update rust crate tower-http to 0.6.11 (#1374) by [@renovate[bot]](https://github.com/renovate[bot]) ([`c1f2ab8`](https://github.com/kristof-mattei/magwords/commit/c1f2ab8e9122a837cc3f10e095ca2cc348d0f044))
+- *(deps)* Update rust crate mimalloc to 0.1.51 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d325f2d`](https://github.com/kristof-mattei/magwords/commit/d325f2d4c6a8367d95249b7363be7aef8c9a7759))
+- *(deps)* Update rust crate mimalloc to 0.1.51 (#1387) by [@renovate[bot]](https://github.com/renovate[bot]) ([`d7e6e9e`](https://github.com/kristof-mattei/magwords/commit/d7e6e9e096fb44aadad630473123a87290e149ee))
+- *(deps)* Update rust crate mimalloc to 0.1.51 by [@renovate[bot]](https://github.com/renovate[bot]) ([`297ccb0`](https://github.com/kristof-mattei/magwords/commit/297ccb05fd6ab86c94994ef240d04deb57450250))
+- *(deps)* Update rust crate mimalloc to 0.1.51 (#2814) by [@renovate[bot]](https://github.com/renovate[bot]) ([`bdb432d`](https://github.com/kristof-mattei/magwords/commit/bdb432da30a587fbec7fa48d6e3c4b94081c9a98))
+- *(deps)* Update rust crate serde_json to 1.0.150 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7ce12bc`](https://github.com/kristof-mattei/magwords/commit/7ce12bcb2b74fe3f43052c7eb3b6253188d5e8d9))
+- *(deps)* Update rust crate serde_json to 1.0.150 (#2908) by [@renovate[bot]](https://github.com/renovate[bot]) in #2908 ([`373697e`](https://github.com/kristof-mattei/magwords/commit/373697e6845a2161de9b5fd6df6e0efc59ff2b03))
+- *(deps)* Update rust crate mimalloc to 0.1.52 by [@renovate[bot]](https://github.com/renovate[bot]) ([`00561eb`](https://github.com/kristof-mattei/magwords/commit/00561eb85179e7728da783673d90e78f50d8d9cf))
+- *(deps)* Update rust crate mimalloc to 0.1.52 (#2911) by [@renovate[bot]](https://github.com/renovate[bot]) in #2911 ([`b3a3dee`](https://github.com/kristof-mattei/magwords/commit/b3a3dee26cd09e83a9808df683a44168c86fbb6f))
+- Rule gone by [@kristof-mattei](https://github.com/kristof-mattei) ([`663f51a`](https://github.com/kristof-mattei/magwords/commit/663f51adfdf1a07b065ab96e00b7a024feab6a13))
+- ConfigError: Config (unnamed): Key "plugins": Cannot redefine plugin "n". by [@kristof-mattei](https://github.com/kristof-mattei) ([`622d13d`](https://github.com/kristof-mattei/magwords/commit/622d13d2d48941641f67344f63c382eb3c16985d))
+- Add on-early-drop handler by [@kristof-mattei](https://github.com/kristof-mattei) ([`681aa40`](https://github.com/kristof-mattei/magwords/commit/681aa402f3f1459ff9d7a19d24eb7ed055305a14))
+- Broken update by [@kristof-mattei](https://github.com/kristof-mattei) ([`97d62e0`](https://github.com/kristof-mattei/magwords/commit/97d62e0bae4d37e3424d7b25c9866fb131f592e8))
+- Eslint rules correction by [@kristof-mattei](https://github.com/kristof-mattei) ([`952458c`](https://github.com/kristof-mattei/magwords/commit/952458c1a491c7b9f99795930ac0567eee746f15))
+
+### ⚙️ Miscellaneous Tasks
+
+- Ignore tsconfig.tsbuildinfo in root only by [@kristof-mattei](https://github.com/kristof-mattei) ([`683f8ee`](https://github.com/kristof-mattei/magwords/commit/683f8eea0f6b7b458aec722a09246ccbe02d1afb))
+- Eslint as ts by [@kristof-mattei](https://github.com/kristof-mattei) ([`0443595`](https://github.com/kristof-mattei/magwords/commit/0443595981ba39dc15e8591c436558c7ee4144ef))
+- Use $vite to make sure the same version is used by [@kristof-mattei](https://github.com/kristof-mattei) ([`a1f7e14`](https://github.com/kristof-mattei/magwords/commit/a1f7e14eabcdce21234b6c4123f2d80abd6d2669))
+- From secs by [@kristof-mattei](https://github.com/kristof-mattei) ([`eace928`](https://github.com/kristof-mattei/magwords/commit/eace9287ed9c4f8379678e2d4928011da35cb9a5))
+- Axum-proxy is deprecated by [@kristof-mattei](https://github.com/kristof-mattei) ([`ec88758`](https://github.com/kristof-mattei/magwords/commit/ec88758ba15abe294d483de9651be6dca5fb1f24))
+- Remove `--offline`, it just doesn't work, don't know why by [@kristof-mattei](https://github.com/kristof-mattei) ([`dd1a0c6`](https://github.com/kristof-mattei/magwords/commit/dd1a0c693efcdb23e2f73c81d37712593dd0ace4))
+- Restore by [@kristof-mattei](https://github.com/kristof-mattei) ([`4982c8c`](https://github.com/kristof-mattei/magwords/commit/4982c8c6b8e21d38f568c1456e048424c9b5fd63))
+- Node v26 by [@kristof-mattei](https://github.com/kristof-mattei) ([`7bc6380`](https://github.com/kristof-mattei/magwords/commit/7bc6380cf87c105e0378db3a5c7bda289d0bc227))
+- Node v26, but pin to 26.1.0, and 26.2.0 isn't out on Docker yet by [@kristof-mattei](https://github.com/kristof-mattei) ([`5cb3259`](https://github.com/kristof-mattei/magwords/commit/5cb3259500addc61cfc86f63d6b2cd998655c251))
+- Remove devEngines for now by [@kristof-mattei](https://github.com/kristof-mattei) ([`add2c66`](https://github.com/kristof-mattei/magwords/commit/add2c6612acfaa850faf3d8b282783c9ce27282a))
+- Node v26 and pnpm 11.2.2 by [@kristof-mattei](https://github.com/kristof-mattei) ([`16139f7`](https://github.com/kristof-mattei/magwords/commit/16139f7f5ad75af955e9cb7cce9a5968d478ee04))
 ## [0.3.0](https://github.com/kristof-mattei/magwords/compare/v0.2.2..v0.3.0) - 2026-05-12
 
 ### 🚀 Features
