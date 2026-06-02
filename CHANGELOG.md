@@ -1,4 +1,21 @@
 <!-- header goes here -->
+## [0.4.1](https://github.com/kristof-mattei/magwords/compare/v0.4.0..v0.4.1) - 2026-06-02
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate mimalloc to 0.1.52 by [@renovate[bot]](https://github.com/renovate[bot]) ([`1890f97`](https://github.com/kristof-mattei/magwords/commit/1890f97240cf108d41c370179666282ebe343759))
+- *(deps)* Update rust crate mimalloc to 0.1.52 (#2820) by [@renovate[bot]](https://github.com/renovate[bot]) ([`f964185`](https://github.com/kristof-mattei/magwords/commit/f964185dff4cee94f1a89e05ca7be9ae0d4f862a))
+- *(deps)* Update rust crate http to 1.4.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a8803ee`](https://github.com/kristof-mattei/magwords/commit/a8803eeb158cd752f06bbe7b2d8ba01756b5c716))
+- *(deps)* Update rust crate http to 1.4.1 (#2926) by [@renovate[bot]](https://github.com/renovate[bot]) in #2926 ([`1fe9a7f`](https://github.com/kristof-mattei/magwords/commit/1fe9a7fe1742687c93bea29ef6c69e531424eeb1))
+- *(deps)* Update rust crate uuid to 1.23.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`75bfe37`](https://github.com/kristof-mattei/magwords/commit/75bfe376919ca8b4d89e2c030497d5a8dd1430ff))
+- *(deps)* Update rust crate uuid to 1.23.2 (#2944) by [@renovate[bot]](https://github.com/renovate[bot]) in #2944 ([`8349d9e`](https://github.com/kristof-mattei/magwords/commit/8349d9e9899b8775a1522c7e1e4cd8450c502103))
+
+### ⚙️ Miscellaneous Tasks
+
+- Enable `as_conversions` lint by [@kristof-mattei](https://github.com/kristof-mattei) ([`3bfb7bb`](https://github.com/kristof-mattei/magwords/commit/3bfb7bb6d1a60f11ecfa7c46b7b6f3d5f4e795a0))
+- Fix botched merge by [@kristof-mattei](https://github.com/kristof-mattei) ([`a02610a`](https://github.com/kristof-mattei/magwords/commit/a02610a14c5bf3fb532521f400fd2a63987c9724))
+- Use pretty_assertion's assert_matches! by [@kristof-mattei](https://github.com/kristof-mattei) ([`6a9c3f7`](https://github.com/kristof-mattei/magwords/commit/6a9c3f7e3161c2590b2a01f7044ad0179e021303))
+- Mandate `pretty_assertions::assert_matches` over `std` version by [@kristof-mattei](https://github.com/kristof-mattei) ([`d5e030c`](https://github.com/kristof-mattei/magwords/commit/d5e030cf9a767a50b2c10ad5eac80bf2257c49ab))
 ## [0.4.0](https://github.com/kristof-mattei/magwords/compare/v0.3.0..v0.4.0) - 2026-05-23
 
 ### 🚀 Features
