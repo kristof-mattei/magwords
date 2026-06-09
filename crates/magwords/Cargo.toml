@@ -44,7 +44,7 @@ tracing = "0.1.44"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
 url = { version = "2.5.8", features = ["serde"] }
-uuid = { version = "1.23.2", features = ["v7"] }
+uuid = { version = "1.23.3", features = ["v7"] }
 
 [dev-dependencies]
 pretty_assertions = { version = "=1.4.1", features = ["unstable"] }
