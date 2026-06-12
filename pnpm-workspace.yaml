@@ -9,4 +9,3 @@ overrides:
   "@codecov/vite-plugin>vite": "catalog:default"
   "eslint-config-love>eslint": "catalog:default"
   "eslint-plugin-import>eslint": "catalog:default"
-  "eslint-plugin-react>eslint": "catalog:default"
