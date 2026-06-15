@@ -10,7 +10,7 @@ import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
-    const port = Number.parseInt(environment["VITE_PORT"] ?? "", 10);
+    const port = Number(environment["VITE_PORT"] ?? "");
 
     const config: UserConfig = {
         appType: "spa",
