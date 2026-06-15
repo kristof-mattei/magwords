@@ -5,7 +5,7 @@ export function sendMove(state: State, id: string, x: number, y: number): void {
     const message: ClientMessage = {
         type: "move",
         data: {
-            id: Number.parseInt(id.slice(2), 10),
+            id: Number(id.slice(2)),
             v: state.version,
             x,
             y,
