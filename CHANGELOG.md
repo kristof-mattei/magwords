@@ -1,4 +1,25 @@
 <!-- header goes here -->
+## [0.4.2](https://github.com/kristof-mattei/magwords/compare/v0.4.1..v0.4.2) - 2026-06-24
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate http to 1.4.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`3bc3286`](https://github.com/kristof-mattei/magwords/commit/3bc32865928263a0cefd7c8186421f0170912f5e))
+- *(deps)* Update rust crate http to 1.4.2 (#2976) by [@renovate[bot]](https://github.com/renovate[bot]) in #2976 ([`f087895`](https://github.com/kristof-mattei/magwords/commit/f0878956d5092a5e5f10fd87342d3f06cab69c31))
+- *(deps)* Update rust crate uuid to 1.23.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`be370e1`](https://github.com/kristof-mattei/magwords/commit/be370e188754943662857b76e13340364f4197b9))
+- *(deps)* Update rust crate uuid to 1.23.3 (#2979) by [@renovate[bot]](https://github.com/renovate[bot]) in #2979 ([`86b6702`](https://github.com/kristof-mattei/magwords/commit/86b6702dd42f0ac666730b41f1cdec4f34124a1a))
+- *(deps)* Update rust crate tower-http to 0.7.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`74fb2d9`](https://github.com/kristof-mattei/magwords/commit/74fb2d9ed500b2a09a09112840971c7603f6588a))
+- *(deps)* Update rust crate tower-http to 0.7.0 (#3001) by [@renovate[bot]](https://github.com/renovate[bot]) in #3001 ([`afa9a2c`](https://github.com/kristof-mattei/magwords/commit/afa9a2c39f6caefa63f6eb2658550a0bff66383f))
+
+### ⚙️ Miscellaneous Tasks
+
+- Use catalogs by [@kristof-mattei](https://github.com/kristof-mattei) ([`a4cd3b6`](https://github.com/kristof-mattei/magwords/commit/a4cd3b6a30ae314cf3aa6f36c72e83528dd25f74))
+- Magwords does not use react by [@kristof-mattei](https://github.com/kristof-mattei) ([`c236748`](https://github.com/kristof-mattei/magwords/commit/c236748bd5bbc11f035ed11478c2135385f8dc90))
+- New lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`e90ad97`](https://github.com/kristof-mattei/magwords/commit/e90ad979267df875a5ea259aec7c08ccdc76d0fd))
+- New lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`d0f4540`](https://github.com/kristof-mattei/magwords/commit/d0f4540b74e1ddd45626b2c47e1b767e5d6a5113))
+- New lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`09ca501`](https://github.com/kristof-mattei/magwords/commit/09ca501ad935534fb9beb3e8585450e50fcfe6ba))
+- Node 26.3.1-alpine3.24 by [@kristof-mattei](https://github.com/kristof-mattei) ([`b55d9aa`](https://github.com/kristof-mattei/magwords/commit/b55d9aa2eaa99407215d8fa6bfcc3163a6486d98))
+- Tasks.json should not be executable by [@kristof-mattei](https://github.com/kristof-mattei) ([`5527290`](https://github.com/kristof-mattei/magwords/commit/552729080cf37c4ef92e90228e73971c42540bd9))
+- @types/nodes v26 by [@kristof-mattei](https://github.com/kristof-mattei) ([`03c43c6`](https://github.com/kristof-mattei/magwords/commit/03c43c6bd325feef3cd7bc66f59e1b49627100ea))
 ## [0.4.1](https://github.com/kristof-mattei/magwords/compare/v0.4.0..v0.4.1) - 2026-06-02
 
 ### 🐛 Bug Fixes
