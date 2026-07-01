@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [0.4.3](https://github.com/kristof-mattei/magwords/compare/v0.4.2..v0.4.3) - 2026-07-01
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate uuid to 1.23.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`5998ab7`](https://github.com/kristof-mattei/magwords/commit/5998ab73d315e0a0bfc015af79dd1594c8ca64a3))
+- *(deps)* Update rust crate uuid to 1.23.4 (#3049) by [@renovate[bot]](https://github.com/renovate[bot]) in #3049 ([`fced00e`](https://github.com/kristof-mattei/magwords/commit/fced00eb65d4e6349afed74d50192f984441fd4e))
+- *(deps)* Pin dependencies by [@renovate[bot]](https://github.com/renovate[bot]) ([`ec71b30`](https://github.com/kristof-mattei/magwords/commit/ec71b3005e9fd6f366f5c69883e2af3ed7c7de14))
+- *(deps)* Pin dependencies (#3068) by [@renovate[bot]](https://github.com/renovate[bot]) in #3068 ([`aff6928`](https://github.com/kristof-mattei/magwords/commit/aff6928af45a334510e16d618222ec91c1e1792e))
+- KeepNames for easier debugging by [@kristof-mattei](https://github.com/kristof-mattei) ([`7ba6600`](https://github.com/kristof-mattei/magwords/commit/7ba660079e4d93f6e8965935e8a441a2c52ce3e4))
 ## [0.4.2](https://github.com/kristof-mattei/magwords/compare/v0.4.1..v0.4.2) - 2026-06-24
 
 ### 🐛 Bug Fixes
