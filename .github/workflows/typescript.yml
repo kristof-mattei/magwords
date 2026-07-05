@@ -57,6 +57,7 @@ jobs:
       - warm-up-cache
     permissions:
       checks: write
+      contents: read
       id-token: write
       pull-requests: write
     steps:
@@ -82,6 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       checks: write
+      contents: read
     needs:
       - changes
       - warm-up-cache
@@ -121,6 +123,7 @@ jobs:
       - warm-up-cache
     permissions:
       checks: write
+      contents: read
       id-token: write
       pull-requests: write
     steps:
