@@ -32,6 +32,7 @@
         "bootstrap": "5.3.8"
     },
     "devDependencies": {
+<<<<<<< HEAD
         "@codecov/vite-plugin": "2.0.1",
         "@eslint-community/eslint-plugin-eslint-comments": "4.7.2",
         "@eslint/compat": "2.1.0",
@@ -67,5 +68,14 @@
         "vite-plugin-checker": "0.14.4",
         "vite-plugin-svgr": "5.2.0",
         "vitest": "4.1.10"
+||||||| 767c9c6f
+        "prettier": "3.9.4",
+        "prettier-plugin-sh": "0.18.1",
+        "prettier-plugin-toml": "2.0.6"
+=======
+        "prettier": "3.9.5",
+        "prettier-plugin-sh": "0.19.0",
+        "prettier-plugin-toml": "2.0.6"
+>>>>>>> upstream/main
     }
 }
