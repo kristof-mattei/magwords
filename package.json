@@ -15,6 +15,7 @@
         "lint:fix": "npm run lint --fix",
         "preview": "vite preview",
         "format": "prettier --write .",
+        "spellcheck": "cspell --no-progress \"**\"",
         "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err front-end/src",
         "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot front-end/src | dot -T svg > dependency-graph.svg",
         "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src"
@@ -45,6 +46,7 @@
         "@typescript-eslint/parser": "8.64.0",
         "@vitest/coverage-v8": "4.1.10",
         "@vitest/ui": "4.1.10",
+        "cspell": "10.0.1",
         "dependency-cruiser": "18.1.0",
         "eslint": "catalog:default",
         "eslint-config-love": "154.1.0",
