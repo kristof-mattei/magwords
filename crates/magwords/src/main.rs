@@ -20,7 +20,7 @@ use clap::Parser as _;
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
 use states::config::Config;
-use tokio::time::{sleep, timeout};
+use tokio::time::{MissedTickBehavior, interval, timeout};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
 use tracing::{Level, event};
@@ -123,8 +123,11 @@ async fn start_tasks() -> Result<(), eyre::Report> {
         tasks.spawn(async move {
             let _guard = token.clone().drop_guard();
 
+            let mut interval = interval(Duration::from_secs(1));
+            interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
+
             while !token.is_cancelled() {
-                sleep(Duration::from_secs(1)).await;
+                interval.tick().await;
 
                 ws_state.broadcast(None, ServerMessage::Hup { id: 1, v: 1 });
             }
