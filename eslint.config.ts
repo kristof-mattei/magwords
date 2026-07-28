@@ -112,7 +112,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
     },
-    eslintPluginUnicorn.configs.all,
     {
         languageOptions: {
             parser: tsParser,
@@ -136,7 +135,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             },
         },
         extends: [
-            eslintPluginUnicorn.configs.recommended,
+            eslintPluginUnicorn.configs.all,
             reactPlugin.configs.flat["jsx-runtime"] ?? {},
             reactRefreshPlugin.configs.vite,
             reactHooksPlugin.configs.flat["recommended-latest"],
