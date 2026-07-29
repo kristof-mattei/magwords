@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-keyword-prefix -- we use new to name the new location */
+
 import { sendMove } from "./emitters";
 import { pixelToCoordinate } from "./shared";
 import type { State } from "./state";

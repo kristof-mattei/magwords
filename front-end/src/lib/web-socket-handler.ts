@@ -89,7 +89,7 @@ export class WebSocketHandler {
     public onPoets(data: Poets): void {
         if (data.count !== this.state.poets) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we control html, element is there
-            document.querySelector("#odo")!.innerHTML = data.count.toString(10);
+            document.querySelector("#odo")!.textContent = data.count.toString(10);
         }
 
         this.state.poets = data.count;
