@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "@eslint/config-helpers";
 import type { RulesConfig } from "@eslint/core";
 import js from "@eslint/js";
+import markdown from "@eslint/markdown";
 import commentsPlugin from "@eslint-community/eslint-plugin-eslint-comments";
 import stylistic from "@stylistic/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
@@ -14,6 +15,7 @@ import reactHookFormPlugin from "eslint-plugin-react-hook-form";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import { configs as ymlConfigs } from "eslint-plugin-yml";
 import { configs as tseslintConfigs } from "typescript-eslint";
 
 interface CompatibleConfig {
@@ -35,7 +37,6 @@ const sharedRules: RulesConfig = {
     "arrow-body-style": ["error", "always"],
     complexity: ["off"],
     curly: ["error", "all"],
-    "eol-last": ["error", "always"],
     eqeqeq: ["error", "always"],
     "no-alert": ["off"],
     "no-console": ["off"],
@@ -57,14 +58,6 @@ const sharedRules: RulesConfig = {
     "no-useless-constructor": ["off"],
     "object-shorthand": ["error", "always"],
     "prefer-template": ["error"],
-    quotes: [
-        "error",
-        "double",
-        {
-            allowTemplateLiterals: false,
-            avoidEscape: true,
-        },
-    ],
     "require-await": ["error"],
     "sort-imports": [
         "error",
@@ -104,26 +97,33 @@ const sharedRules: RulesConfig = {
 };
 
 const config: ReturnType<typeof defineConfig> = defineConfig(
-    prettier,
     globalIgnores([".local/*"]),
-    js.configs.recommended,
-    importPluginsFlatConfigs.recommended,
-    importPluginsFlatConfigs.typescript,
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
     },
-    eslintPluginUnicorn.configs.all,
     {
+        files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.tsx"],
+        extends: [
+            js.configs.recommended,
+            importPluginsFlatConfigs.recommended,
+            importPluginsFlatConfigs.typescript,
+            eslintPluginUnicorn.configs.all,
+            prettier,
+        ],
+    },
+    {
+        files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.tsx"],
         languageOptions: {
             parser: tsParser,
             parserOptions: {
                 ecmaVersion: "latest",
-                projectService: true,
+                projectService: {
+                    allowDefaultProject: ["*.md/*.ts"],
+                },
                 sourceType: "module", // Allows for the use of imports
                 tsconfigRootDir: import.meta.dirname,
             },
         },
-        plugins: {},
         settings: {
             "import-x/resolver": {
                 node: {},
@@ -136,7 +136,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             },
         },
         extends: [
-            eslintPluginUnicorn.configs.recommended,
             reactPlugin.configs.flat["jsx-runtime"] ?? {},
             reactRefreshPlugin.configs.vite,
             reactHooksPlugin.configs.flat["recommended-latest"],
@@ -175,16 +174,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
     },
     {
         files: ["**/*.ts", "**/*.tsx"],
-        ignores: ["**/*.mjs"],
-        languageOptions: {
-            parser: tsParser,
-            parserOptions: {
-                ecmaVersion: "latest",
-                projectService: true,
-                sourceType: "module", // Allows for the use of imports
-                tsconfigRootDir: import.meta.dirname,
-            },
-        },
         plugins: {
             ...love.plugins,
             "@stylistic/ts": stylistic,
@@ -192,14 +181,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             perfectionist,
         },
         extends: [promise.configs["flat/recommended"], importPluginsFlatConfigs.react],
-        settings: {
-            "import-x/resolver": {
-                node: {},
-                typescript: {
-                    alwaysTryTypes: true,
-                },
-            },
-        },
         rules: {
             ...flattenRules(tseslintConfigs.strictTypeCheckedOnly),
 
@@ -283,11 +264,20 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             "unicorn/prefer-type-literal-last": ["off"],
         },
     },
-
     {
         extends: [tseslintConfigs.disableTypeChecked],
-        files: ["*.mjs"],
-        rules: {},
+        files: ["**/*.mjs"],
+    },
+    markdown.configs.processor,
+    {
+        files: ["**/*.md/*.yaml", "**/*.md/*.yml"],
+        extends: [ymlConfigs["flat/recommended"], ymlConfigs["flat/prettier"]],
+    },
+    {
+        files: ["**/*.md/*.ts"],
+        rules: {
+            "unicorn/filename-case": ["off"],
+        },
     },
 );
 
