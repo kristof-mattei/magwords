@@ -102,7 +102,7 @@ RUN npm uninstall --global corepack && npm install --global corepack
 # This allows us to copy in the source in a different layer which in turn allows us to leverage Docker's layer caching
 # That means that if our dependencies don't change rebuilding is much faster
 WORKDIR /build
-COPY package.json pnpm-lock.yaml vite.config.ts tailwind.config.mjs tsconfig.json pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml vite.config.ts tsconfig.json pnpm-workspace.yaml ./
 
 # install the corepack our package requires
 RUN corepack install
