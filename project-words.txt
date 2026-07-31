@@ -36,7 +36,6 @@ nextest
 nvmrc
 onirophyse
 pathbuf
-pids
 postprocessors
 prereleased
 profraw
