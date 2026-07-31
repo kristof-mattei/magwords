@@ -1,4 +1,58 @@
 <!-- header goes here -->
+## [0.4.5](https://github.com/kristof-mattei/magwords/compare/v0.4.4..v0.4.5) - 2026-07-31
+
+### 🐛 Bug Fixes
+
+- *(ci)* Disable asking for funds when installing pnpm by [@kristof-mattei](https://github.com/kristof-mattei) ([`b661b33`](https://github.com/kristof-mattei/magwords/commit/b661b336aeed70395e1a0a25484b48d88f6d3cb4))
+- *(ci)* Merge the PR based on the branch name, not the url by [@kristof-mattei](https://github.com/kristof-mattei) ([`b0af60a`](https://github.com/kristof-mattei/magwords/commit/b0af60a01b2f10665e3d2ffaf658fc5e9f4c1cff))
+- *(ci)* Address actionlint by [@kristof-mattei](https://github.com/kristof-mattei) ([`3d8e464`](https://github.com/kristof-mattei/magwords/commit/3d8e4648ec20159a31b930c0a6a6f39fa5b0eb6e))
+- *(deps)* Update rust crate uuid to v1.23.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`cbdbd10`](https://github.com/kristof-mattei/magwords/commit/cbdbd102f5b9a404caf90fdd0baa763255cfdd99))
+- *(deps)* Update rust crate uuid to v1.23.5 (#3131) by [@renovate[bot]](https://github.com/renovate[bot]) in #3131 ([`d62f17d`](https://github.com/kristof-mattei/magwords/commit/d62f17d27d1003a941173dcf13784f77c684f0c6))
+- *(deps)* Update rust crate clap to v4.6.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`49949d2`](https://github.com/kristof-mattei/magwords/commit/49949d2adb4ccfdd13c712e353ad1ea17a175cd0))
+- *(deps)* Update rust crate clap to v4.6.2 (#3142) by [@renovate[bot]](https://github.com/renovate[bot]) in #3142 ([`35c5f36`](https://github.com/kristof-mattei/magwords/commit/35c5f3693290cb21781f7516beab325a2f8cd16e))
+- *(deps)* Update rust crate uuid to v1.24.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`483a7e0`](https://github.com/kristof-mattei/magwords/commit/483a7e035e488ca69f7439f4631c62559510a765))
+- *(deps)* Update rust crate uuid to v1.24.0 (#3143) by [@renovate[bot]](https://github.com/renovate[bot]) in #3143 ([`e653d9c`](https://github.com/kristof-mattei/magwords/commit/e653d9ccd7831f213429ce252ccff9550d321e54))
+- *(deps)* Update rust crate tokio to v1.53.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`8ce6460`](https://github.com/kristof-mattei/magwords/commit/8ce646030a43e65b48c560034d6e57ded03ee8f6))
+- *(deps)* Update rust crate tokio to v1.53.0 (#3153) by [@renovate[bot]](https://github.com/renovate[bot]) in #3153 ([`fd0f934`](https://github.com/kristof-mattei/magwords/commit/fd0f9344c93e57d5e899590f0d3fc2d6c6ec87cf))
+- *(deps)* Update rust crate serde to v1.0.229 by [@renovate[bot]](https://github.com/renovate[bot]) ([`267a87e`](https://github.com/kristof-mattei/magwords/commit/267a87e55466c20efc9f9fd47f62391cb8bb570b))
+- *(deps)* Update rust crate serde to v1.0.229 (#3159) by [@renovate[bot]](https://github.com/renovate[bot]) in #3159 ([`4df1fce`](https://github.com/kristof-mattei/magwords/commit/4df1fceb6c5b4c0ed3cafdda6e16a0efa61be8ba))
+- *(deps)* Update rust crate clap to v4.6.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`8921fbc`](https://github.com/kristof-mattei/magwords/commit/8921fbccc049cc49e28773f6d7b9937ac0d164b4))
+- *(deps)* Update rust crate clap to v4.6.3 (#3165) by [@renovate[bot]](https://github.com/renovate[bot]) in #3165 ([`b58c790`](https://github.com/kristof-mattei/magwords/commit/b58c790f5235ba541257c94749a32a47fb56a9c1))
+- *(deps)* Update rust crate serde_json to v1.0.151 by [@renovate[bot]](https://github.com/renovate[bot]) ([`2f4528f`](https://github.com/kristof-mattei/magwords/commit/2f4528fc92d59d1b0ba00ba6bda7bb3500bc24fa))
+- *(deps)* Update rust crate serde_json to v1.0.151 (#3166) by [@renovate[bot]](https://github.com/renovate[bot]) in #3166 ([`87c1987`](https://github.com/kristof-mattei/magwords/commit/87c1987e9417c8d4d526e17c8d2d4518d4258c0a))
+- *(deps)* Update rust crate tokio to v1.53.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`b4db643`](https://github.com/kristof-mattei/magwords/commit/b4db643cb0dfc9cbfe396d7fb5a3407e20a122d7))
+- *(deps)* Update rust crate tokio to v1.53.1 (#3170) by [@renovate[bot]](https://github.com/renovate[bot]) in #3170 ([`c79d81a`](https://github.com/kristof-mattei/magwords/commit/c79d81ac46edcab46fa8f24045598b62b42ab808))
+- *(deps)* Update rust crate tokio-util to v0.7.19 by [@renovate[bot]](https://github.com/renovate[bot]) ([`9fa8d62`](https://github.com/kristof-mattei/magwords/commit/9fa8d6223625136eec0fd24684c6f16d8fc8b8bc))
+- *(deps)* Update rust crate tokio-util to v0.7.19 (#3172) by [@renovate[bot]](https://github.com/renovate[bot]) in #3172 ([`d854f60`](https://github.com/kristof-mattei/magwords/commit/d854f60448b25886b8dbf47b000bff51025ca9c9))
+- *(deps)* Update rust crate clap to v4.6.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a5f58e2`](https://github.com/kristof-mattei/magwords/commit/a5f58e2d8105f8e8ae7c6c870f277c3a167346e2))
+- *(deps)* Update rust crate clap to v4.6.4 (#3177) by [@renovate[bot]](https://github.com/renovate[bot]) in #3177 ([`7a97941`](https://github.com/kristof-mattei/magwords/commit/7a979410b4fe8d9d83d0a46965561c7b613fc99e))
+- *(deps)* Update rust crate http to v1.5.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`fd7d373`](https://github.com/kristof-mattei/magwords/commit/fd7d373e6a07e84cfc30bb4831d6dbdbf3284fe6))
+- *(deps)* Update rust crate http to v1.5.0 (#3209) by [@renovate[bot]](https://github.com/renovate[bot]) in #3209 ([`f9bd780`](https://github.com/kristof-mattei/magwords/commit/f9bd780fd69be373dcc084de61d95068154eb682))
+- *(deps)* Update rust crate clap to v4.6.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`5f4a3d5`](https://github.com/kristof-mattei/magwords/commit/5f4a3d590c8f93f4d576131d4cc3d90cac23499a))
+- *(deps)* Update rust crate clap to v4.6.5 (#3222) by [@renovate[bot]](https://github.com/renovate[bot]) in #3222 ([`05c1dda`](https://github.com/kristof-mattei/magwords/commit/05c1dda44066a6a76305778c3996197c52936f53))
+- Use tokio interval by [@kristof-mattei](https://github.com/kristof-mattei) ([`6506d4f`](https://github.com/kristof-mattei/magwords/commit/6506d4f00a9351a53863f86985078cc782da0a13))
+- Prettier config typescript version by [@kristof-mattei](https://github.com/kristof-mattei) ([`9a04bc8`](https://github.com/kristof-mattei/magwords/commit/9a04bc814c428efb9b1af82b6395e8a08fb69caa))
+- For markdown, decrease tabwidth by [@kristof-mattei](https://github.com/kristof-mattei) ([`775286c`](https://github.com/kristof-mattei/magwords/commit/775286c57e10452aa3580f168399f48f50066e40))
+- Address lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`843126c`](https://github.com/kristof-mattei/magwords/commit/843126cf8b60727e1b93575958cb620bd317bf98))
+
+### 💼 Other
+
+- Generate SBOM & provenance attestations, embedding the actual crate list via cargo-auditable by [@kristof-mattei](https://github.com/kristof-mattei) ([`7069ac7`](https://github.com/kristof-mattei/magwords/commit/7069ac7c50b8a9c3eab63e1b31ebf77164141d7c))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Long-form options by [@kristof-mattei](https://github.com/kristof-mattei) ([`8cc89ce`](https://github.com/kristof-mattei/magwords/commit/8cc89ce310fd951216ebb9bf5dad46a9eb5b4cab))
+- *(ci)* Create release commits with the api so they're signed by [@kristof-mattei](https://github.com/kristof-mattei) ([`0cacc4c`](https://github.com/kristof-mattei/magwords/commit/0cacc4cfff7e3e44eaaa27a9fcdf0d7006720c8b))
+- *(ci)* Let release runs finish and clean up stranded branches by [@kristof-mattei](https://github.com/kristof-mattei) ([`09c302f`](https://github.com/kristof-mattei/magwords/commit/09c302fef81815f523c7a8fa2b849b02222d3bdc))
+- *(ci)* Pass the github token to git-cliff via the environment by [@kristof-mattei](https://github.com/kristof-mattei) ([`73fe1c0`](https://github.com/kristof-mattei/magwords/commit/73fe1c0d32e7de5d97b90a7ee7433ef7edb75959))
+- *(ci)* Only mark stable releases as latest by [@kristof-mattei](https://github.com/kristof-mattei) ([`357e974`](https://github.com/kristof-mattei/magwords/commit/357e974a1e321345048fc53d805da083c191149e))
+- *(ci)* Update the release PR body via the rest api by [@kristof-mattei](https://github.com/kristof-mattei) ([`0358506`](https://github.com/kristof-mattei/magwords/commit/035850687f39ce852128a059f83f596cba9fab40))
+- *(ci)* Upload images sequentially by [@kristof-mattei](https://github.com/kristof-mattei) ([`128f6d4`](https://github.com/kristof-mattei/magwords/commit/128f6d4a0436cec8aeba4754262307ff0274b9df))
+- Ban more macros by [@kristof-mattei](https://github.com/kristof-mattei) ([`602457a`](https://github.com/kristof-mattei/magwords/commit/602457a4d5bcd65f5214d48e5601836041bebc0f))
+- Cspell by [@kristof-mattei](https://github.com/kristof-mattei) ([`9f5797a`](https://github.com/kristof-mattei/magwords/commit/9f5797a16adf5f2880b5bbdea2827ad7cf465688))
+- Remove copilot instructions as copilot is now behind a paywall by [@kristof-mattei](https://github.com/kristof-mattei) ([`8a34ae2`](https://github.com/kristof-mattei/magwords/commit/8a34ae290dfdb5ddf5d2b73eeca90a14146f3e9b))
+- Remove unused word by [@kristof-mattei](https://github.com/kristof-mattei) ([`4cf5b2d`](https://github.com/kristof-mattei/magwords/commit/4cf5b2dbd13e7d5f8143634ffaa773f10175141c))
+- Update dictionary by [@kristof-mattei](https://github.com/kristof-mattei) ([`e7f3adf`](https://github.com/kristof-mattei/magwords/commit/e7f3adf73bd90fcf5c8312052e247aafa3bb5dea))
 ## [0.4.4](https://github.com/kristof-mattei/magwords/compare/v0.4.3..v0.4.4) - 2026-07-07
 
 ### 🐛 Bug Fixes
