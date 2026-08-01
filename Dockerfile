@@ -126,6 +126,16 @@ COPY front-end ./front-end/
 
 RUN pnpm run build
 
+# drop dev dependencies, the SBOM scan should only report shipped packages
+RUN pnpm prune --prod
+
+# front-end SBOM scan, scratch base so the node image's own packages stay out of the report
+FROM scratch AS typescript-sbom
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
+
+COPY --from=typescript-build /build/node_modules /node_modules
+COPY --from=typescript-build /build/dist /dist
+
 # Container user setup
 FROM --platform=${BUILDPLATFORM} alpine:3.24.1@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS passwd-build
 
@@ -145,7 +155,8 @@ COPY --from=passwd-build /tmp/group_appuser /etc/group
 COPY --from=passwd-build /tmp/passwd_appuser /etc/passwd
 
 COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/entrypoint
-COPY --from=typescript-build /build/dist /app/dist
+# copy from sbom so that the sbom layer actually gets built
+COPY --from=typescript-sbom /dist /app/dist
 
 USER appuser
 
