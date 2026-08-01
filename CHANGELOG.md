@@ -1,4 +1,19 @@
 <!-- header goes here -->
+## [0.5.0](https://github.com/kristof-mattei/magwords/compare/v0.4.5..v0.5.0) - 2026-08-01
+
+### 🚀 Features
+
+- Front-end sbom by [@kristof-mattei](https://github.com/kristof-mattei) ([`f325db0`](https://github.com/kristof-mattei/magwords/commit/f325db0659885439b2d691bfda61f18971e3d27d))
+
+### 🐛 Bug Fixes
+
+- *(ci)* Poll for the release source tag instead of racing the push retag by [@kristof-mattei](https://github.com/kristof-mattei) ([`c0be1d5`](https://github.com/kristof-mattei/magwords/commit/c0be1d5486cbb92bf8772e4aff991b4da9861f99))
+- *(ci)* Skip Docker Hub tags that already exist with the expected digest by [@kristof-mattei](https://github.com/kristof-mattei) ([`784a607`](https://github.com/kristof-mattei/magwords/commit/784a607d54f6872e85ed0fc069377ae347530858))
+- *(ci)* Give untagged container versions a grace period before cleanup by [@kristof-mattei](https://github.com/kristof-mattei) ([`9ee8d74`](https://github.com/kristof-mattei/magwords/commit/9ee8d74bd0d58c14a23d09343a26efe31527a8b7))
+
+### ⚙️ Miscellaneous Tasks
+
+- Update comment by [@kristof-mattei](https://github.com/kristof-mattei) ([`8632939`](https://github.com/kristof-mattei/magwords/commit/863293914e37c0f19d76f8ff3d7c289f667e73b6))
 ## [0.4.5](https://github.com/kristof-mattei/magwords/compare/v0.4.4..v0.4.5) - 2026-07-31
 
 ### 🐛 Bug Fixes
