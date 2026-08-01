@@ -9,9 +9,19 @@ import svgr from "vite-plugin-svgr";
 import type { ViteUserConfigFn } from "vitest/config";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
+function resolvePort(environmentValue: string | undefined, fallback: number): number {
+    if (environmentValue === undefined || environmentValue === "") {
+        return fallback;
+    }
+
+    const parsed = Number(environmentValue);
+
+    return Number.isNaN(parsed) ? fallback : parsed;
+}
+
 const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
-    const port = Number(environment["VITE_PORT"] ?? "");
+    const port = resolvePort(environment["VITE_PORT"], 4000);
 
     const config: UserConfig = {
         appType: "spa",
@@ -54,12 +64,12 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
         },
         root: "front-end/src",
         server: {
-            port: Number.isNaN(port) ? 4000 : port,
+            port,
             host: true,
             strictPort: true,
             hmr: {
                 host: "localhost",
-                port: 4000,
+                port,
             },
             cors: true,
             proxy: {
