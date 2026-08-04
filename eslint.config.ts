@@ -40,6 +40,13 @@ const sharedRules: RulesConfig = {
     "max-nested-callbacks": ["off"],
     "no-extra-semi": ["off"],
     "no-param-reassign": ["off"],
+    "no-restricted-globals": [
+        "error",
+        {
+            message: "Import Temporal from temporal-polyfill instead.",
+            name: "Temporal",
+        },
+    ],
     "no-restricted-imports": [
         "error",
         {
