@@ -54,7 +54,6 @@
         "**/*.js",
         "dependency-cruiser.config.mjs",
         "eslint.config.ts",
-        "tailwind.config.mjs",
         "prettier.config.ts"
     ]
 }
