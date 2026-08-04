@@ -44,6 +44,13 @@ const sharedRules: RulesConfig = {
     "max-nested-callbacks": ["off"],
     "no-extra-semi": ["off"],
     "no-param-reassign": ["off"],
+    "no-restricted-globals": [
+        "error",
+        {
+            message: "Import Temporal from temporal-polyfill instead.",
+            name: "Temporal",
+        },
+    ],
     "no-restricted-imports": [
         "error",
         {
@@ -168,6 +175,11 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             "react-hooks/incompatible-library": "warn",
 
             "react-refresh/only-export-components": "error",
+
+            "react/jsx-curly-brace-presence": [
+                "error",
+                { children: "never", propElementValues: "always", props: "never" },
+            ],
 
             ...sharedRules,
         },
