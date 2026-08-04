@@ -6,6 +6,7 @@ import commentsPlugin from "@eslint-community/eslint-plugin-eslint-comments";
 import stylistic from "@stylistic/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import love from "eslint-config-love";
+import betterTailwindcss from "eslint-plugin-better-tailwindcss";
 import { flatConfigs as importPluginsFlatConfigs } from "eslint-plugin-import-x";
 import perfectionist from "eslint-plugin-perfectionist";
 import prettier from "eslint-plugin-prettier/recommended";
@@ -274,6 +275,27 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
 
             // type order relies on perfectionist/sort-intersection-types
             "unicorn/prefer-type-literal-last": ["off"],
+        },
+    },
+    {
+        files: ["**/*.tsx"],
+        extends: [betterTailwindcss.configs["recommended-error"]],
+        settings: {
+            "better-tailwindcss": {
+                entryPoint: "front-end/src/styles/index.css",
+            },
+        },
+        rules: {
+            // we use prettier for formatting
+            "better-tailwindcss/enforce-consistent-line-wrapping": ["off"],
+            "better-tailwindcss/enforce-consistent-variant-order": ["error"],
+            "better-tailwindcss/no-unknown-classes": [
+                "error",
+                {
+                    // classes targeting Recharts' own markup
+                    ignore: ["recharts-.*"],
+                },
+            ],
         },
     },
     {
