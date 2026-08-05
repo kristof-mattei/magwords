@@ -12,21 +12,22 @@
         "build:watch": "vite build --watch",
         "test": "vitest --coverage.enabled=true",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-        "lint:fix": "npm run lint --fix",
+        "lint:fix": "pnpm run lint --fix",
+        "prepare": "husky",
         "preview": "vite preview",
         "format": "prettier --write .",
         "spellcheck": "cspell --no-progress \"**\"",
         "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err front-end/src",
-        "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot front-end/src | dot -T svg > dependency-graph.svg",
-        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src"
+        "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot front-end/src | dot -T svg > reports/dependency-graph.svg",
+        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to reports/dependency-report.html front-end/src"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
-            "eslint --",
+            "eslint --report-unused-disable-directives --max-warnings 0 --",
             "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate --"
         ],
         "*": [
-            "prettier --ignore-unknown --"
+            "prettier --check --ignore-unknown --"
         ]
     },
     "dependencies": {
@@ -60,7 +61,9 @@
         "eslint-plugin-promise": "7.3.0",
         "eslint-plugin-unicorn": "73.0.0",
         "eslint-plugin-yml": "3.7.0",
+        "husky": "9.1.7",
         "jsdom": "30.0.1",
+        "lint-staged": "17.3.0",
         "prettier": "3.9.6",
         "prettier-plugin-sh": "0.19.0",
         "prettier-plugin-toml": "2.0.6",

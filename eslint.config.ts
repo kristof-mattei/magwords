@@ -34,7 +34,7 @@ const sharedRules: RulesConfig = {
     complexity: ["off"],
     curly: ["error", "all"],
     eqeqeq: ["error", "always"],
-    "no-alert": ["off"],
+    "no-alert": ["error"],
     "no-console": ["off"],
     "max-len": ["off"],
     "max-nested-callbacks": ["off"],
@@ -57,8 +57,8 @@ const sharedRules: RulesConfig = {
     "no-shadow": ["error"],
     "no-underscore-dangle": ["off"],
     "no-unused-expressions": ["error"],
-    "no-unused-vars": ["off"],
-    "no-useless-constructor": ["off"],
+    "no-unused-vars": ["error"],
+    "no-useless-constructor": ["error"],
     "object-shorthand": ["error", "always"],
     "prefer-template": ["error"],
     "require-await": ["error"],
@@ -104,7 +104,7 @@ const sharedRules: RulesConfig = {
 const config: ReturnType<typeof defineConfig> = defineConfig(
     globalIgnores([".local/*"]),
     {
-        ignores: ["dist/**", "reports/**", "coverage/**"],
+        ignores: [".venv/", ".pnpm-store/**", "dist/**", "reports/**", "coverage/**", "target/**"],
     },
     {
         files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.tsx"],
@@ -149,7 +149,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             "eslint-comments": commentsPlugin,
             perfectionist,
         },
-        extends: [promise.configs["flat/recommended"]],
+        extends: [promise.configs["flat/recommended"], importPluginsFlatConfigs.react],
         rules: {
             ...flattenRules(tseslintConfigs.strictTypeCheckedOnly),
 
@@ -160,6 +160,13 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             ...sharedRules,
 
             "no-restricted-imports": ["off"],
+
+            // base rules superseded by their @typescript-eslint counterparts
+            "no-shadow": ["off"],
+            "no-unused-expressions": ["off"],
+            "no-unused-vars": ["off"],
+            "no-useless-constructor": ["off"],
+            "require-await": ["off"],
 
             "@stylistic/ts/no-extra-semi": ["error"],
 

@@ -62,5 +62,6 @@ unseparated
 unstub
 usernamehw
 vadimcn
+venv
 vite
 Vitest

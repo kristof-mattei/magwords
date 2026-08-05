@@ -127,7 +127,7 @@ COPY front-end ./front-end/
 RUN pnpm run build
 
 # drop dev dependencies, the SBOM scan should only report shipped packages
-RUN pnpm prune --prod
+RUN pnpm prune --prod --ignore-scripts
 
 # front-end SBOM scan, scratch base so the node image's own packages stay out of the report
 FROM scratch AS typescript-sbom
