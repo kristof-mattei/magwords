@@ -38,6 +38,9 @@ jobs:
   changes:
     name: Detect changes
     runs-on: ubuntu-slim
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       typescript: ${{ steps.filter.outputs.typescript }}
     steps:
@@ -55,11 +58,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - warm-up-cache
-    permissions:
-      checks: write
-      contents: read
-      id-token: write
-      pull-requests: write
     steps:
       - *checkout
 
@@ -136,6 +134,7 @@ jobs:
       - *install_dependencies_from_cache
 
       - name: Run Vitest
+        shell: bash
         id: tests
         continue-on-error: true
         run: |
@@ -222,6 +221,7 @@ jobs:
     # when all upstream success: success
     # combination of upstream skip and success: success
     runs-on: ubuntu-slim
+    permissions: {}
     needs:
       - changes
       - npm-build
