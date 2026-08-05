@@ -135,6 +135,7 @@ jobs:
       - *install_dependencies_from_cache
 
       - name: Run Vitest
+        shell: bash
         id: tests
         continue-on-error: true
         run: |
