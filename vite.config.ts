@@ -86,7 +86,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
                 provider: "v8",
                 reportsDirectory: "../../coverage/vitest",
             },
-            // environment: "jsdom",
+            environment: "jsdom",
             environmentOptions: {
                 // jsdom: {},
             },
@@ -96,6 +96,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
             },
             restoreMocks: true,
             setupFiles: ["./test.setup.ts"],
+            unstubGlobals: true,
         },
     };
 
