@@ -5,9 +5,9 @@ archi
 ataylorme
 bkeepers
 buildcache
-Cinstrument
+cinstrument
 cocogitto
-Ctarget
+ctarget
 cttc
 cves
 depcruise
@@ -20,7 +20,6 @@ healthz
 hubot
 idents
 jsons
-jsxdev
 kristof
 lcovonly
 lldb
@@ -37,8 +36,9 @@ portproxy
 postprocessors
 prereleased
 profraw
-Retag
-Retagging
+pyflakes
+retag
+retagging
 rustflags
 samply
 sccache
@@ -47,9 +47,9 @@ skopeo
 startswith
 striptags
 taiki
-TARGETPLATFORMDASH
+targetplatformdash
 telem
-Tera
+tera
 topo
 trixie
 uninlined
