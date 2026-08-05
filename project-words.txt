@@ -29,9 +29,11 @@ mimalloc
 monomorphization
 multiplatform
 mypy
+netsh
 nextest
 nvmrc
 pathbuf
+portproxy
 postprocessors
 prereleased
 profraw
