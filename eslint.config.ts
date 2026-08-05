@@ -76,6 +76,8 @@ const sharedRules: RulesConfig = {
 
     "sort-keys": ["off"],
 
+    // conflicts with arrow-body-style "always"
+    "unicorn/consistent-arrow-return-style": ["off"],
     "unicorn/no-array-sort": ["off"],
     "unicorn/no-null": ["off"],
     "unicorn/prefer-ternary": ["off"],
@@ -289,13 +291,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             // we use prettier for formatting
             "better-tailwindcss/enforce-consistent-line-wrapping": ["off"],
             "better-tailwindcss/enforce-consistent-variant-order": ["error"],
-            "better-tailwindcss/no-unknown-classes": [
-                "error",
-                {
-                    // classes targeting Recharts' own markup
-                    ignore: ["recharts-.*"],
-                },
-            ],
         },
     },
     {
