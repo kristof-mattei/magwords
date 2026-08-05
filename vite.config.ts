@@ -10,13 +10,13 @@ import type { ViteUserConfigFn } from "vitest/config";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 function resolvePort(environmentValue: string | undefined, fallback: number): number {
-    if (environmentValue === undefined || environmentValue === "") {
+    if (environmentValue === undefined || environmentValue.trim() === "") {
         return fallback;
     }
 
     const parsed = Number(environmentValue);
 
-    return Number.isNaN(parsed) ? fallback : parsed;
+    return Number.isSafeInteger(parsed) && parsed > 0 && parsed <= 65_535 ? parsed : fallback;
 }
 
 const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
@@ -65,16 +65,14 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
         root: "front-end/src",
         server: {
             port,
-            host: true,
+            // uncomment to test from other devices
+            // on WSL you will also need netsh portproxy
+            // host: true,
             strictPort: true,
-            hmr: {
-                host: "localhost",
-                port,
-            },
-            cors: true,
             proxy: {
                 "/api": {
-                    target: "http://localhost:3000",
+                    // on local development, target only binds to IPv4
+                    target: "http://127.0.0.1:3000",
                     changeOrigin: true,
                     secure: false,
                     ws: true,
