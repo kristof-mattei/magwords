@@ -71,6 +71,8 @@ const sharedRules: RulesConfig = {
 
     "sort-keys": ["off"],
 
+    // conflicts with arrow-body-style "always"
+    "unicorn/consistent-arrow-return-style": ["off"],
     "unicorn/no-array-sort": ["off"],
     "unicorn/no-null": ["off"],
     "unicorn/prefer-ternary": ["off"],
