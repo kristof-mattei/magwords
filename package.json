@@ -42,7 +42,7 @@
         "@eslint/markdown": "8.0.3",
         "@stylistic/eslint-plugin": "5.10.0",
         "@types/eslint": "9.6.1",
-        "@types/node": "26.1.2",
+        "@types/node": "26.2.0",
         "@typescript-eslint/parser": "8.66.0",
         "@vitest/coverage-v8": "4.1.10",
         "@vitest/ui": "4.1.10",
