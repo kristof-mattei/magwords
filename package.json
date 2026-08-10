@@ -61,6 +61,7 @@
         "eslint-plugin-unicorn": "73.0.0",
         "eslint-plugin-yml": "3.8.1",
         "husky": "9.1.7",
+        "jiti": "2.7.0",
         "jsdom": "30.0.1",
         "lint-staged": "17.3.0",
         "prettier": "3.9.6",

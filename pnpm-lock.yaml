@@ -107,6 +107,9 @@ importers:
       husky:
         specifier: 9.1.7
         version: 9.1.7
+      jiti:
+        specifier: 2.7.0
+        version: 2.7.0
       jsdom:
         specifier: 30.0.1
         version: 30.0.1
@@ -5954,8 +5957,7 @@ snapshots:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.1
 
-  jiti@2.7.0:
-    optional: true
+  jiti@2.7.0: {}
 
   js-tokens@10.0.0: {}
 
