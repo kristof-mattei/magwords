@@ -6,7 +6,6 @@ ataylorme
 bkeepers
 buildcache
 cinstrument
-cocogitto
 ctarget
 cttc
 cves
@@ -52,6 +51,7 @@ telem
 tera
 topo
 trixie
+TRUNC
 uninlined
 unrs
 unseparated
