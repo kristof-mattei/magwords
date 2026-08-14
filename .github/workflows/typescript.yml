@@ -10,7 +10,7 @@ permissions:
 jobs:
   warm-up-cache:
     name: Warm up the cache
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - &checkout
         name: Check out code
@@ -55,7 +55,7 @@ jobs:
 
   npm-build:
     name: Build the code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs:
       - warm-up-cache
     steps:
@@ -78,7 +78,7 @@ jobs:
 
   npm-lint:
     name: Lint the code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       checks: write
       contents: read
@@ -116,7 +116,7 @@ jobs:
 
   npm-test:
     name: Test the code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs:
       - warm-up-cache
     permissions:
@@ -193,7 +193,7 @@ jobs:
 
   npm-dependencies:
     name: Validate dependencies
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs:
       - changes
       - warm-up-cache
