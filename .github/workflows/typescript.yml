@@ -56,6 +56,9 @@ jobs:
   npm-build:
     name: Build the code
     runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      id-token: write
     needs:
       - warm-up-cache
     steps:
