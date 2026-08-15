@@ -35,7 +35,7 @@ tower-http = { version = "=0.7.0", features = [
     "on-early-drop",
     "trace",
 ] }
-tower-proxy = { version = "=0.9.1", features = ["axum"] }
+tower-proxy = { version = "=0.10.0", features = ["axum"] }
 tracing = "=0.1.44"
 tracing-error = "=0.2.1"
 tracing-subscriber = { version = "=0.3.23", features = ["env-filter"] }
