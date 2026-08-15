@@ -1691,9 +1691,9 @@ checksum = "121c2a6cda46980bb0fcd1647ffaf6cd3fc79a013de288782836f6df9c48780e"
 
 [[package]]
 name = "tower-proxy"
-version = "0.9.0"
+version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf52ff9a6d2284f7c9ee7c7e46de2d822b71080a19183cf7a1650b6ae4ca4b44"
+checksum = "551d81f9cf30a40c13a7dd72915bfb3b71a22bff2badac1a3df1bb6f4bdc165e"
 dependencies = [
  "axum",
  "http",
