@@ -63,13 +63,12 @@ jobs:
     name: Build TypeScript code
     if: ${{ !startsWith(github.head_ref, 'release/') }}
     uses: ./.github/workflows/typescript.yml
-    secrets: inherit
     permissions:
-      checks: write
+      checks: write # eslint-annotate-action and publish-unit-test-result-action create check runs
       contents: read
-      id-token: write
-      issues: read
-      pull-requests: write
+      id-token: write # codecov-action and the codecov plugin in vite.config.ts authenticate over OIDC
+      issues: read # publish-unit-test-result-action needs this in private repos
+      pull-requests: write # publish-unit-test-result-action comments the test summary
 
   repo-has-container:
     name: Repo has container?

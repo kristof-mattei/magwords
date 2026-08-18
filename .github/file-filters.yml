@@ -20,3 +20,4 @@ typescript:
   - "front-end/**"
   - "package.json"
   - "pnpm-lock.yaml"
+  - "tsconfig.json"
