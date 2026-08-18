@@ -7,7 +7,7 @@ org=""
 user=""
 package_name="package"
 per_page=100
-max_api_attempts=3
+max_attempts=3
 dry_run=false
 skip_confirmation=false
 cleanup_pr_images=true
@@ -142,14 +142,14 @@ fi
 # Only emits stdout of the last attempt, so partial output of failed attempts is discarded
 gh_api() {
     local attempt output
-    for ((attempt = 1; attempt <= max_api_attempts; attempt++)); do
+    for ((attempt = 1; attempt <= max_attempts; attempt++)); do
         if output=$(gh api "$@"); then
             printf '%s' "$output"
             return 0
         fi
 
-        if [[ "$attempt" -lt "$max_api_attempts" ]]; then
-            echo "Warning: gh api call failed (attempt $attempt of $max_api_attempts), retrying in $((attempt * 2))s..." >&2
+        if [[ "$attempt" -lt "$max_attempts" ]]; then
+            echo "Warning: gh api call failed (attempt $attempt of $max_attempts), retrying in $((attempt * 2))s..." >&2
             sleep $((attempt * 2))
         fi
     done
@@ -243,6 +243,34 @@ get_first_tag() {
     echo "$tags_json" | jq --raw-output '.[0] // empty'
 }
 
+# Fetch the raw manifest, retrying transient registry failures with backoff
+# skopeo's --retry-times does not retry a bare 500, so retry at the shell level too
+fetch_manifest() {
+    local image_ref="$1"
+    local attempt output rc
+
+    for ((attempt = 1; attempt <= max_attempts; attempt++)); do
+        rc=0
+        if [[ "$manifest_tool" == "skopeo" ]]; then
+            output=$(skopeo inspect --raw --command-timeout 70s --retry-times 5 "docker://${image_ref}") || rc=$?
+        else
+            output=$(docker buildx imagetools inspect --raw "$image_ref") || rc=$?
+        fi
+
+        if [[ "$rc" -eq 0 ]]; then
+            printf '%s' "$output"
+            return 0
+        fi
+
+        if [[ "$attempt" -lt "$max_attempts" ]]; then
+            echo "Warning: manifest inspection of $image_ref failed (attempt $attempt of $max_attempts), retrying in $((attempt * 2))s..." >&2
+            sleep $((attempt * 2))
+        fi
+    done
+
+    return 1
+}
+
 # Fetch manifest and extract referenced digests (for multi-platform images)
 # Returns newline-separated list of sha256 digests (without 'sha256:' prefix)
 # Fails when the manifest cannot be fetched, an empty result only means "not an index"
@@ -250,11 +278,7 @@ get_referenced_digests() {
     local image_ref="$1"
 
     local manifest=""
-    if [[ "$manifest_tool" == "skopeo" ]]; then
-        manifest=$(skopeo inspect --raw "docker://${image_ref}") || return 1
-    elif [[ "$manifest_tool" == "docker" ]]; then
-        manifest=$(docker buildx imagetools inspect --raw "$image_ref") || return 1
-    fi
+    manifest=$(fetch_manifest "$image_ref") || return 1
 
     if [[ -z "$manifest" ]]; then
         return 1
@@ -276,6 +300,8 @@ protect_referenced_digests() {
         return 0
     fi
 
+    echo "Inspecting manifest for protected image: $registry_base:$first_tag"
+
     if ! ref_digests=$(get_referenced_digests "$registry_base:$first_tag"); then
         echo "Error: Failed to inspect manifest for $registry_base:$first_tag, refusing to delete anything" >&2
         exit 1
@@ -283,6 +309,7 @@ protect_referenced_digests() {
 
     while IFS= read -r ref_digest; do
         [[ -z "$ref_digest" ]] && continue
+        echo "  Protected platform-specific digest: ${ref_digest:0:12}..."
         protected_digests["$ref_digest"]="referenced by $first_tag manifest"
     done <<< "$ref_digests"
 }
@@ -292,10 +319,10 @@ protect_referenced_digests() {
 echo "Querying container versions for $target, package $package_name..."
 
 # Associative arrays for version data
-declare -A version_tags      # version_id -> tags JSON
-declare -A version_digest    # version_id -> sha256 digest (without prefix)
-declare -A version_created   # version_id -> created_at timestamp
-declare -A digest_to_version # sha256 digest -> version_id
+declare -A version_tags=()      # version_id -> tags JSON
+declare -A version_digest=()    # version_id -> sha256 digest (without prefix)
+declare -A version_created=()   # version_id -> created_at timestamp
+declare -A digest_to_version=() # sha256 digest -> version_id
 
 # Arrays for tracking
 all_version_ids=()
@@ -355,11 +382,11 @@ echo ""
 echo "=== PHASE 2: DETERMINING PROTECTED VERSIONS ==="
 
 # Protected digests: sha256 hashes that must not be deleted
-declare -A protected_digests # sha256 -> reason
+declare -A protected_digests=() # sha256 -> reason
 
 # Track versions by category
-declare -A protected_versions # version_id -> reason
-declare -A delete_candidates  # version_id -> reason
+declare -A protected_versions=() # version_id -> reason
+declare -A delete_candidates=()  # version_id -> reason
 
 for version_id in "${all_version_ids[@]}"; do
     tags="${version_tags[$version_id]}"
@@ -428,7 +455,11 @@ final_delete_versions=()
 final_delete_reasons=()
 
 # Sort delete candidate keys for consistent output
-sorted_candidates=($(printf '%s\n' "${!delete_candidates[@]}" | sort --numeric-sort))
+# printf emits one empty line for an empty array, which mapfile would turn into a bogus entry
+sorted_candidates=()
+if ((${#delete_candidates[@]} > 0)); then
+    mapfile -t sorted_candidates < <(printf '%s\n' "${!delete_candidates[@]}" | sort --numeric-sort)
+fi
 
 for version_id in "${sorted_candidates[@]}"; do
     digest="${version_digest[$version_id]:-}"
