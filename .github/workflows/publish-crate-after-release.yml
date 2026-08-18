@@ -36,10 +36,11 @@ jobs:
       - name: Determine version
         id: version
         shell: bash
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
-          version="${{ github.ref_name }}"
-          # remove v
-          version="${version//v/}"
+          # remove the leading v
+          version="${TAG#v}"
 
           echo "version=${version}" >> "${GITHUB_OUTPUT}"
 
@@ -60,6 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           show-progress: false
 
       - name: Set up mold
