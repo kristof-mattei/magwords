@@ -233,6 +233,7 @@ jobs:
       - npm-dependencies
       - npm-lint
       - npm-test
+      - warm-up-cache
     if: |
       !cancelled()
     steps:
