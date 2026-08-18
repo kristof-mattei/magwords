@@ -2,10 +2,12 @@ adduser
 appgroup
 appuser
 archi
+artipacked
 ataylorme
 bkeepers
 buildcache
 cinstrument
+cliffignore
 ctarget
 cttc
 cves
@@ -30,6 +32,7 @@ mypy
 netsh
 nextest
 nvmrc
+oneline
 pathbuf
 portproxy
 postprocessors
@@ -53,6 +56,7 @@ topo
 trixie
 TRUNC
 uninlined
+uninspectable
 unrs
 unseparated
 unstub
@@ -61,3 +65,4 @@ vadimcn
 venv
 vite
 Vitest
+zizmor
