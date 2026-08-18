@@ -7,7 +7,6 @@ ataylorme
 bkeepers
 buildcache
 cinstrument
-cliffignore
 ctarget
 cttc
 cves
@@ -32,7 +31,6 @@ mypy
 netsh
 nextest
 nvmrc
-oneline
 pathbuf
 portproxy
 postprocessors
@@ -44,8 +42,9 @@ retagging
 rustflags
 samply
 sccache
-SIGERM
+sigerm
 skopeo
+skopeo's
 startswith
 striptags
 taiki
@@ -54,7 +53,7 @@ telem
 tera
 topo
 trixie
-TRUNC
+trunc
 uninlined
 uninspectable
 unrs
@@ -64,5 +63,5 @@ usernamehw
 vadimcn
 venv
 vite
-Vitest
+vitest
 zizmor
