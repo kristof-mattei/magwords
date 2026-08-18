@@ -16,6 +16,7 @@ jobs:
         name: Check out code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           show-progress: false
 
       - &install_pnpm
@@ -40,7 +41,7 @@ jobs:
     runs-on: ubuntu-slim
     permissions:
       contents: read
-      pull-requests: read
+      pull-requests: read # dorny/paths-filter reads the PR's changed files
     outputs:
       typescript: ${{ steps.filter.outputs.typescript }}
     steps:
@@ -58,7 +59,7 @@ jobs:
     runs-on: ubuntu-26.04
     permissions:
       contents: read
-      id-token: write
+      id-token: write # the codecov plugin in vite.config.ts authenticates over OIDC during the build
     needs:
       - warm-up-cache
     steps:
@@ -83,7 +84,7 @@ jobs:
     name: Lint the code
     runs-on: ubuntu-26.04
     permissions:
-      checks: write
+      checks: write # eslint-annotate-action creates a check run
       contents: read
     needs:
       - changes
@@ -123,11 +124,11 @@ jobs:
     needs:
       - warm-up-cache
     permissions:
-      checks: write
+      checks: write # publish-unit-test-result-action creates a check run
       contents: read
-      id-token: write
-      issues: read
-      pull-requests: write
+      id-token: write # codecov-action authenticates over OIDC
+      issues: read # publish-unit-test-result-action needs this in private repos
+      pull-requests: write # publish-unit-test-result-action comments the test summary
     steps:
       - *checkout
 
@@ -232,6 +233,7 @@ jobs:
       - npm-dependencies
       - npm-lint
       - npm-test
+      - warm-up-cache
     if: |
       !cancelled()
     steps:
