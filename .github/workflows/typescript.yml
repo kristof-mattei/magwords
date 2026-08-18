@@ -122,6 +122,7 @@ jobs:
       - name: Annotate Code Linting Results
         # fork PRs run with a read-only token, which cannot create check runs
         if: |
+          github.event_name != 'pull_request' ||
           github.event.pull_request.head.repo.full_name == github.repository
         uses: ataylorme/eslint-annotate-action@5a8d8ab89a57679e90c32750e0f382e9d8570750 # 4.0.0
         with:
