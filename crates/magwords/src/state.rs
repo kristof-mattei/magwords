@@ -63,6 +63,7 @@ where
     // TODO State not found error
     type Rejection = ();
 
+    #[expect(clippy::unused_async_trait_impl, reason = "Library code")]
     async fn from_request_parts(_parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
         Ok(Self::from_ref(state))
     }
