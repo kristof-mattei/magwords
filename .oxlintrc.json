@@ -1,0 +1,251 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": [
+        "eslint",
+        "import",
+        "jsdoc",
+        "node",
+        "oxc",
+        "promise",
+        "typescript",
+        "unicorn"
+    ],
+    "jsPlugins": [
+        "./oxlint.plugin.ts",
+        {
+            "name": "n",
+            "specifier": "eslint-plugin-n"
+        },
+        "eslint-plugin-perfectionist"
+    ],
+    "categories": {
+        "correctness": "error",
+        "nursery": "off",
+        "pedantic": "error",
+        "perf": "error",
+        "restriction": "error",
+        "style": "error",
+        "suspicious": "error"
+    },
+    "options": {
+        "denyWarnings": true,
+        "reportUnusedDisableDirectives": "error",
+        "typeAware": true,
+        "typeCheck": true
+    },
+    "env": {
+        "browser": true,
+        "es2026": true
+    },
+    "ignorePatterns": [
+        "dist/",
+        "coverage/",
+        "reports/",
+        "target/",
+        ".local/",
+        ".pnpm-store/",
+        ".venv/"
+    ],
+    "rules": {
+        "arrow-body-style": ["error", "always"],
+        "capitalized-comments": "off",
+        "curly": ["error", "all"],
+        // a default arm would silence typescript/switch-exhaustiveness-check
+        "default-case": "off",
+        "eqeqeq": ["error", "always"],
+        "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+        "id-length": ["error", { "exceptions": ["v", "x", "y"] }],
+        "max-lines": "off",
+        "max-lines-per-function": "off",
+        "max-statements": "off",
+        "no-alert": "error",
+        "no-console": "off",
+        "no-duplicate-imports": ["error", { "allowSeparateTypeImports": true }],
+        "no-inline-comments": "off",
+        "no-ternary": "off",
+        "no-undefined": "off",
+        "one-var": ["error", "never"],
+        "require-await": "off",
+        "sort-imports": ["error", { "ignoreDeclarationSort": true }],
+        "sort-keys": "off",
+        "no-restricted-globals": [
+            "error",
+            {
+                "message": "Import Temporal from temporal-polyfill instead.",
+                "name": "Temporal"
+            }
+        ],
+        "no-shadow": "error",
+        "no-use-before-define": [
+            "error",
+            {
+                "classes": true,
+                "enums": false,
+                "functions": false,
+                "typedefs": false,
+                "variables": true
+            }
+        ],
+        "no-void": ["error", { "allowAsStatement": true }],
+        "no-useless-constructor": "error",
+        "object-shorthand": ["error", "always"],
+        "prefer-template": "error",
+
+        "oxc/no-async-await": "off",
+        "oxc/no-optional-chaining": "off",
+        "oxc/no-rest-spread-properties": "off",
+
+        "unicorn/no-array-sort": "off",
+        "unicorn/no-null": "off",
+        "unicorn/prefer-ternary": "off",
+
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "json": "always",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "import/exports-last": "off",
+        "import/group-exports": "off",
+        "import/newline-after-import": "error",
+        "import/no-cycle": "off",
+        "import/no-default-export": "off",
+        "import/no-named-export": "off",
+        "import/no-relative-parent-imports": "off",
+        "import/no-unassigned-import": ["error", { "allow": ["bootstrap"] }],
+        "import/prefer-default-export": "off",
+        "import/unambiguous": "off",
+
+        "local/require-disable-directive-description": "error",
+
+        "n/no-callback-literal": "error",
+        "n/no-deprecated-api": "error",
+
+        "typescript/consistent-type-imports": [
+            "error",
+            {
+                "disallowTypeAnnotations": false,
+                "fixStyle": "separate-type-imports",
+                "prefer": "type-imports"
+            }
+        ],
+        "typescript/explicit-member-accessibility": "error",
+        "typescript/explicit-module-boundary-types": "error",
+        "typescript/no-empty-object-type": "error",
+        "typescript/no-explicit-any": [
+            "error",
+            { "fixToUnknown": true, "ignoreRestArgs": false }
+        ],
+        "typescript/no-extraneous-class": "error",
+        "typescript/no-magic-numbers": "off",
+        "typescript/no-unused-expressions": [
+            "error",
+            {
+                "allowShortCircuit": false,
+                "allowTaggedTemplates": false,
+                "allowTernary": false,
+                "enforceForJSX": false
+            }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "args": "all",
+                "argsIgnorePattern": "^_",
+                "caughtErrors": "all",
+                "ignoreRestSiblings": false,
+                "vars": "all"
+            }
+        ],
+        "typescript/parameter-properties": "error",
+        "typescript/promise-function-async": "off",
+        "typescript/prefer-readonly-parameter-types": "off",
+        "typescript/restrict-template-expressions": [
+            "error",
+            { "allowNumber": true }
+        ],
+        "typescript/return-await": ["error", "in-try-catch"],
+        "typescript/require-await": "error",
+        "typescript/switch-exhaustiveness-check": [
+            "error",
+            {
+                "allowDefaultCaseForExhaustiveSwitch": false,
+                "considerDefaultExhaustiveForUnions": false,
+                "requireDefaultForNonUnion": true
+            }
+        ],
+
+        "perfectionist/sort-classes": "error",
+        "perfectionist/sort-interfaces": "error",
+        "perfectionist/sort-intersection-types": "error",
+        "perfectionist/sort-object-types": "error",
+        "perfectionist/sort-union-types": "error"
+    },
+    "overrides": [
+        {
+            "files": ["**/*.js", "**/*.cjs", "**/*.mjs"],
+            "rules": {
+                "no-restricted-imports": [
+                    "error",
+                    {
+                        "patterns": [".*"]
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["*.config.ts", "*.config.mjs", "**/test.setup.ts"],
+            "env": {
+                "node": true
+            },
+            "rules": {
+                "import/no-nodejs-modules": "off"
+            }
+        },
+        {
+            "files": ["**/*.test.ts"],
+            "plugins": [
+                "eslint",
+                "import",
+                "jsdoc",
+                "node",
+                "oxc",
+                "promise",
+                "typescript",
+                "unicorn",
+                "vitest"
+            ],
+            "rules": {
+                "vitest/no-hooks": "off",
+                "vitest/no-importing-vitest-globals": "off",
+                "vitest/prefer-expect-assertions": [
+                    "error",
+                    { "onlyFunctionsWithAsyncKeyword": true }
+                ],
+                "vitest/require-test-timeout": "off",
+                "vitest/require-top-level-describe": "error"
+            }
+        },
+        {
+            "files": ["**/test.setup.ts"],
+            "plugins": [
+                "eslint",
+                "import",
+                "jsdoc",
+                "node",
+                "oxc",
+                "promise",
+                "typescript",
+                "unicorn",
+                "vitest"
+            ],
+            "rules": {
+                "vitest/no-hooks": "off",
+                "vitest/no-importing-vitest-globals": "off"
+            }
+        }
+    ]
+}

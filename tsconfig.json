@@ -5,6 +5,7 @@
         "alwaysStrict": true,
         "declaration": true,
         "declarationMap": true,
+        "erasableSyntaxOnly": true,
         "esModuleInterop": true,
         "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true,
@@ -60,8 +61,6 @@
         "**/*.d.ts",
         "**/*.ts",
         "**/*.js",
-        "dependency-cruiser.config.mjs",
-        "eslint.config.ts",
-        "prettier.config.ts"
+        "dependency-cruiser.config.mjs"
     ]
 }

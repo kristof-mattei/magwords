@@ -1,7 +1,13 @@
 import type { State } from "./state";
 import type { ClientMessage } from "./types";
 
-export function sendMove(state: State, id: string, x: number, y: number): void {
+export interface Move {
+    id: string;
+    x: number;
+    y: number;
+}
+
+export function sendMove(state: State, { id, x, y }: Move): void {
     const message: ClientMessage = {
         type: "move",
         data: {

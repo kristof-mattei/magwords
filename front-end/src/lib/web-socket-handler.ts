@@ -16,7 +16,7 @@ export class WebSocketHandler {
         this.state.socket.addEventListener("message", (event: MessageEvent<string>) => {
             const message = ((): ServerMessage | undefined => {
                 try {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- we trust the server protocol
+                    // oxlint-disable-next-line typescript/no-unsafe-return -- we trust the server protocol
                     return JSON.parse(event.data);
                 } catch (error) {
                     console.error(`failed to parse message: ${String(error)}`);
@@ -68,31 +68,19 @@ export class WebSocketHandler {
         }
     }
 
-    public onWords(words: Word[]): void {
-        const fridge = document.querySelector("#fridge");
-
-        if (fridge === null) {
+    public onHup(data: Hup): void {
+        if (data.id === undefined) {
+            console.log("Invalid ping");
             return;
         }
 
-        purgeWords(this.wordIds);
-
-        // clear array, nasty, but this is how JavaScript wants to do it
-        this.wordIds.length = 0;
-
-        for (const word of words) {
-            addWord(this.state, fridge, word);
-            this.wordIds.push(word.id);
-        }
-    }
-
-    public onPoets(data: Poets): void {
-        if (data.count !== this.state.poets) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we control html, element is there
-            document.querySelector("#odo")!.textContent = data.count.toString(10);
+        if (data.v !== this.state.version) {
+            reload();
         }
 
-        this.state.poets = data.count;
+        // pong
+        const pong: ClientMessage = { type: "pong", data: { id: data.id } };
+        this.state.socket.send(JSON.stringify(pong));
     }
 
     public onMove({ id, x, y }: MoveEventParameters): void {
@@ -130,19 +118,31 @@ export class WebSocketHandler {
         }
     }
 
-    public onHup(data: Hup): void {
-        if (data.id === undefined) {
-            console.log("Invalid ping");
+    public onPoets(data: Poets): void {
+        if (data.count !== this.state.poets) {
+            // oxlint-disable-next-line typescript/no-non-null-assertion -- we control html, element is there
+            document.querySelector("#odo")!.textContent = data.count.toString(10);
+        }
+
+        this.state.poets = data.count;
+    }
+
+    public onWords(words: Word[]): void {
+        const fridge = document.querySelector("#fridge");
+
+        if (fridge === null) {
             return;
         }
 
-        if (data.v !== this.state.version) {
-            reload();
-        }
+        purgeWords(this.wordIds);
 
-        // pong
-        const pong: ClientMessage = { type: "pong", data: { id: data.id } };
-        this.state.socket.send(JSON.stringify(pong));
+        // clear array, nasty, but this is how JavaScript wants to do it
+        this.wordIds.length = 0;
+
+        for (const word of words) {
+            addWord(this.state, fridge, word);
+            this.wordIds.push(word.id);
+        }
     }
 }
 
