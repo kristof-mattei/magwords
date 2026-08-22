@@ -6,8 +6,8 @@ export interface Word {
 }
 
 export interface Config {
-    fridge_width: number;
     fridge_height: number;
+    fridge_width: number;
 }
 
 export interface Poets {
@@ -27,11 +27,11 @@ export interface MoveEventParameters {
 }
 
 export type ServerMessage =
-    | { type: "config"; data: Config }
-    | { type: "goodbye"; data: Record<string, never> }
-    | { type: "hup"; data: Hup }
-    | { type: "move"; data: MoveEventParameters }
-    | { type: "poets"; data: Poets }
-    | { type: "words"; data: Word[] };
+    | { data: Config; type: "config" }
+    | { data: Hup; type: "hup" }
+    | { data: MoveEventParameters; type: "move" }
+    | { data: Poets; type: "poets" }
+    | { data: Record<string, never>; type: "goodbye" }
+    | { data: Word[]; type: "words" };
 
-export type ClientMessage = { type: "move"; data: MoveEventParameters } | { type: "pong"; data: { id: number } };
+export type ClientMessage = { data: { id: number }; type: "pong" } | { data: MoveEventParameters; type: "move" };

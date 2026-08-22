@@ -64,7 +64,7 @@ jobs:
     if: ${{ !startsWith(github.head_ref, 'release/') }}
     uses: ./.github/workflows/typescript.yml
     permissions:
-      checks: write # eslint-annotate-action and publish-unit-test-result-action create check runs
+      checks: write # publish-unit-test-result-action creates a check run
       contents: read
       id-token: write # codecov-action and the codecov plugin in vite.config.ts authenticate over OIDC
       issues: read # publish-unit-test-result-action needs this in private repos

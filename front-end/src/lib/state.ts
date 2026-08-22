@@ -1,9 +1,9 @@
 export class State {
+    public fridgeHeight: number;
+    public fridgeWidth: number;
+    public poets: number;
     public socket: WebSocket;
     public readonly version: number;
-    public poets: number;
-    public fridgeWidth: number;
-    public fridgeHeight: number;
 
     public constructor(socket: WebSocket, version: number) {
         this.socket = socket;

@@ -84,7 +84,6 @@ jobs:
     name: Lint the code
     runs-on: ubuntu-26.04
     permissions:
-      checks: write # eslint-annotate-action creates a check run
       contents: read
     needs:
       - changes
@@ -103,42 +102,9 @@ jobs:
 
       - name: Run lint
         shell: bash
-        id: lint
-        continue-on-error: true
         run: |
-          pnpm run lint --format=json --output-file reports/lint-report.json
-
-      - name: Print lint results
-        shell: bash
-        run: |
-          if [[ ! -f reports/lint-report.json ]]; then
-            echo "reports/lint-report.json is missing: ESLint crashed before writing the report, check the Run lint step"
-            exit 1
-          fi
-
-          # hack to print results in the console
-          node --print "require('./node_modules/eslint/lib/cli-engine/formatters/stylish.js')(require('./reports/lint-report.json'))"
-
-      - name: Annotate Code Linting Results
-        # fork PRs run with a read-only token, which cannot create check runs
-        if: |
-          github.event_name != 'pull_request' ||
-          github.event.pull_request.head.repo.full_name == github.repository
-        uses: ataylorme/eslint-annotate-action@5a8d8ab89a57679e90c32750e0f382e9d8570750 # 4.0.0
-        with:
-          fail-on-error: false
-          fail-on-warning: false
-          markdown-report-on-step-summary: true
-          only-pr-files: false
-          report-json: reports/lint-report.json
-
-      - name: Fail if lint failed
-        shell: bash
-        if: |
-          steps.lint.outcome != 'success'
-        run: |
-          echo "Lint failed"
-          exit 1
+          # --format=github emits workflow commands, which annotate the PR without a check run
+          pnpm run lint --format=github
 
   npm-test:
     name: Test the code

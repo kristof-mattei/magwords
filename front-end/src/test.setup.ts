@@ -1,2 +1,2 @@
-/* eslint-disable unicorn/no-empty-file -- Nothing here yet */
+/* oxlint-disable unicorn/no-empty-file -- Nothing here yet */
 // ...

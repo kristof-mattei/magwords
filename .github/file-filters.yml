@@ -16,6 +16,7 @@ typescript:
   - *shared
   - "**/*.ts"
   - "**/*.mjs"
+  - ".oxlintrc.json"
   - "front-end/**"
   - "package.json"
   - "pnpm-lock.yaml"

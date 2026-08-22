@@ -1,7 +1,7 @@
 /**
 @type {import("dependency-cruiser").IConfiguration}
 */
-export default {
+const config = {
     forbidden: [
         {
             name: "no-circular",
@@ -391,4 +391,6 @@ export default {
         },
     },
 };
+
+export default config;
 // generated: dependency-cruiser@16.10.4 on 2025-07-08T20:45:22.690Z

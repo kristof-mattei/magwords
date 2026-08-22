@@ -3,7 +3,6 @@ appgroup
 appuser
 archi
 artipacked
-ataylorme
 bkeepers
 buildcache
 cinstrument
@@ -24,7 +23,6 @@ jsons
 konqueror
 kristof
 lcovonly
-lldb
 magwords
 mattei
 mimalloc
@@ -33,7 +31,6 @@ multiplatform
 mypy
 netsh
 nextest
-nvmrc
 oneline
 onirophyse
 pathbuf
@@ -59,6 +56,7 @@ tera
 topo
 trixie
 trunc
+tsgolint
 uninlined
 uninspectable
 unrs

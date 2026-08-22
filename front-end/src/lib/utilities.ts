@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prefer-number-coercion -- computed style values carry a px suffix, Number() yields NaN */
+/* oxlint-disable unicorn/prefer-number-coercion -- computed style values carry a px suffix, Number() yields NaN */
 
 // element dimensions including margin, matching the space the element
 // actually occupies in the container
