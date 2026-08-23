@@ -13,9 +13,9 @@
         "format": "oxfmt",
         "spellcheck": "cspell --no-progress \"**\"",
         "spellcheck:update": ": > project-words.txt && cspell --no-progress --words-only --unique \"**\" | tr '[:upper:]' '[:lower:]' | LC_ALL=en_US.UTF8 sort --unique > project-words.txt",
-        "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err front-end/src",
-        "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot front-end/src | dot -T svg > reports/dependency-graph.svg",
-        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to reports/dependency-report.html front-end/src"
+        "deps:ci": "depcruise --config dependency-cruiser.config.ts --output-type err front-end/src",
+        "deps:graph": "depcruise --config dependency-cruiser.config.ts --output-type dot front-end/src | dot -T svg > reports/dependency-graph.svg",
+        "deps:report": "depcruise --config dependency-cruiser.config.ts --output-type err-html --output-to reports/dependency-report.html front-end/src"
     },
     "dependencies": {
         "bootstrap": "5.3.8"
@@ -45,7 +45,7 @@
     "lint-staged": {
         "*.{ts,tsx}": [
             "oxlint --",
-            "depcruise --config dependency-cruiser.config.mjs --include-only ^front-end/src/ --validate --"
+            "depcruise --config dependency-cruiser.config.ts --include-only ^front-end/src/ --validate --"
         ],
         "*": [
             "oxfmt --check --no-error-on-unmatched-pattern --"
