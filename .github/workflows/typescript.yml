@@ -103,7 +103,6 @@ jobs:
       - name: Run lint
         shell: bash
         run: |
-          # --format=github emits workflow commands, which annotate the PR without a check run
           pnpm run lint --format=github
 
   npm-test:

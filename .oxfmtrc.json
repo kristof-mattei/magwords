@@ -2,6 +2,7 @@
     "$schema": "./node_modules/oxfmt/configuration_schema.json",
     "arrowParens": "always",
     "bracketSpacing": true,
+    "jsdoc": true,
     "printWidth": 120,
     "quoteProps": "as-needed",
     "semi": true,
@@ -10,12 +11,7 @@
     "tabWidth": 4,
     "trailingComma": "all",
     "useTabs": false,
-    "ignorePatterns": [
-        ".mypy_cache/",
-        "Cargo.lock",
-        "CHANGELOG.md",
-        "pnpm-lock.yaml"
-    ],
+    "ignorePatterns": ["CHANGELOG.md"],
     "overrides": [
         {
             "files": ["*.json"],
