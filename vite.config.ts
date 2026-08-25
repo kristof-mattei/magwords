@@ -75,9 +75,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
         root: "front-end/src",
         server: {
             port,
-            // uncomment to test from other devices
-            // on WSL you will also need netsh portproxy
-            // host: true,
+            host: "127.0.0.1",
             strictPort: true,
             proxy: {
                 "/ws": {
