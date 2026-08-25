@@ -43,13 +43,14 @@ pub fn build_router(state: ApplicationState) -> Router {
         .route("/healthz", get(healthz))
         .merge(ws_router)
         .layer(CorsLayer::permissive())
+        // inside the `TraceLayer` so the drop event lands in the request span
+        .layer(OnEarlyDropLayer::new(EarlyDropsAsFailures::new(
+            DefaultOnFailure::default(),
+        )))
         .layer(
             TraceLayer::new_for_http()
                 .make_span_with(MakeSpanWithUuid::new().level(Level::INFO))
                 .on_request(DefaultOnRequest::new().level(Level::TRACE))
                 .on_response(DefaultOnResponse::new().level(Level::INFO)),
         )
-        .layer(OnEarlyDropLayer::new(EarlyDropsAsFailures::new(
-            DefaultOnFailure::default(),
-        )))
 }
