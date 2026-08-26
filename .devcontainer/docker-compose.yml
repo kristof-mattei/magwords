@@ -5,4 +5,10 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../:/workspace/vscode/
+      # separate node_modules per environment, because sharing one across host and
+      # container yields ERR_PNPM_UNEXPECTED_STORE on every switch
+      - node-modules:/workspace/vscode/node_modules
     command: sleep infinity
+
+volumes:
+  node-modules:
