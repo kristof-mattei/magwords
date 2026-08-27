@@ -3,6 +3,7 @@ import { pixelToCoordinate } from "./shared";
 import type { State } from "./state";
 import { outerHeight, outerWidth, toHtmlWordId } from "./utilities";
 
+// oxlint-disable-next-line max-lines-per-function -- inline functions using shared state
 export function setupMovable(state: State, element: HTMLElement): void {
     let diffX = 0;
     let diffY = 0;
@@ -18,6 +19,80 @@ export function setupMovable(state: State, element: HTMLElement): void {
 
     let lastScrollX = 0;
     let lastScrollY = 0;
+
+    function moveElement(newMouseX: number, newMouseY: number): void {
+        // calc new top, left pos of element
+        newLeft = newMouseX - diffX;
+        newTop = newMouseY - diffY;
+
+        // calc new bottom, right pos of element
+        const newRight = newLeft + elementWidth;
+        const newBottom = newTop + elementHeight;
+
+        if (
+            newLeft < 0 ||
+            newTop < 0 ||
+            newLeft + elementWidth > containerWidth ||
+            newTop + elementHeight > containerHeight
+        ) {
+            // if element is being dragged off left of the container...
+            if (newLeft < 0) {
+                newLeft = 0;
+            }
+
+            // if element is being dragged off top of the container...
+            if (newTop < 0) {
+                newTop = 0;
+            }
+
+            // if element is being dragged off right of the container...
+            if (newRight > containerWidth) {
+                newLeft = containerWidth - elementWidth;
+            }
+
+            // if element is being dragged off bottom of the container...
+            if (newBottom > containerHeight) {
+                newTop = containerHeight - elementHeight;
+            }
+        }
+
+        element.style.left = `${String(newLeft)}px`;
+        element.style.top = `${String(newTop)}px`;
+    }
+
+    function mouseMove(event: MouseEvent): void {
+        // get new mouse coordinates
+        moveElement(event.clientX, event.clientY);
+    }
+
+    function scroll(_event: Event): void {
+        const currentScrollX = window.scrollX;
+        const currentScrollY = window.scrollY;
+
+        const scrollX = currentScrollX - lastScrollX;
+        const scrollY = currentScrollY - lastScrollY;
+
+        diffX -= scrollX;
+        diffY -= scrollY;
+
+        moveElement(newLeft + diffX + (startScrollX + scrollX), newTop + diffY + (startScrollY + scrollY));
+
+        lastScrollX = currentScrollX;
+        lastScrollY = currentScrollY;
+    }
+
+    function mouseUp(): void {
+        // message.innerHTML = "plz move me";
+
+        document.removeEventListener("mousemove", mouseMove);
+        document.removeEventListener("mouseup", mouseUp);
+        document.removeEventListener("scroll", scroll);
+
+        const abstractX = Math.round(pixelToCoordinate(newLeft, outerWidth(element), state.fridgeWidth));
+        const abstractY = Math.round(pixelToCoordinate(newTop, outerHeight(element), state.fridgeHeight));
+
+        sendMove(state, { id: element.id, x: abstractX, y: abstractY });
+    }
 
     function mouseDown(event: MouseEvent): void {
         // get initial mousedown coordinated
@@ -60,80 +135,6 @@ export function setupMovable(state: State, element: HTMLElement): void {
         document.addEventListener("mouseup", mouseUp);
 
         document.addEventListener("scroll", scroll);
-    }
-
-    function scroll(_event: Event): void {
-        const currentScrollX = window.scrollX;
-        const currentScrollY = window.scrollY;
-
-        const scrollX = currentScrollX - lastScrollX;
-        const scrollY = currentScrollY - lastScrollY;
-
-        diffX -= scrollX;
-        diffY -= scrollY;
-
-        moveElement(newLeft + diffX + (startScrollX + scrollX), newTop + diffY + (startScrollY + scrollY));
-
-        lastScrollX = currentScrollX;
-        lastScrollY = currentScrollY;
-    }
-
-    function mouseMove(event: MouseEvent): void {
-        // get new mouse coordinates
-        moveElement(event.clientX, event.clientY);
-    }
-
-    function moveElement(newMouseX: number, newMouseY: number): void {
-        // calc new top, left pos of element
-        newLeft = newMouseX - diffX;
-        newTop = newMouseY - diffY;
-
-        // calc new bottom, right pos of element
-        const newRight = newLeft + elementWidth;
-        const newBottom = newTop + elementHeight;
-
-        if (
-            newLeft < 0 ||
-            newTop < 0 ||
-            newLeft + elementWidth > containerWidth ||
-            newTop + elementHeight > containerHeight
-        ) {
-            // if element is being dragged off left of the container...
-            if (newLeft < 0) {
-                newLeft = 0;
-            }
-
-            // if element is being dragged off top of the container...
-            if (newTop < 0) {
-                newTop = 0;
-            }
-
-            // if element is being dragged off right of the container...
-            if (newRight > containerWidth) {
-                newLeft = containerWidth - elementWidth;
-            }
-
-            // if element is being dragged off bottom of the container...
-            if (newBottom > containerHeight) {
-                newTop = containerHeight - elementHeight;
-            }
-        }
-
-        element.style.left = `${newLeft}px`;
-        element.style.top = `${newTop}px`;
-    }
-
-    function mouseUp(): void {
-        // message.innerHTML = "plz move me";
-
-        document.removeEventListener("mousemove", mouseMove);
-        document.removeEventListener("mouseup", mouseUp);
-        document.removeEventListener("scroll", scroll);
-
-        const abstractX = Math.round(pixelToCoordinate(newLeft, outerWidth(element), state.fridgeWidth));
-        const abstractY = Math.round(pixelToCoordinate(newTop, outerHeight(element), state.fridgeHeight));
-
-        sendMove(state, { id: element.id, x: abstractX, y: abstractY });
     }
 
     element.addEventListener("mousedown", mouseDown);
