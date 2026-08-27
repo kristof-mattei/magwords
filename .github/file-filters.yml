@@ -15,7 +15,6 @@ rust:
 typescript:
   - *shared
   - "**/*.ts"
-  - ".oxlintrc.json"
   - "front-end/**"
   - "package.json"
   - "pnpm-lock.yaml"
