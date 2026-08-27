@@ -40,9 +40,6 @@
         "editor.formatOnSave": true
     },
     "debug.internalConsoleOptions": "neverOpen",
-    "files.associations": {
-        ".oxlintrc.json": "jsonc"
-    },
     "js/ts.preferences.importModuleSpecifier": "relative",
     "js/ts.preferences.importModuleSpecifierEnding": "minimal",
     "js/ts.tsdk.path": "node_modules/typescript/lib",
