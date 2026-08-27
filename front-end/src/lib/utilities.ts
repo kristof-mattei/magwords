@@ -15,10 +15,12 @@ export function outerHeight(element: HTMLElement): number {
 }
 
 export function toHtmlWordId(wordId: number): string {
-    return `w-${wordId}`;
+    return `w-${String(wordId)}`;
 }
 
 export function reload(): void {
+    // oxlint-disable-next-line no-console -- logging
     console.log("Reloading...");
+
     location.reload();
 }

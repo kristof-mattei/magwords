@@ -4,6 +4,31 @@ import type { State } from "./state";
 import type { ClientMessage, Config, Hup, MoveEventParameters, Poets, ServerMessage, Word } from "./types";
 import { outerHeight, outerWidth, reload, toHtmlWordId } from "./utilities";
 
+function addWord(state: State, fridge: Element, word: Word): void {
+    // oxlint-disable-next-line no-console -- logging
+    console.log(`Adding word: ${word.word}`);
+
+    const wordId = toHtmlWordId(word.id);
+
+    // Delete any existing element with the same ID before adding the new one.
+    document.querySelector(wordId)?.remove();
+
+    const wordElement = document.createElement("span");
+
+    wordElement.id = wordId;
+    wordElement.classList.add("draggable", "ui-widget-content", "ui-draggable", "ui-draggable-handle", "word");
+
+    wordElement.append(word.word);
+
+    setupMovable(state, wordElement);
+
+    // append before positioning so we can read rendered dimensions
+    fridge.append(wordElement);
+
+    wordElement.style.left = `${String(coordinateToPixel(word.x, outerWidth(wordElement), state.fridgeWidth))}px`;
+    wordElement.style.top = `${String(coordinateToPixel(word.y, outerHeight(wordElement), state.fridgeHeight))}px`;
+}
+
 export class WebSocketHandler {
     private readonly state: State;
     private readonly wordIds: number[] = [];
@@ -63,14 +88,16 @@ export class WebSocketHandler {
         const fridge = document.querySelector<HTMLElement>("#fridge");
 
         if (fridge !== null) {
-            fridge.style.width = `${data.fridge_width}px`;
-            fridge.style.height = `${data.fridge_height}px`;
+            fridge.style.width = `${String(data.fridge_width)}px`;
+            fridge.style.height = `${String(data.fridge_height)}px`;
         }
     }
 
     public onHup(data: Hup): void {
         if (data.id === undefined) {
+            // oxlint-disable-next-line no-console -- logging
             console.log("Invalid ping");
+
             return;
         }
 
@@ -106,11 +133,11 @@ export class WebSocketHandler {
 
             const top: string = Math.round(Math.random()) === 0 ? easeInOutExpo : easeOutBack;
 
-            const transition = `left ${time}ms ${left}, top ${time}ms ${top}`;
+            const transition = `left ${String(time)}ms ${left}, top ${String(time)}ms ${top}`;
 
             element.style.setProperty("transition", transition);
-            element.style.setProperty("left", `${targetLeft}px`);
-            element.style.setProperty("top", `${targetTop}px`);
+            element.style.setProperty("left", `${String(targetLeft)}px`);
+            element.style.setProperty("top", `${String(targetTop)}px`);
 
             element.addEventListener("transitionend", () => {
                 element.style.setProperty("transition", "");
@@ -144,27 +171,4 @@ export class WebSocketHandler {
             this.wordIds.push(word.id);
         }
     }
-}
-
-function addWord(state: State, fridge: Element, word: Word): void {
-    console.log(`Adding word: ${word.word}`);
-    const wordId = toHtmlWordId(word.id);
-
-    // Delete any existing element with the same ID before adding the new one.
-    document.querySelector(wordId)?.remove();
-
-    const wordElement = document.createElement("span");
-
-    wordElement.id = wordId;
-    wordElement.classList.add("draggable", "ui-widget-content", "ui-draggable", "ui-draggable-handle", "word");
-
-    wordElement.append(word.word);
-
-    setupMovable(state, wordElement);
-
-    // append before positioning so we can read rendered dimensions
-    fridge.append(wordElement);
-
-    wordElement.style.left = `${coordinateToPixel(word.x, outerWidth(wordElement), state.fridgeWidth)}px`;
-    wordElement.style.top = `${coordinateToPixel(word.y, outerHeight(wordElement), state.fridgeHeight)}px`;
 }

@@ -1,6 +1,8 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { outerHeight, outerWidth } from "./utilities";
+
+vi.setConfig({ testTimeout: 1000 });
 
 function elementWithMargins(margins: Partial<CSSStyleDeclaration>): HTMLElement {
     const element = document.createElement("div");
