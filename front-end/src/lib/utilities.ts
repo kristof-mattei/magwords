@@ -15,7 +15,7 @@ export function outerHeight(element: HTMLElement): number {
 }
 
 export function toHtmlWordId(wordId: number): string {
-    return `w-${String(wordId)}`;
+    return `w-${wordId}`;
 }
 
 export function reload(): void {

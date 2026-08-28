@@ -25,8 +25,8 @@ function addWord(state: State, fridge: Element, word: Word): void {
     // append before positioning so we can read rendered dimensions
     fridge.append(wordElement);
 
-    wordElement.style.left = `${String(coordinateToPixel(word.x, outerWidth(wordElement), state.fridgeWidth))}px`;
-    wordElement.style.top = `${String(coordinateToPixel(word.y, outerHeight(wordElement), state.fridgeHeight))}px`;
+    wordElement.style.left = `${coordinateToPixel(word.x, outerWidth(wordElement), state.fridgeWidth)}px`;
+    wordElement.style.top = `${coordinateToPixel(word.y, outerHeight(wordElement), state.fridgeHeight)}px`;
 }
 
 export class WebSocketHandler {
@@ -88,8 +88,8 @@ export class WebSocketHandler {
         const fridge = document.querySelector<HTMLElement>("#fridge");
 
         if (fridge !== null) {
-            fridge.style.width = `${String(data.fridge_width)}px`;
-            fridge.style.height = `${String(data.fridge_height)}px`;
+            fridge.style.width = `${data.fridge_width}px`;
+            fridge.style.height = `${data.fridge_height}px`;
         }
     }
 
@@ -133,11 +133,11 @@ export class WebSocketHandler {
 
             const top: string = Math.round(Math.random()) === 0 ? easeInOutExpo : easeOutBack;
 
-            const transition = `left ${String(time)}ms ${left}, top ${String(time)}ms ${top}`;
+            const transition = `left ${time}ms ${left}, top ${time}ms ${top}`;
 
             element.style.setProperty("transition", transition);
-            element.style.setProperty("left", `${String(targetLeft)}px`);
-            element.style.setProperty("top", `${String(targetTop)}px`);
+            element.style.setProperty("left", `${targetLeft}px`);
+            element.style.setProperty("top", `${targetTop}px`);
 
             element.addEventListener("transitionend", () => {
                 element.style.setProperty("transition", "");
