@@ -33,7 +33,7 @@ tokio = { version = "=1.53.1", features = [
     "time",
 ] }
 tokio-util = { version = "=0.7.19", features = ["rt"] }
-tower-http = { version = "=0.7.0", features = [
+tower-http = { version = "=0.7.1", features = [
     "cors",
     "fs",
     "on-early-drop",
