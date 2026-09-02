@@ -62,7 +62,7 @@ jobs:
   typescript-build:
     name: Build TypeScript code
     if: ${{ !startsWith(github.head_ref, 'release/') }}
-    uses: ./.github/workflows/typescript.yml
+    uses: $/.github/workflows/typescript.yml
     permissions:
       checks: write # publish-unit-test-result-action creates a check run
       contents: read
