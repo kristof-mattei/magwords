@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "@codecov/vite-plugin": "2.0.1",
-        "@types/node": "26.4.0",
+        "@types/node": "26.4.1",
         "@vitest/coverage-v8": "4.1.11",
         "@vitest/ui": "4.1.11",
         "cspell": "10.2.0",
