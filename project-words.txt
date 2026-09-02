@@ -5,6 +5,7 @@ artipacked
 bkeepers
 buildcache
 cinstrument
+cliffignore
 ctarget
 cttc
 cves
@@ -27,17 +28,15 @@ mattei
 mimalloc
 monomorphization
 multiplatform
-mypy
-netsh
 nextest
 oneline
 onirophyse
 pathbuf
-portproxy
 postprocessors
 prereleased
 profraw
 pyflakes
+rawfile
 retag
 retagging
 rhysd
@@ -47,6 +46,7 @@ sccache
 sigerm
 skopeo
 skopeo's
+slurpfile
 startswith
 striptags
 taiki
@@ -59,12 +59,10 @@ trunc
 tsgolint
 uninlined
 uninspectable
-unrs
 unseparated
 unstub
 usernamehw
 vadimcn
-venv
 vite
 vitest
 zizmor
