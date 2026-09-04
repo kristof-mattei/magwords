@@ -6,7 +6,7 @@ import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
 import svgr from "vite-plugin-svgr";
 import type { ViteUserConfigFn } from "vitest/config";
-import { coverageConfigDefaults, defineConfig } from "vitest/config";
+import { defineConfig } from "vitest/config";
 
 function resolvePort(environmentValue: string | undefined, fallback: number): number {
     if (environmentValue === undefined || environmentValue.trim() === "") {
@@ -89,7 +89,6 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
         },
         test: {
             coverage: {
-                exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.ts"],
                 reporter: ["json", "html", "text"],
                 provider: "v8",
                 reportsDirectory: "../../coverage/vitest",
