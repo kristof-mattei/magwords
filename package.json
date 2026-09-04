@@ -26,7 +26,7 @@
         "@types/node": "26.4.1",
         "@vitest/coverage-v8": "5.0.0",
         "@vitest/ui": "5.0.0",
-        "cspell": "10.2.0",
+        "cspell": "10.2.1",
         "dependency-cruiser": "18.2.0",
         "eslint-plugin-n": "18.3.0",
         "eslint-plugin-perfectionist": "5.11.0",
