@@ -159,7 +159,7 @@ jobs:
         with:
           disable_search: true
           disable_telem: true
-          env_vars: OS,NODE,TYPESCRIPT
+          env_vars: RUNNER_OS,NODE,TYPESCRIPT
           fail_ci_if_error: true
           flags: front-end
           files: coverage/vitest/lcov.info
@@ -176,7 +176,7 @@ jobs:
         with:
           disable_search: true
           disable_telem: true
-          env_vars: OS,NODE,TYPESCRIPT
+          env_vars: RUNNER_OS,NODE,TYPESCRIPT
           fail_ci_if_error: true
           flags: front-end
           files: reports/vitest/test-report.xml
