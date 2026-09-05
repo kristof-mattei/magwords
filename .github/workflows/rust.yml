@@ -202,7 +202,7 @@ jobs:
         with:
           disable_search: true
           disable_telem: true
-          env_vars: OS,RUST
+          env_vars: RUNNER_OS,RUST
           fail_ci_if_error: true
           # flags: tests
           files: reports/lcov
@@ -219,7 +219,7 @@ jobs:
         with:
           disable_search: true
           disable_telem: true
-          env_vars: OS,RUST
+          env_vars: RUNNER_OS,RUST
           fail_ci_if_error: true
           # flags: tests
           files: reports/results.xml
