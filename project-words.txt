@@ -23,6 +23,7 @@ jsons
 konqueror
 kristof
 lcovonly
+lintian
 magwords
 mattei
 mimalloc
