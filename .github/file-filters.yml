@@ -6,12 +6,16 @@ docker:
   - *shared
   - ".dockerignore"
   - Dockerfile
-rust:
+rust: &rust
   - *shared
   - "**/*.toml"
   - ".cargo/**"
   - "crates/**"
   - Cargo.lock
+deb:
+  - *rust
+  - LICENSE
+  - README.md
 typescript:
   - *shared
   - "**/*.ts"
