@@ -16,14 +16,13 @@ grcov
 hubot
 idents
 kristof
-lldb
 mattei
 mimalloc
 monomorphization
 multiplatform
-mypy
 nextest
 oneline
+oras
 pathbuf
 postprocessors
 prereleased
