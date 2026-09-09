@@ -703,8 +703,11 @@ jobs:
       - prepare-variables
       - docker-build
       - docker-publish
+    # a skipped deb-build behind docker-publish would skip this job too, so the result is checked explicitly
     # Check if the event is not triggered by a fork
     if: |
+      !cancelled() &&
+      needs.docker-publish.result == 'success' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
       github.event_name == 'pull_request'
     steps:
