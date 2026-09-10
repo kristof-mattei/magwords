@@ -110,25 +110,22 @@ repository:
 #     permission: admin
 
 # See https://docs.github.com/en/rest/deployments/environments#create-or-update-an-environment for the options.
-# environments:
-#   - name: release
-#     # Delays each job by this many minutes, 0 to 43200.
-#     wait_timer: 0
-#     # Lists up to six users or teams. Each job waits for an approval from one of them.
-#     reviewers: null
-#     # - id: 1
-#     #   type: User
-#     # - id: 2
-#     #   type: Team
-#     # Accepts `protected_branches: true` or a `custom_branches` list of branch and tag patterns. When omitted, every branch may deploy.
-#     deployment_branch_policy:
-#       protected_branches: true
-#       # custom_branches:
-#       #   - main
-#       #   - name: release/*
-#       #     type: branch
-#       #   - name: v*
-#       #     type: tag
+environments:
+  - name: crates-io
+    # Delays each job by this many minutes, 0 to 43200.
+    # wait_timer: 0
+    # Lists up to six users or teams. Each job waits for an approval from one of them.
+    # reviewers:
+    #   - id: 1
+    #     type: User
+    #   - id: 2
+    #     type: Team
+    # Accepts `protected_branches: true` or a `custom_branches` list of branch and tag patterns. When omitted, every branch may deploy.
+    deployment_branch_policy:
+      # protected_branches: true
+      custom_branches:
+        - name: v*
+          type: tag
 
 # See https://docs.github.com/en/rest/repos/rules#create-a-repository-ruleset for the properties.
 rulesets:
@@ -215,7 +212,7 @@ rulesets:
       # - type: required_deployments
       #   parameters:
       #     required_deployment_environments:
-      #       - release
+      #       - crates-io
       # - type: merge_queue
       #   parameters:
       #     check_response_timeout_minutes: 60

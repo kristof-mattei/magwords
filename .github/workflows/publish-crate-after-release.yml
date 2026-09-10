@@ -22,7 +22,7 @@ jobs:
     name: Publish crate
     runs-on: ubuntu-26.04
     environment:
-      name: release
+      name: crates-io
       url: https://crates.io/crates/${{ github.event.repository.name }}/${{ steps.version.outputs.version }}
     permissions:
       contents: read
