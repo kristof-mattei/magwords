@@ -398,6 +398,12 @@ jobs:
           - "ubuntu-26.04"
           - "ubuntu-26.04-arm"
         platform: ${{ fromJSON(needs.architectures.outputs.architectures) }}
+        # the arm runner's builds are only a cross compiling check, one amd64 platform suffices
+        exclude:
+          - runs-on: "ubuntu-26.04-arm"
+            platform: amd64/v2
+          - runs-on: "ubuntu-26.04-arm"
+            platform: amd64/v3
     runs-on: ${{ matrix.runs-on }}
     permissions:
       contents: read
@@ -438,7 +444,7 @@ jobs:
           echo "buildcache_main_ref=${CACHE_IMAGE_NAME}:buildcache-main-${runner_arch}-${platform_no_slashes}" >> "${GITHUB_OUTPUT}"
 
       - name: Set up Docker
-        uses: docker/setup-docker-action@77e84dbf09b47d1e29270283c22f16145aa85ca1 # v5.4.0
+        uses: docker/setup-docker-action@2bf61fb9464cc67f0cbdeabed6aa0380accd1c70 # v5.5.0
         with:
           daemon-config: |
             {
@@ -559,7 +565,7 @@ jobs:
       github.event_name == 'pull_request'
     steps:
       - name: Set up Docker
-        uses: docker/setup-docker-action@77e84dbf09b47d1e29270283c22f16145aa85ca1 # v5.4.0
+        uses: docker/setup-docker-action@2bf61fb9464cc67f0cbdeabed6aa0380accd1c70 # v5.5.0
         with:
           daemon-config: |
             {
@@ -727,7 +733,7 @@ jobs:
       github.event_name == 'pull_request'
     steps:
       - name: Set up Docker
-        uses: docker/setup-docker-action@77e84dbf09b47d1e29270283c22f16145aa85ca1 # v5.4.0
+        uses: docker/setup-docker-action@2bf61fb9464cc67f0cbdeabed6aa0380accd1c70 # v5.5.0
         with:
           daemon-config: |
             {
