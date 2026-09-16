@@ -43,7 +43,15 @@
     "js/ts.preferences.importModuleSpecifier": "relative",
     "js/ts.preferences.importModuleSpecifierEnding": "minimal",
     "js/ts.tsdk.path": "node_modules/typescript/lib",
+    "lldb.launch.env": {
+        "RUST_BACKTRACE": "1",
+        "RUST_LOG": "DEBUG,magwords=TRACE,tower_http::trace=TRACE"
+    },
     "lldb.launch.expressions": "simple",
+    "lldb.launch.gracefulShutdown": "SIGTERM",
+    "lldb.launch.postRunCommands": [
+        "process handle SIGTERM --stop false --pass true --notify false"
+    ],
     "lldb.launch.terminal": "integrated",
     "rust-analyzer.cargo.extraEnv": {
         // "RUSTC_BOOTSTRAP": "1"
