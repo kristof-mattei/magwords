@@ -193,18 +193,18 @@ fn build_default_filter() -> EnvFilter {
 }
 
 fn init_tracing() -> Result<(), eyre::Report> {
-    let (filter, filter_parsing_error) = match env::var(EnvFilter::DEFAULT_ENV) {
-        Ok(user_directive) if !user_directive.is_empty() => {
-            match EnvFilter::builder().parse(user_directive) {
+    let (filter, filter_parsing_error) =
+        match env::var(EnvFilter::DEFAULT_ENV).as_deref().map(str::trim) {
+            Ok("") | Err(&VarError::NotPresent) => (build_default_filter(), None),
+            Ok(user_directive) => match EnvFilter::builder().parse(user_directive) {
                 Ok(filter) => (filter, None),
                 Err(error) => (build_default_filter(), Some(eyre::Report::new(error))),
-            }
-        },
-        Ok(_) | Err(VarError::NotPresent) => (build_default_filter(), None),
-        Err(error @ VarError::NotUnicode(_)) => {
-            (build_default_filter(), Some(eyre::Report::new(error)))
-        },
-    };
+            },
+            Err(error @ &VarError::NotUnicode(_)) => (
+                build_default_filter(),
+                Some(eyre::Report::new(error.clone())),
+            ),
+        };
 
     let registry = tracing_subscriber::registry();
 
