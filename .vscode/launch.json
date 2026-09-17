@@ -20,7 +20,10 @@
             "cargo": {
                 "args": ["run", "--bin=magwords"]
             },
-            "args": []
+            "args": [],
+            "env": {
+                "RUST_LOG": ""
+            }
         },
         {
             "name": "Debug unit tests in executable 'magwords'",
