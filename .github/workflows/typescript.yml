@@ -220,8 +220,8 @@ jobs:
     name: TypeScript All done
     # this is the job that should be marked as required on GitHub. It's the only one that'll reliably trigger
     # when any upstream fails: success
-    # when all upstream skips: pass
-    # when all upstream success: success
+    # when any upstream fails or is cancelled: failure
+    # when all upstream skips: success
     # combination of upstream skip and success: success
     runs-on: ubuntu-slim
     permissions: {}
