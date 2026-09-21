@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.6.2](https://github.com/kristof-mattei/magwords/compare/v0.6.1..v0.6.2) - 2026-09-21
+
+### 💼 Other
+
+- Link the container binaries with mold by [@kristof-mattei](https://github.com/kristof-mattei) ([`525e8a0`](https://github.com/kristof-mattei/magwords/commit/525e8a0bed4f69ffeb72679c79ff7ba10fc034b2))
 ## [0.6.1](https://github.com/kristof-mattei/magwords/compare/v0.6.0..v0.6.1) - 2026-09-18
 
 ### 🐛 Bug Fixes
