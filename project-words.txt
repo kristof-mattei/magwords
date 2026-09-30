@@ -27,6 +27,7 @@ lintian
 magwords
 mattei
 mimalloc
+mkhl
 monomorphization
 multiplatform
 nextest

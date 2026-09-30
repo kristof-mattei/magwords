@@ -21,3 +21,6 @@ binary_next_line = true
 switch_case_indent = true
 space_redirects = true
 keep_padding = true
+
+[{.husky/_,node_modules,target}/**]
+ignore = true
