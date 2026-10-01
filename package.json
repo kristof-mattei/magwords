@@ -36,7 +36,7 @@
         "oxfmt": "0.71.0",
         "oxlint": "1.86.0",
         "oxlint-tsgolint": "7.0.2003",
-        "sass-embedded": "1.105.0",
+        "sass-embedded": "1.105.1",
         "typescript": "6.0.3",
         "vite": "catalog:default",
         "vite-plugin-checker": "0.14.5",
